@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-white: #FFFFFF;
+  --secondary-light: #F5F7FA;
+  --accent-turquoise: #1DD3C6;
+  --accent-turquoise-dark: #1ac5b8;
+  --accent-gold: #FFD166;
+  --dark-text: #2A3B5C;
+  --light-text: #6C757D;
+  --shadow: rgba(29, 211, 198, 0.15);
+  --shadow-strong: rgba(29, 211, 198, 0.3);
+  --success-green: #28a745;
+  --warning-yellow: #ffc107;
+  --error-red: #dc3545;
+  --border-light: #e1e5eb;
+  --gradient-primary: linear-gradient(to right, var(--accent-turquoise), var(--accent-turquoise-dark));
+  --gradient-gold: linear-gradient(to right, var(--accent-turquoise), var(--accent-gold));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--dark-text);
+  background-color: var(--primary-white);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--dark-text);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}

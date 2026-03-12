@@ -1,0 +1,418 @@
+/* Hero szekció */
+.hero {
+  padding: 60px 0;
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--dark-text);
+  line-height: 1.2;
+}
+
+.hero .highlight {
+  color: var(--accent-turquoise);
+  position: relative;
+  display: inline-block;
+}
+
+.hero .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--accent-gold);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.hero-description {
+  color: var(--light-text);
+  margin-bottom: 30px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px var(--shadow-strong);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-turquoise);
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 1px solid var(--accent-turquoise);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+  transform: translateY(-3px);
+}
+
+.hero-image {
+  position: relative;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px var(--shadow-strong);
+  transition: transform 0.3s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.02);
+}
+
+/* Bemutatkozás szekció */
+.about {
+  padding: 80px 0;
+  background-color: var(--primary-white);
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.about-text {
+  color: var(--light-text);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.about-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Features (Miért válassz minket) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.feature-card {
+  background: var(--primary-white);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.feature-card:hover .feature-icon {
+  color: var(--accent-turquoise-dark);
+  transform: scale(1.1);
+}
+
+.feature-card h3 {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.feature-card p {
+  color: var(--light-text);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Események szekció */
+.events-section {
+  padding: 80px 0;
+  background-color: var(--secondary-light);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gradient-gold);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.event-card {
+  background: var(--primary-white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-light);
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px var(--shadow-strong);
+}
+
+.event-content {
+  padding: 25px;
+}
+
+.event-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.event-date {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  background: var(--secondary-light);
+  padding: 3px 10px;
+  border-radius: 15px;
+}
+
+.event-time {
+  color: var(--light-text);
+  background: var(--secondary-light);
+  padding: 3px 10px;
+  border-radius: 15px;
+}
+
+.event-title {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.event-description {
+  color: var(--light-text);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.event-link {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.event-link:hover {
+  color: var(--accent-turquoise-dark);
+  transform: translateX(5px);
+}
+
+/* Info szekció (térkép + nyitvatartás) */
+.info-section {
+  padding: 80px 0;
+  background-color: var(--primary-white);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.map-container {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.opening-hours {
+  background: var(--secondary-light);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px var(--shadow);
+}
+
+.opening-hours h2 {
+  margin-bottom: 30px;
+  color: var(--dark-text);
+  font-size: 2rem;
+}
+
+.hours-list {
+  margin-bottom: 30px;
+}
+
+.hour-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hour-item:last-child {
+  border-bottom: none;
+}
+
+.hour-item .day {
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.hour-item .time {
+  color: var(--light-text);
+}
+
+.hour-item.closed .time {
+  color: var(--error-red);
+  font-weight: 600;
+}
+
+.address-info {
+  margin-bottom: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--border-light);
+}
+
+.address-info h3 {
+  margin-bottom: 15px;
+  color: var(--dark-text);
+}
+
+.address-info p {
+  color: var(--light-text);
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.btn-contact {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-contact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px var(--shadow-strong);
+}
+
+/* Reszponzív design */
+@media (max-width: 1024px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-image {
+    order: -1;
+    margin-bottom: 30px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .opening-hours {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

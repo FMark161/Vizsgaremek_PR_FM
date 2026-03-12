@@ -1,0 +1,487 @@
+/* Application Hero */
+.application-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.application-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.application-hero h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.hero-description {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Application Form Section */
+.application-form-section {
+  padding: 60px 0 80px;
+  background-color: var(--primary-white);
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  background: var(--secondary-light);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+/* Info oldal */
+.form-info {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-info h2 {
+  color: var(--primary-white);
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+.info-list {
+  list-style: none;
+  margin-bottom: 40px;
+}
+
+.info-list li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.contact-info-small {
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.contact-info-small h3 {
+  color: var(--primary-white);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.contact-info-small p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Űrlap */
+.application-form {
+  padding: 40px;
+  background: var(--primary-white);
+}
+
+.application-form h2 {
+  color: var(--dark-text);
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--dark-text);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.input-icon {
+  color: var(--accent-turquoise);
+  font-size: 1.1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--light-text);
+  opacity: 0.6;
+}
+
+/* Radio group */
+.radio-group {
+  display: flex;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  width: auto;
+  accent-color: var(--accent-turquoise);
+}
+
+.radio-label span {
+  color: var(--dark-text);
+}
+
+/* Checkbox */
+.checkbox-group {
+  margin: 30px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--accent-turquoise);
+}
+
+.checkbox-label span {
+  color: var(--light-text);
+  font-size: 0.95rem;
+}
+
+.checkbox-label a {
+  color: var(--accent-turquoise);
+  text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+  color: var(--accent-turquoise-dark);
+}
+
+/* Submit gomb */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* Sikeres küldés */
+.success-message {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--secondary-light);
+  border-radius: 20px;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--success-green);
+  color: white;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  animation: scaleIn 0.5s ease;
+}
+
+.success-message h2 {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.success-message p {
+  color: var(--light-text);
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Reszponzív */
+@media (max-width: 1024px) {
+  .form-container {
+    grid-template-columns: 1fr;
+  }
+
+  .form-info {
+    padding: 30px;
+  }
+
+  .application-hero h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .radio-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .application-form {
+    padding: 30px 20px;
+  }
+
+  .form-info {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .application-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .form-info h2,
+  .application-form h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.field-note {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.contact-icon {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.contact-info-small p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Teachers Section */
+.teachers-section {
+  padding: 60px 0;
+  background: var(--secondary-light);
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--light-text);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.teacher-card {
+  background: var(--primary-white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.teacher-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px var(--shadow-strong);
+}
+
+.teacher-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.teacher-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.teacher-card:hover .teacher-image img {
+  transform: scale(1.05);
+}
+
+.teacher-rating {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  gap: 3px;
+}
+
+.star-filled {
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+}
+
+.star-empty {
+  color: var(--border-light);
+  font-size: 0.9rem;
+}
+
+.teacher-info {
+  padding: 20px;
+}
+
+.teacher-info h3 {
+  color: var(--dark-text);
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+
+.teacher-instrument {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.teacher-details {
+  margin-bottom: 15px;
+}
+
+.teacher-details p {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teacher-details svg {
+  color: var(--accent-turquoise);
+  font-size: 0.9rem;
+}
+
+.teacher-description {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border-top: 1px solid var(--border-light);
+  padding-top: 15px;
+}
+
+/* Reszponzív */
+@media (max-width: 1024px) {
+  .teachers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .teachers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .teacher-image {
+    height: 200px;
+  }
+}

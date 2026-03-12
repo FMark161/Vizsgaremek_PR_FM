@@ -1,0 +1,253 @@
+.navbar {
+  background-color: var(--primary-white);
+  box-shadow: 0 2px 20px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 15px 0;
+}
+
+.navbar .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Logó stílusok */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0; /* Megakadályozza, hogy a logó összenyomódjon */
+}
+
+.logo:hover {
+  color: var(--accent-turquoise);
+}
+
+.logo img {
+  height: 45px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+  transform: scale(1.05);
+}
+
+.logo-highlight {
+  color: var(--accent-turquoise);
+  font-weight: 700;
+}
+
+/* Menüpontok - középen */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  margin: 0 auto; /* Ez középre igazítja */
+  padding: 0 20px; /* Egy kis hely a menüpontok körül */
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: var(--dark-text);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+  position: relative;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--accent-turquoise);
+}
+
+/* Aláhúzás animáció */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Aktív menüpont */
+.nav-link.active {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Auth gombok - jobbra igazítva */
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+  flex-shrink: 0; /* Megakadályozza, hogy összenyomódjon */
+}
+
+.btn {
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-login {
+  background-color: transparent;
+  border: 2px solid var(--accent-turquoise);
+  color: var(--accent-turquoise);
+}
+
+.btn-login:hover {
+  background-color: var(--accent-turquoise);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.btn-register {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: 2px solid transparent;
+}
+
+.btn-register:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+/* Felhasználói profil (ha be van jelentkezve) */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--secondary-light);
+  padding: 5px 15px 5px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--accent-turquoise-dark);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid var(--error-red);
+  color: var(--error-red);
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.logout-btn:hover {
+  background-color: var(--error-red);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+/* Reszponzív design */
+@media (max-width: 1200px) {
+  .nav-menu {
+    gap: 25px;
+  }
+  
+  .auth-buttons {
+    gap: 10px;
+  }
+  
+  .btn {
+    padding: 8px 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav-menu {
+    margin: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .auth-buttons {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-link::after {
+    left: 0;
+    transform: none;
+  }
+
+  .user-profile {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
