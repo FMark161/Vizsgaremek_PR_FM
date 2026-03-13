@@ -1,130 +1,27 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FaUser, 
-  FaEnvelope, 
-  FaPhone, 
-  FaCalendarAlt, 
-  FaMusic, 
-  FaGuitar, 
-  FaDrum, 
-  FaInfoCircle,
-  FaStar,
-  FaGraduationCap
+import {
+    FaUser,
+    FaEnvelope,
+    FaPhone,
+    FaCalendarAlt,
+    FaMusic,
+    FaGuitar,
+    FaDrum,
+    FaInfoCircle,
+    FaStar,
+    FaGraduationCap
 } from 'react-icons/fa';
 import './Application.css';
+import kovacsAnna from '../../assets/teachers/kovacs_anna.jpg';
+import nagyPeter from '../../assets/teachers/nagy_peter.jpg';
+import szaboMarta from '../../assets/teachers/szabo_marta.jpg';
+import takacsGabor from '../../assets/teachers/takacs_gabor.jpg';
+import kissEva from '../../assets/teachers/kiss_eva.jpg';
+import molnarDavid from '../../assets/teachers/molnar_david.jpg';
 
 const Application = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    birthDate: '',
-    instrument: '',
-    experience: 'beginner',
-    hasOwnInstrument: 'no',
-    message: '',
-    acceptTerms: false
-  });
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Tanárok adatai
-  const teachers = [
-    {
-      id: 1,
-      name: 'Kovács Anna',
-      instrument: 'Zongora',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-      experience: '15 év',
-      education: 'Liszt Ferenc Zeneművészeti Egyetem',
-      description: 'Versenyző növendékeket is nevel, specialitása a klasszikus zene.',
-      rating: 5
-    },
-    {
-      id: 2,
-      name: 'Nagy Péter',
-      instrument: 'Gitár',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-      experience: '12 év',
-      education: 'Jazzgitár szak, Royal Academy of Music',
-      description: 'Jazz, pop és rock műfajokban egyaránt otthonosan mozog.',
-      rating: 5
-    },
-    {
-      id: 3,
-      name: 'Szabó Márta',
-      instrument: 'Hegedű',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      experience: '18 év',
-      education: 'Zeneakadémia, hegedűművész szak',
-      description: 'Kamarazenekari tapasztalattal, szólistaként is aktív.',
-      rating: 5
-    },
-    {
-      id: 4,
-      name: 'Takács Gábor',
-      instrument: 'Dob',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      experience: '10 év',
-      education: 'Modern Drummer School',
-      description: 'Fúziós jazz és rock ütőhangszeres, session zenész.',
-      rating: 4
-    },
-    {
-      id: 5,
-      name: 'Kiss Éva',
-      instrument: 'Fuvola',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=1361&q=80',
-      experience: '14 év',
-      education: 'Zeneakadémia, fuvolaművész',
-      description: 'Szimfonikus zenekari tag, egyéni és csoportos órákat is tart.',
-      rating: 5
-    },
-    {
-      id: 6,
-      name: 'Molnár Dávid',
-      instrument: 'Ének',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-      experience: '9 év',
-      education: 'Színház- és Filmművészeti Egyetem',
-      description: 'Musical és popénekes, magánénekesként is aktív.',
-      rating: 4
-    }
-  ];
-
-  const instruments = [
-    { value: 'piano', label: 'Zongora', icon: <FaMusic /> },
-    { value: 'guitar', label: 'Gitár', icon: <FaGuitar /> },
-    { value: 'violin', label: 'Hegedű', icon: <FaMusic /> },
-    { value: 'flute', label: 'Fuvola', icon: <FaMusic /> },
-    { value: 'drums', label: 'Dob', icon: <FaDrum /> },
-    { value: 'voice', label: 'Ének', icon: <FaMusic /> },
-    { value: 'other', label: 'Egyéb', icon: <FaMusic /> }
-  ];
-
-  const experienceLevels = [
-    { value: 'beginner', label: 'Kezdő' },
-    { value: 'intermediate', label: 'Haladó' },
-    { value: 'advanced', label: 'Mester szint' }
-  ];
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Jelentkezési adatok:', formData);
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
+    const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
@@ -134,69 +31,175 @@ const Application = () => {
         hasOwnInstrument: 'no',
         message: '',
         acceptTerms: false
-      });
-    }, 5000);
-  };
+    });
 
-  if (isSubmitted) {
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    // Tanárok adatai
+    const teachers = [
+        {
+            id: 1,
+            name: 'Kovács Anna',
+            instrument: 'Zongora',
+            image: kovacsAnna,
+            experience: '15 év',
+            education: 'Liszt Ferenc Zeneművészeti Egyetem',
+            description: 'Versenyző növendékeket is nevel, specialitása a klasszikus zene.',
+        },
+        {
+            id: 2,
+            name: 'Nagy Péter',
+            instrument: 'Gitár',
+            image: nagyPeter,
+            experience: '12 év',
+            education: 'Jazzgitár szak, Royal Academy of Music',
+            description: 'Jazz, pop és rock műfajokban egyaránt otthonosan mozog.',
+        },
+        {
+            id: 3,
+            name: 'Szabó Márta',
+            instrument: 'Hegedű',
+            image: szaboMarta,
+            experience: '18 év',
+            education: 'Zeneakadémia, hegedűművész szak',
+            description: 'Kamarazenekari tapasztalattal, szólistaként is aktív.',
+        },
+        {
+            id: 4,
+            name: 'Takács Gábor',
+            instrument: 'Dob',
+            image: takacsGabor,
+            experience: '10 év',
+            education: 'Modern Drummer School',
+            description: 'Fúziós jazz és rock ütőhangszeres, session zenész.',
+        },
+        {
+            id: 5,
+            name: 'Kiss Éva',
+            instrument: 'Fuvola',
+            image: kissEva,
+            experience: '14 év',
+            education: 'Zeneakadémia, fuvolaművész',
+            description: 'Szimfonikus zenekari tag, egyéni és csoportos órákat is tart.',
+        },
+        {
+            id: 6,
+            name: 'Molnár Dávid',
+            instrument: 'Ének',
+            image: molnarDavid,
+            experience: '9 év',
+            education: 'Színház- és Filmművészeti Egyetem',
+            description: 'Musical és popénekes, magánénekesként is aktív.',
+        }
+    ];
+
+    const instruments = [
+        { value: 'piano', label: 'Zongora', icon: <FaMusic /> },
+        { value: 'guitar', label: 'Gitár', icon: <FaGuitar /> },
+        { value: 'violin', label: 'Hegedű', icon: <FaMusic /> },
+        { value: 'flute', label: 'Fuvola', icon: <FaMusic /> },
+        { value: 'drums', label: 'Dob', icon: <FaDrum /> },
+        { value: 'voice', label: 'Ének', icon: <FaMusic /> },
+        { value: 'other', label: 'Egyéb', icon: <FaMusic /> }
+    ];
+
+    const experienceLevels = [
+        { value: 'beginner', label: 'Kezdő' },
+        { value: 'intermediate', label: 'Haladó' },
+        { value: 'advanced', label: 'Mester szint' }
+    ];
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Jelentkezési adatok:', formData);
+        setIsSubmitted(true);
+
+        setTimeout(() => {
+            setIsSubmitted(false);
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                birthDate: '',
+                instrument: '',
+                experience: 'beginner',
+                hasOwnInstrument: 'no',
+                message: '',
+                acceptTerms: false
+            });
+        }, 5000);
+    };
+
+    if (isSubmitted) {
+        return (
+            <div className="application">
+                <div className="container">
+                    <div className="success-message">
+                        <div className="success-icon">✓</div>
+                        <h2>Köszönjük a jelentkezést!</h2>
+                        <p>Sikeresen elküldted a jelentkezésed. Hamarosan felvesszük veled a kapcsolatot.</p>
+                        <Link to="/" className="btn btn-primary">Vissza a kezdőlapra</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-      <div className="application">
-        <div className="container">
-          <div className="success-message">
-            <div className="success-icon">✓</div>
-            <h2>Köszönjük a jelentkezést!</h2>
-            <p>Sikeresen elküldted a jelentkezésed. Hamarosan felvesszük veled a kapcsolatot.</p>
-            <Link to="/" className="btn btn-primary">Vissza a kezdőlapra</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="application">
-      {/* Hero szekció */}
-      <section className="application-hero">
-        <div className="container">
-          <h1>Jelentkezés a Harmónia Zeneiskolába</h1>
-          <p className="hero-description">
-            Töltsd ki az alábbi űrlapot, és csatlakozz zenei közösségünkhöz! 
-            Tanáraink hamarosan felveszik veled a kapcsolatot a részletek egyeztetéséhez.
-          </p>
-        </div>
-      </section>
-
-      {/* Tanáraink szekció */}
-      <section className="teachers-section">
-        <div className="container">
-          <h2 className="section-title">Oktatóink</h2>
-          <p className="section-subtitle">Ismerd meg leendő tanárainkat!</p>
-          
-          <div className="teachers-grid">
-            {teachers.map(teacher => (
-              <div key={teacher.id} className="teacher-card">
-                <div className="teacher-image">
-                  <img src={teacher.image} alt={teacher.name} />
-                  <div className="teacher-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar key={i} className={i < teacher.rating ? 'star-filled' : 'star-empty'} />
-                    ))}
-                  </div>
+        <div className="application">
+            {/* Hero szekció */}
+            <section className="application-hero">
+                <div className="container">
+                    <h1>Jelentkezés a Harmónia Zeneiskolába</h1>
+                    <p className="hero-description">
+                        Töltsd ki az alábbi űrlapot, és csatlakozz zenei közösségünkhöz!
+                        Tanáraink hamarosan felveszik veled a kapcsolatot a részletek egyeztetéséhez.
+                    </p>
                 </div>
-                <div className="teacher-info">
-                  <h3>{teacher.name}</h3>
-                  <p className="teacher-instrument">{teacher.instrument}</p>
-                  <div className="teacher-details">
-                    <p><FaGraduationCap /> {teacher.education}</p>
-                    <p><FaCalendarAlt /> {teacher.experience} tapasztalat</p>
-                  </div>
-                  <p className="teacher-description">{teacher.description}</p>
+            </section>
+
+            {/* Tanáraink szekció */}
+            <section className="teachers-section">
+                <div className="container">
+                    <h2 className="section-title">Oktatóink</h2>
+                    <p className="section-subtitle">Ismerd meg leendő tanárainkat!</p>
+
+                    <div className="teachers-grid">
+                        {teachers.map(teacher => (
+                            <div key={teacher.id} className="teacher-card">
+                                <div className="teacher-image">
+                                    <img
+                                        src={teacher.image}
+                                        alt={teacher.name}
+                                        style={{
+                                            objectPosition: teacher.id === 2 ? 'center 5%' :
+                                                teacher.id === 6 ? 'center 30%' :
+                                                    'center 30%'
+                                        }}
+                                    />
+                                </div>
+                                <div className="teacher-info">
+                                    <h3>{teacher.name}</h3>
+                                    <p className="teacher-instrument">{teacher.instrument}</p>
+                                    <div className="teacher-details">
+                                        <p><FaGraduationCap /> {teacher.education}</p>
+                                        <p><FaCalendarAlt /> {teacher.experience} tapasztalat</p>
+                                    </div>
+                                    <p className="teacher-description">{teacher.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </section>
 
             {/* Űrlap szekció */}
             <section className="application-form-section">

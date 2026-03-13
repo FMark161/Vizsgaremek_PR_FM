@@ -1,0 +1,323 @@
+/* Instruments Hero (marad ugyanaz) */
+.instruments-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.instruments-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.instruments-hero h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.hero-description {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Filter szekció - új stílusok */
+.instruments-filter {
+  padding: 40px 0;
+  background-color: var(--primary-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.family-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.family-btn {
+  padding: 10px 25px;
+  background: var(--secondary-light);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  color: var(--light-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.family-btn:hover {
+  background: var(--primary-white);
+  border-color: var(--accent-turquoise);
+  color: var(--accent-turquoise);
+}
+
+.family-btn.active {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border-color: transparent;
+}
+
+/* Hangszer-családok */
+.instruments-list {
+  padding: 60px 0;
+  background-color: var(--secondary-light);
+}
+
+.families-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.family-card {
+  background: var(--primary-white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  transition: all 0.3s ease;
+}
+
+.family-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px var(--shadow-strong);
+}
+
+.family-image {
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.family-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.family-card:hover .family-image img {
+  transform: scale(1.05);
+}
+
+.family-icon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-white);
+  font-size: 2rem;
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.family-content {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.family-content h2 {
+  color: var(--dark-text);
+  font-size: 2rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.family-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: var(--gradient-gold);
+}
+
+.family-description {
+  color: var(--light-text);
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+}
+
+.family-examples {
+  margin-bottom: 25px;
+}
+
+.family-examples h3 {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.example-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.example-tag {
+  background: var(--secondary-light);
+  color: var(--dark-text);
+  padding: 5px 15px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.example-tag:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+}
+
+.fun-fact {
+  background: var(--secondary-light);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  border-left: 4px solid var(--accent-turquoise);
+}
+
+.fun-fact strong {
+  color: var(--accent-turquoise);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.fun-fact p {
+  color: var(--dark-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.family-footer {
+  margin-top: auto;
+}
+
+.btn-learn {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-learn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+/* Információs szekció */
+.instruments-info {
+  padding: 60px 0;
+  background-color: var(--primary-white);
+}
+
+.info-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.info-box {
+  text-align: center;
+  padding: 40px 30px;
+  background: var(--secondary-light);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.info-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+.info-icon {
+  font-size: 2.5rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 20px;
+}
+
+.info-box h3 {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.info-box p {
+  color: var(--light-text);
+  line-height: 1.6;
+}
+
+/* Reszponzív */
+@media (max-width: 1024px) {
+  .family-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .family-image {
+    min-height: 300px;
+  }
+  
+  .info-boxes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .instruments-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .family-content {
+    padding: 30px;
+  }
+  
+  .family-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .info-boxes {
+    grid-template-columns: 1fr;
+  }
+  
+  .family-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .family-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

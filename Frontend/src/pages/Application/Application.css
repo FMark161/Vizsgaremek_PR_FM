@@ -392,39 +392,20 @@
   position: relative;
   height: 250px;
   overflow: hidden;
+  background-color: var(--secondary-light); /* Háttérszín, ha nem tölti ki a kép */
 }
 
 .teacher-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Ez biztosítja, hogy a kép kitöltse a teret */
+  object-position: center 20%; /* Ez állítja a fókuszt: 20% felülről (a fejre fókuszál) */
   transition: transform 0.3s ease;
 }
 
 .teacher-card:hover .teacher-image img {
   transform: scale(1.05);
-}
-
-.teacher-rating {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 5px 10px;
-  border-radius: 20px;
-  display: flex;
-  gap: 3px;
-}
-
-.star-filled {
-  color: var(--accent-gold);
-  font-size: 0.9rem;
-}
-
-.star-empty {
-  color: var(--border-light);
-  font-size: 0.9rem;
-}
+} 
 
 .teacher-info {
   padding: 20px;
