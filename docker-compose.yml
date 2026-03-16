@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mysql:
+    build: ./database
+    container_name: harmonia_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: zeneiskola_mysql
+      MYSQL_USER: harmonia_user
+      MYSQL_PASSWORD: harmonia_password
+      TZ: Europe/Budapest
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - harmonia_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: harmonia_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+      UPLOAD_LIMIT: 100M
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - harmonia_network
+
+networks:
+  harmonia_network:
+    driver: bridge
+
+volumes:
+  mysql_data:

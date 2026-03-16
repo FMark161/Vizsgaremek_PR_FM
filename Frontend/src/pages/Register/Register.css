@@ -1,0 +1,241 @@
+/* Auth oldalak közös stílusai - Register */
+
+/* Auth Hero */
+.auth-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.auth-hero h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.auth-hero-description {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Auth Section */
+.auth-section {
+  padding: 60px 0 80px;
+  background-color: var(--secondary-light);
+}
+
+.auth-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.auth-card {
+  background: var(--primary-white);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.auth-card h2 {
+  color: var(--dark-text);
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.auth-subtitle {
+  color: var(--light-text);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1rem;
+}
+
+/* Auth Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--dark-text);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.auth-input-icon {
+  color: var(--accent-turquoise);
+  font-size: 1rem;
+}
+
+.auth-form-group input {
+  padding: 12px 15px;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.auth-form-group input:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.auth-form-group input.error {
+  border-color: var(--error-red);
+}
+
+.auth-form-group input.error:focus {
+  border-color: var(--error-red);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.auth-error-message {
+  color: var(--error-red);
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Checkbox */
+.auth-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.auth-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent-turquoise);
+  flex-shrink: 0;
+}
+
+.auth-checkbox span {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Auth Button */
+.auth-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Auth Footer */
+.auth-footer {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+
+.auth-footer p {
+  color: var(--light-text);
+  font-size: 0.95rem;
+}
+
+.auth-link {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+  color: var(--accent-turquoise-dark);
+  text-decoration: underline;
+}
+
+/* Reszponzív */
+@media (max-width: 768px) {
+  .auth-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .auth-card {
+    padding: 30px;
+  }
+  
+  .auth-card h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .auth-hero-description {
+    font-size: 1rem;
+  }
+  
+  .auth-card {
+    padding: 25px 20px;
+  }
+  
+  .auth-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .auth-checkbox {
+    align-items: flex-start;
+  }
+  
+  .auth-checkbox input[type="checkbox"] {
+    margin-top: 3px;
+  }
+}
