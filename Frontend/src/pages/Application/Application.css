@@ -35,6 +35,137 @@
   position: relative;
 }
 
+/* Teachers Section - JAVÍTVA */
+.teachers-section {
+  padding: 60px 0;
+  background: var(--secondary-light);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gradient-gold);
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--light-text);
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+}
+
+.teachers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.teacher-card {
+  background: var(--primary-white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px var(--shadow);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px var(--shadow-strong);
+}
+
+.teacher-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.teacher-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.3s ease;
+}
+
+.teacher-card:hover .teacher-image img {
+  transform: scale(1.05);
+}
+
+.teacher-info {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.teacher-info h3 {
+  color: var(--dark-text);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.teacher-instrument {
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.teacher-details {
+  background: var(--secondary-light);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.teacher-details p {
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teacher-details p:last-child {
+  margin-bottom: 0;
+}
+
+.teacher-details svg {
+  color: var(--accent-turquoise);
+  font-size: 1rem;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.teacher-description {
+  color: var(--light-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 5px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-light);
+}
+
 /* Application Form Section */
 .application-form-section {
   padding: 60px 0 80px;
@@ -160,6 +291,7 @@
   font-size: 1rem;
   transition: all 0.3s ease;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -179,6 +311,7 @@
 /* Radio group */
 .radio-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   margin-top: 10px;
 }
@@ -236,6 +369,19 @@
   padding: 15px;
   font-size: 1.1rem;
   margin-top: 20px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
 /* Sikeres küldés */
@@ -283,8 +429,27 @@
   }
 }
 
+/* Field note */
+.field-note {
+  color: var(--light-text);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.contact-icon {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 /* Reszponzív */
 @media (max-width: 1024px) {
+  .teachers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
   .form-container {
     grid-template-columns: 1fr;
   }
@@ -296,9 +461,21 @@
   .application-hero h1 {
     font-size: 2rem;
   }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
 }
 
 @media (max-width: 768px) {
+  .teachers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .teacher-image {
+    height: 220px;
+  }
+  
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
@@ -316,6 +493,15 @@
   .form-info {
     padding: 30px 20px;
   }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    margin-bottom: 30px;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -331,138 +517,24 @@
   .application-form h2 {
     font-size: 1.5rem;
   }
-}
-
-.field-note {
-  color: var(--light-text);
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-  font-style: italic;
-}
-
-.contact-icon {
-  display: inline-block;
-  width: 24px;
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-.contact-info-small p {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 10px;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Teachers Section */
-.teachers-section {
-  padding: 60px 0;
-  background: var(--secondary-light);
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--light-text);
-  margin-bottom: 40px;
-  font-size: 1.1rem;
-}
-
-.teachers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.teacher-card {
-  background: var(--primary-white);
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 20px var(--shadow);
-  transition: all 0.3s ease;
-}
-
-.teacher-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px var(--shadow-strong);
-}
-
-.teacher-image {
-  position: relative;
-  height: 250px;
-  overflow: hidden;
-  background-color: var(--secondary-light); /* Háttérszín, ha nem tölti ki a kép */
-}
-
-.teacher-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ez biztosítja, hogy a kép kitöltse a teret */
-  object-position: center 20%; /* Ez állítja a fókuszt: 20% felülről (a fejre fókuszál) */
-  transition: transform 0.3s ease;
-}
-
-.teacher-card:hover .teacher-image img {
-  transform: scale(1.05);
-} 
-
-.teacher-info {
-  padding: 20px;
-}
-
-.teacher-info h3 {
-  color: var(--dark-text);
-  margin-bottom: 5px;
-  font-size: 1.2rem;
-}
-
-.teacher-instrument {
-  color: var(--accent-turquoise);
-  font-weight: 600;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
-}
-
-.teacher-details {
-  margin-bottom: 15px;
-}
-
-.teacher-details p {
-  color: var(--light-text);
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.teacher-details svg {
-  color: var(--accent-turquoise);
-  font-size: 0.9rem;
-}
-
-.teacher-description {
-  color: var(--light-text);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  border-top: 1px solid var(--border-light);
-  padding-top: 15px;
-}
-
-/* Reszponzív */
-@media (max-width: 1024px) {
-  .teachers-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .teachers-grid {
-    grid-template-columns: 1fr;
-  }
   
   .teacher-image {
     height: 200px;
+  }
+  
+  .teacher-info {
+    padding: 20px;
+  }
+  
+  .teacher-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .teacher-details {
+    padding: 12px;
+  }
+  
+  .teacher-details p {
+    font-size: 0.9rem;
   }
 }

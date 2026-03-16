@@ -1,33 +1,11 @@
 import { Link } from 'react-router-dom';
 import { FaMusic, FaGuitar, FaUsers, FaCalendarAlt, FaHeart, FaClock, FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
 import heroImage from '../../assets/hero-image.jpg';
+import { getFeaturedEvents } from '../../utils/eventsData';  // Importáljuk a kiemelt eseményeket
 import './Home.css';
 
-
 const Home = () => {
-    const events = [
-        {
-            id: 1,
-            title: "Nyílt nap a zeneiskolában",
-            date: "2024. március 15.",
-            time: "14:00 - 18:00",
-            description: "Ismerd meg hangszereinket és tanárainkat! Kipróbálhatod a hangszereket és személyesen beszélgethetsz oktatóinkkal."
-        },
-        {
-            id: 2,
-            title: "Tavaszi hangverseny",
-            date: "2024. április 20.",
-            time: "18:00 - 20:00",
-            description: "Tanulóink éves bemutató koncertje. Változatos műsorral készülnek növendékeink a klasszikustól a modernig."
-        },
-        {
-            id: 3,
-            title: "Gitár mesterkurzus",
-            date: "2024. május 5.",
-            time: "10:00 - 16:00",
-            description: "Vendégoktatóval a gitározás fortélyai. Különleges technikák és improvizációs gyakorlatok haladóknak."
-        }
-    ];
+    const featuredEvents = getFeaturedEvents(); // Csak a kiemelt események
 
     return (
         <div className="home">
@@ -154,7 +132,7 @@ const Home = () => {
                 <div className="container">
                     <h2 className="section-title">Közelgő események</h2>
                     <div className="events-grid">
-                        {events.map(event => (
+                        {featuredEvents.slice(0, 3).map(event => (
                             <div key={event.id} className="event-card">
                                 <div className="event-content">
                                     <div className="event-meta">
@@ -163,7 +141,7 @@ const Home = () => {
                                     </div>
                                     <h3 className="event-title">{event.title}</h3>
                                     <p className="event-description">{event.description}</p>
-                                    <Link to="/events" className="event-link">
+                                    <Link to={`/events?id=${event.id}`} className="event-link">
                                         Részletek →
                                     </Link>
                                 </div>
