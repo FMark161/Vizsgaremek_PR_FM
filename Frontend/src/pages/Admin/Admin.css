@@ -1,0 +1,565 @@
+/* Admin Hero */
+.admin-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-hero h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  position: relative;
+}
+
+.admin-hero-description {
+  max-width: 700px;
+  margin: 20px auto 0;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+  text-align: center;
+}
+
+/* Admin Logout gomb */
+.admin-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid var(--error-red);
+  color: var(--error-red);
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-logout-btn:hover {
+  background: var(--error-red);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+/* Admin Login Section */
+.admin-login-section {
+  padding: 60px 0;
+  background-color: var(--secondary-light);
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+}
+
+.admin-login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background: var(--primary-white);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.admin-login-container h2 {
+  color: var(--dark-text);
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-login-form .admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-login-form label {
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.admin-login-form input {
+  padding: 12px 15px;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.admin-login-form input:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.admin-login-btn {
+  padding: 14px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.admin-login-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+/* Admin Tabs */
+.admin-tabs-section {
+  background-color: var(--primary-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.admin-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 25px;
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  color: var(--light-text);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-tab:hover {
+  background: var(--secondary-light);
+  color: var(--accent-turquoise);
+}
+
+.admin-tab.active {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+}
+
+.admin-tab svg {
+  font-size: 1.1rem;
+}
+
+/* Admin Content */
+.admin-content-section {
+  padding: 40px 0 60px;
+  background-color: var(--secondary-light);
+  min-height: calc(100vh - 300px);
+}
+
+.admin-table-container {
+  background: var(--primary-white);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.admin-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.admin-table-header h2 {
+  color: var(--dark-text);
+  font-size: 1.8rem;
+}
+
+.admin-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-add-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+/* Admin Table */
+.admin-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-data-table th {
+  text-align: left;
+  padding: 15px 10px;
+  background: var(--secondary-light);
+  color: var(--dark-text);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.admin-data-table td {
+  padding: 15px 10px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--light-text);
+}
+
+.admin-data-table tr:hover td {
+  background: var(--secondary-light);
+}
+
+.admin-data-table .admin-actions {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.admin-edit-btn,
+.admin-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.admin-edit-btn {
+  background: var(--secondary-light);
+  color: var(--accent-turquoise);
+}
+
+.admin-edit-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+}
+
+.admin-delete-btn {
+  background: var(--secondary-light);
+  color: var(--error-red);
+}
+
+.admin-delete-btn:hover {
+  background: var(--error-red);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+}
+
+/* Admin Status Badge */
+.admin-status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-status-badge.available {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success-green);
+}
+
+.admin-status-badge.rented {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--error-red);
+}
+
+.admin-status-badge.maintenance {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning-yellow);
+}
+
+.admin-status-badge.new {
+  background: rgba(0, 123, 255, 0.1);
+  color: #007bff;
+}
+
+.admin-status-badge.contacted {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning-yellow);
+}
+
+.admin-status-badge.accepted {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success-green);
+}
+
+/* Admin Modal */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+  animation: adminFadeIn 0.3s ease;
+}
+
+.admin-modal-content {
+  background: var(--primary-white);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+  animation: adminSlideUp 0.3s ease;
+}
+
+.admin-modal-content h3 {
+  color: var(--dark-text);
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+}
+
+.admin-modal-form-group {
+  margin-bottom: 20px;
+}
+
+.admin-modal-form-group label {
+  display: block;
+  color: var(--dark-text);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.admin-modal-form-group input,
+.admin-modal-form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.admin-modal-form-group input:focus,
+.admin-modal-form-group select:focus {
+  outline: none;
+  border-color: var(--accent-turquoise);
+  box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.admin-modal-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-modal-checkbox label {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.admin-modal-checkbox input {
+  width: auto;
+}
+
+.admin-modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.admin-save-btn,
+.admin-cancel-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-save-btn {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+}
+
+.admin-save-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.admin-cancel-btn {
+  background: var(--border-light);
+  color: var(--dark-text);
+}
+
+.admin-cancel-btn:hover {
+  background: var(--light-text);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+}
+
+/* Animációk */
+@keyframes adminFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes adminSlideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Reszponzív */
+@media (max-width: 1024px) {
+  .admin-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .admin-tab {
+    flex: 1 1 auto;
+  }
+  
+  .admin-data-table {
+    font-size: 0.9rem;
+  }
+  
+  .admin-data-table th,
+  .admin-data-table td {
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .admin-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .admin-table-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .admin-add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .admin-data-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .admin-table-container {
+    padding: 20px;
+  }
+  
+  .admin-modal-actions {
+    flex-direction: column;
+  }
+  
+  .admin-save-btn,
+  .admin-cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .admin-login-container {
+    padding: 30px 20px;
+  }
+  
+  .admin-login-container h2 {
+    font-size: 1.6rem;
+  }
+  
+  .admin-tabs {
+    flex-direction: column;
+  }
+  
+  .admin-tab {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .admin-modal-content {
+    padding: 20px;
+  }
+  
+  .admin-modal-content h3 {
+    font-size: 1.5rem;
+  }
+}

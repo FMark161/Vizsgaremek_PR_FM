@@ -160,9 +160,6 @@ const Events = () => {
               </div>
               <p className="modal-description">{selectedEvent.longDescription}</p>
               <div className="modal-footer">
-                <Link to="/application" className="btn-interest">
-                  Érdekel a jelentkezés
-                </Link>
                 <button className="btn-close" onClick={closeModal}>
                   Bezárás
                 </button>

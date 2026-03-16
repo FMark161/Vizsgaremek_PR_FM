@@ -315,15 +315,13 @@
 
 .modal-footer {
   display: flex;
-  gap: 15px;
+  justify-content: center;
   border-top: 1px solid var(--border-light);
   padding-top: 25px;
 }
 
-.btn-interest,
 .btn-close {
-  flex: 1;
-  padding: 12px;
+  padding: 12px 40px;
   border: none;
   border-radius: 10px;
   font-weight: 600;
@@ -331,28 +329,17 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
-}
-
-.btn-interest {
-  background: var(--gradient-primary);
-  color: var(--primary-white);
-}
-
-.btn-interest:hover {
-  background: var(--accent-turquoise-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px var(--shadow-strong);
-}
-
-.btn-close {
   background: var(--border-light);
   color: var(--dark-text);
+  min-width: 200px;
 }
+
 
 .btn-close:hover {
   background: var(--light-text);
   color: var(--primary-white);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Reszponzív */
