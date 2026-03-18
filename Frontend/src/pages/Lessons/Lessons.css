@@ -1,0 +1,533 @@
+/* Lessons oldal összes stílusa - csak a .lessons konténeren belül érvényes */
+
+.lessons {
+  display: block;
+}
+
+/* Lessons Hero */
+.lessons .lessons-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.lessons .lessons-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.lessons .lessons-header h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.lessons .lessons-hero-text {
+  max-width: 700px;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Controls Section */
+.lessons .lessons-controls {
+  padding: 30px 0;
+  background-color: var(--primary-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.lessons .controls-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.lessons .view-toggle {
+  display: flex;
+  gap: 10px;
+}
+
+.lessons .view-btn {
+  padding: 10px 25px;
+  background: var(--secondary-light);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  color: var(--light-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.lessons .view-btn:hover {
+  background: var(--primary-white);
+  border-color: var(--accent-turquoise);
+  color: var(--accent-turquoise);
+}
+
+.lessons .view-btn.active {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border-color: transparent;
+}
+
+.lessons .week-navigation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lessons .nav-btn {
+  padding: 8px 20px;
+  background: var(--secondary-light);
+  border: 1px solid var(--border-light);
+  border-radius: 50px;
+  color: var(--dark-text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lessons .nav-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+  border-color: var(--accent-turquoise);
+}
+
+.lessons .current-week {
+  font-weight: 600;
+  color: var(--dark-text);
+  min-width: 200px;
+  text-align: center;
+}
+
+/* Week View */
+.lessons .week-view {
+  padding: 60px 0;
+  background-color: var(--secondary-light);
+}
+
+.lessons .week-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.lessons .day-column {
+  background: var(--primary-white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px var(--shadow);
+}
+
+.lessons .day-header {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 15px;
+  text-align: center;
+}
+
+.lessons .day-header h3 {
+  color: var(--primary-white);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.lessons .day-date {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.lessons .day-lessons {
+  padding: 15px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lessons .lesson-card {
+  background: var(--secondary-light);
+  border-radius: 10px;
+  padding: 12px;
+  border-left: 4px solid var(--accent-turquoise);
+  transition: all 0.3s ease;
+}
+
+.lessons .lesson-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow);
+}
+
+.lessons .lesson-card.cancelled {
+  border-left-color: var(--error-red);
+  opacity: 0.7;
+}
+
+.lessons .lesson-card.pending {
+  border-left-color: var(--warning-yellow);
+}
+
+.lessons .lesson-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent-turquoise);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.lessons .lesson-card.cancelled .lesson-time {
+  color: var(--error-red);
+}
+
+.lessons .lesson-card.pending .lesson-time {
+  color: var(--warning-yellow);
+}
+
+.lessons .lesson-info p {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lessons .lesson-teacher,
+.lessons .lesson-student {
+  color: var(--dark-text);
+  font-weight: 600;
+}
+
+.lessons .lesson-instrument {
+  color: var(--accent-turquoise);
+  font-weight: 500;
+}
+
+.lessons .lesson-topic {
+  color: var(--light-text);
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.lessons .lesson-room {
+  color: var(--light-text);
+  font-size: 0.85rem;
+}
+
+.lessons .lesson-level {
+  color: var(--dark-text);
+  background: var(--primary-white);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.lessons .lesson-status {
+  margin-top: 8px;
+}
+
+.lessons .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.lessons .status-badge.confirmed {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--success-green);
+}
+
+.lessons .status-badge.cancelled {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--error-red);
+}
+
+.lessons .status-badge.pending {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning-yellow);
+}
+
+.lessons .no-lesson {
+  text-align: center;
+  color: var(--light-text);
+  font-size: 0.9rem;
+  padding: 20px 0;
+  background: var(--secondary-light);
+  border-radius: 8px;
+}
+
+/* List View */
+.lessons .list-view {
+  padding: 60px 0;
+  background-color: var(--secondary-light);
+}
+
+.lessons .section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--dark-text);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.lessons .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gradient-gold);
+}
+
+.lessons .lessons-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lessons .list-lesson-card {
+  background: var(--primary-white);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 5px 20px var(--shadow);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--accent-turquoise);
+}
+
+.lessons .list-lesson-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px var(--shadow-strong);
+}
+
+.lessons .list-lesson-card.cancelled {
+  border-left-color: var(--error-red);
+  opacity: 0.7;
+}
+
+.lessons .list-lesson-card.pending {
+  border-left-color: var(--warning-yellow);
+}
+
+.lessons .list-lesson-date {
+  min-width: 150px;
+  padding-right: 20px;
+  border-right: 1px solid var(--border-light);
+}
+
+.lessons .date-badge,
+.lessons .time-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--light-text);
+  font-size: 0.95rem;
+}
+
+.lessons .date-badge svg,
+.lessons .time-badge svg {
+  color: var(--accent-turquoise);
+}
+
+.lessons .list-lesson-card.cancelled .date-badge svg,
+.lessons .list-lesson-card.cancelled .time-badge svg {
+  color: var(--error-red);
+}
+
+.lessons .list-lesson-card.pending .date-badge svg,
+.lessons .list-lesson-card.pending .time-badge svg {
+  color: var(--warning-yellow);
+}
+
+.lessons .list-lesson-info {
+  flex: 1;
+}
+
+.lessons .list-lesson-info h3 {
+  color: var(--dark-text);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.lessons .list-lesson-info .lesson-topic {
+  color: var(--light-text);
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+
+.lessons .list-lesson-info .lesson-level {
+  display: inline-block;
+  background: var(--secondary-light);
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.lessons .list-lesson-status {
+  min-width: 120px;
+  text-align: right;
+}
+
+/* Info Section */
+.lessons .lessons-info {
+  padding: 60px 0;
+  background-color: var(--primary-white);
+}
+
+.lessons .info-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.lessons .info-box {
+  text-align: center;
+  padding: 40px 30px;
+  background: var(--secondary-light);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.lessons .info-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+.lessons .info-icon {
+  font-size: 2.5rem;
+  color: var(--accent-turquoise);
+  margin-bottom: 20px;
+}
+
+.lessons .info-box h3 {
+  color: var(--dark-text);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.lessons .info-box p {
+  color: var(--light-text);
+  line-height: 1.6;
+}
+
+/* Reszponzív */
+@media (max-width: 1200px) {
+  .lessons .week-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .lessons .lessons-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .lessons .lessons-hero-text {
+    font-size: 1rem;
+  }
+  
+  .lessons .controls-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .lessons .view-toggle {
+    justify-content: center;
+  }
+  
+  .lessons .week-navigation {
+    justify-content: center;
+  }
+  
+  .lessons .list-lesson-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .lessons .list-lesson-date {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding-right: 0;
+    padding-bottom: 15px;
+    width: 100%;
+  }
+  
+  .lessons .list-lesson-status {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .lessons .lessons-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .lessons .week-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .lessons .week-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .lessons .nav-btn {
+    width: 100%;
+  }
+  
+  .lessons .info-boxes {
+    grid-template-columns: 1fr;
+  }
+  
+  .lessons .view-toggle {
+    flex-direction: column;
+  }
+  
+  .lessons .view-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .lessons .lessons-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .lessons .lessons-hero-text {
+    font-size: 0.95rem;
+  }
+  
+  .lessons .date-badge,
+  .lessons .time-badge {
+    justify-content: center;
+  }
+}
