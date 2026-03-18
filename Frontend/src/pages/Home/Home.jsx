@@ -1,11 +1,60 @@
-import { Link } from 'react-router-dom';
+import { useRef, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FaMusic, FaGuitar, FaUsers, FaCalendarAlt, FaHeart, FaClock, FaMapMarkerAlt, FaGraduationCap } from 'react-icons/fa';
 import heroImage from '../../assets/hero-image.jpg';
-import { getFeaturedEvents } from '../../utils/eventsData';  // Importáljuk a kiemelt eseményeket
 import './Home.css';
 
 const Home = () => {
-    const featuredEvents = getFeaturedEvents(); // Csak a kiemelt események
+    const location = useLocation();
+    const applicationRef = useRef(null);
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Automatikus görgetés, ha az URL tartalmazza a #application részt
+    useEffect(() => {
+        if (location.hash === '#application' && applicationRef.current) {
+            applicationRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, [location]);
+
+    // Események lekérése az adatbázisból
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                console.log('Események lekérése...');
+                const response = await fetch('http://localhost:5000/api/events');
+                console.log('Válasz státusz:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP hiba! Státusz: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Kapott események:', data);
+
+                // Csak az első 4 eseményt jelenítjük meg
+                setEvents(data.slice(0, 4));
+            } catch (error) {
+                console.error('Hiba az események lekérésekor:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    // Dátum formázása (pl. "2025-04-12" -> "2025. április 12.")
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const months = ['január', 'február', 'március', 'április', 'május', 'június',
+            'július', 'augusztus', 'szeptember', 'október', 'november', 'december'];
+        return `${date.getFullYear()}. ${months[date.getMonth()]} ${date.getDate()}.`;
+    };
 
     return (
         <div className="home">
@@ -21,7 +70,7 @@ const Home = () => {
                                 nálunk a megfelelő helyen jársz.
                             </p>
                             <div className="hero-buttons">
-                                <Link to="/application" className="btn btn-primary">
+                                <Link to="/application#application" className="btn btn-primary">
                                     Jelentkezem
                                 </Link>
                                 <Link to="/contact" className="btn btn-secondary">
@@ -131,23 +180,32 @@ const Home = () => {
             <section className="events-section">
                 <div className="container">
                     <h2 className="section-title">Közelgő események</h2>
-                    <div className="events-grid">
-                        {featuredEvents.slice(0, 3).map(event => (
-                            <div key={event.id} className="event-card">
-                                <div className="event-content">
-                                    <div className="event-meta">
-                                        <span className="event-date">{event.date}</span>
-                                        <span className="event-time">{event.time}</span>
+
+                    {loading ? (
+                        <div className="loading">Betöltés...</div>
+                    ) : (
+                        <div className="events-grid">
+                            {events.length > 0 ? (
+                                events.map(event => (
+                                    <div key={event.id} className="event-card">
+                                        <div className="event-content">
+                                            <div className="event-meta">
+                                                <span className="event-date">{formatDate(event.datum)}</span>
+                                                <span className="event-time">{event.idopont}</span>
+                                            </div>
+                                            <h3 className="event-title">{event.cim}</h3>
+                                            <p className="event-description">{event.leiras}</p>
+                                            <Link to={`/events?id=${event.id}`} className="event-link">
+                                                Részletek →
+                                            </Link>
+                                        </div>
                                     </div>
-                                    <h3 className="event-title">{event.title}</h3>
-                                    <p className="event-description">{event.description}</p>
-                                    <Link to={`/events?id=${event.id}`} className="event-link">
-                                        Részletek →
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                                ))
+                            ) : (
+                                <p className="no-events">Jelenleg nincsenek közelgő események.</p>
+                            )}
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -197,6 +255,9 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Application ref - ez a jelentkezési űrlaphoz visz */}
+            <div ref={applicationRef} style={{ scrollMarginTop: '20px' }}></div>
         </div>
     );
 };

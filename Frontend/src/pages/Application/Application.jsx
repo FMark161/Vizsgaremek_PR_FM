@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
     FaUser,
     FaEnvelope,
@@ -9,7 +9,6 @@ import {
     FaGuitar,
     FaDrum,
     FaInfoCircle,
-    FaStar,
     FaGraduationCap
 } from 'react-icons/fa';
 import './Application.css';
@@ -21,6 +20,9 @@ import kissEva from '../../assets/teachers/kiss_eva.jpg';
 import molnarDavid from '../../assets/teachers/molnar_david.jpg';
 
 const Application = () => {
+    const location = useLocation();
+    const formRef = useRef(null);
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -34,6 +36,18 @@ const Application = () => {
     });
 
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    // Automatikus görgetés, ha az URL tartalmazza a #application részt
+    useEffect(() => {
+        if (location.hash === '#application' && formRef.current) {
+            formRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, [location]);
 
     // Tanárok adatai
     const teachers = [
@@ -115,27 +129,61 @@ const Application = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+        if (error) setError('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Jelentkezési adatok:', formData);
-        setIsSubmitted(true);
+        setIsLoading(true);
+        setError('');
 
-        setTimeout(() => {
-            setIsSubmitted(false);
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                birthDate: '',
-                instrument: '',
-                experience: 'beginner',
-                hasOwnInstrument: 'no',
-                message: '',
-                acceptTerms: false
+        try {
+            const response = await fetch('http://localhost:5000/api/applications', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    birthDate: formData.birthDate,
+                    instrument: formData.instrument,
+                    level: formData.experience,
+                    ownInstrument: formData.hasOwnInstrument,
+                    message: formData.message
+                })
             });
-        }, 5000);
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Sikeres jelentkezés:', data);
+                setIsSubmitted(true);
+
+                setTimeout(() => {
+                    setIsSubmitted(false);
+                    setFormData({
+                        name: '',
+                        email: '',
+                        phone: '',
+                        birthDate: '',
+                        instrument: '',
+                        experience: 'beginner',
+                        hasOwnInstrument: 'no',
+                        message: '',
+                        acceptTerms: false
+                    });
+                }, 5000);
+            } else {
+                setError(data.error || 'Hiba történt a jelentkezés küldése során');
+                setIsLoading(false);
+            }
+        } catch (error) {
+            console.error('Hálózati hiba:', error);
+            setError('Nem sikerült csatlakozni a szerverhez. Ellenőrizd, hogy fut-e a backend!');
+            setIsLoading(false);
+        }
     };
 
     if (isSubmitted) {
@@ -242,8 +290,15 @@ const Application = () => {
                             </div>
                         </div>
 
-                        <form className="application-form" onSubmit={handleSubmit}>
+                        {/* MÓDOSÍTVA: ref hozzáadva a form-hoz */}
+                        <form ref={formRef} className="application-form" onSubmit={handleSubmit}>
                             <h2>Jelentkezési űrlap</h2>
+
+                            {error && (
+                                <div className="error-message">
+                                    {error}
+                                </div>
+                            )}
 
                             <div className="form-group">
                                 <label htmlFor="name">
@@ -411,8 +466,12 @@ const Application = () => {
                                 </label>
                             </div>
 
-                            <button type="submit" className="btn btn-primary btn-submit">
-                                Jelentkezés elküldése
+                            <button
+                                type="submit"
+                                className="btn btn-primary btn-submit"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Küldés...' : 'Jelentkezés elküldése'}
                             </button>
                         </form>
                     </div>

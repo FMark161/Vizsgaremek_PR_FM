@@ -9,6 +9,18 @@ import {
   FaChalkboardTeacher
 } from 'react-icons/fa';
 import './Rental.css';
+import akusztikus_dob from '../../assets/rental/akusztikus_dob.jpg';
+import akusztikus_gitar from '../../assets/rental/akusztikus_gitar.jpg';
+import akusztikus_zongora from '../../assets/rental/akusztikus_zongora.jpg';
+import csello from '../../assets/rental/csello.jpg';
+import digitalis_zongora from '../../assets/rental/digitalis_zongora.jpg';
+import elektromos_dob from '../../assets/rental/elektromos_dob.jpg';
+import elektromos_gitar from '../../assets/rental/elektromos_gitar.jpg';
+import fuvola from '../../assets/rental/fuvola.jpg';
+import hegedu from '../../assets/rental/hegedu.jpg';
+import mikrofon from '../../assets/rental/mikrofon.jpg';
+import szaxofon from '../../assets/rental/szaxofon.jpg';
+import harfa from '../../assets/rental/harfa.jpg';
 
 const Rental = () => {
   const [rentals, setRentals] = useState([
@@ -17,7 +29,7 @@ const Rental = () => {
       id: 1,
       name: 'Akusztikus zongora',
       category: 'Billentyűs',
-      image: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: akusztikus_zongora,
       status: 'available',
       rentalPrice: '28 500 Ft/hó',
       teacher: 'Kovács Anna',
@@ -28,7 +40,7 @@ const Rental = () => {
       id: 2,
       name: 'Digitális zongora',
       category: 'Billentyűs',
-      image: 'https://images.unsplash.com/photo-1552422535-c45813c61732?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: digitalis_zongora,
       status: 'rented',
       rentalPrice: '22 500 Ft/hó',
       teacher: 'Kovács Anna',
@@ -41,7 +53,7 @@ const Rental = () => {
       id: 3,
       name: 'Akusztikus gitár',
       category: 'Gitár',
-      image: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: akusztikus_gitar,
       status: 'available',
       rentalPrice: '12 500 Ft/hó',
       teacher: 'Nagy Péter',
@@ -52,7 +64,7 @@ const Rental = () => {
       id: 4,
       name: 'Elektromos gitár',
       category: 'Gitár',
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: elektromos_gitar,
       status: 'maintenance',
       rentalPrice: '18 500 Ft/hó',
       teacher: 'Nagy Péter',
@@ -65,7 +77,7 @@ const Rental = () => {
       id: 5,
       name: 'Hegedű',
       category: 'Vonós',
-      image: 'https://images.unsplash.com/photo-1460723237483-7f31b0498b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: hegedu,
       status: 'available',
       rentalPrice: '15 500 Ft/hó',
       teacher: 'Szabó Márta',
@@ -76,7 +88,7 @@ const Rental = () => {
       id: 6,
       name: 'Cselló',
       category: 'Vonós',
-      image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: csello,
       status: 'rented',
       rentalPrice: '22 500 Ft/hó',
       teacher: 'Szabó Márta',
@@ -89,7 +101,7 @@ const Rental = () => {
       id: 7,
       name: 'Fuvola',
       category: 'Fúvós',
-      image: 'https://images.unsplash.com/photo-1513885535751-8b4f2a33b37c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: fuvola,
       status: 'available',
       rentalPrice: '14 500 Ft/hó',
       teacher: 'Kiss Éva',
@@ -100,7 +112,7 @@ const Rental = () => {
       id: 8,
       name: 'Saxophon',
       category: 'Fúvós',
-      image: 'https://images.unsplash.com/photo-1511192336575-5a79af67a629?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: szaxofon,
       status: 'available',
       rentalPrice: '24 500 Ft/hó',
       teacher: 'Kiss Éva',
@@ -113,7 +125,7 @@ const Rental = () => {
       id: 9,
       name: 'Akusztikus dob',
       category: 'Ütős',
-      image: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: akusztikus_dob,
       status: 'available',
       rentalPrice: '32 500 Ft/hó',
       teacher: 'Takács Gábor',
@@ -124,7 +136,7 @@ const Rental = () => {
       id: 10,
       name: 'Elektromos dob',
       category: 'Ütős',
-      image: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: elektromos_dob,
       status: 'maintenance',
       rentalPrice: '28 500 Ft/hó',
       teacher: 'Takács Gábor',
@@ -137,7 +149,7 @@ const Rental = () => {
       id: 11,
       name: 'Énekóra (mikrofon + hangfal)',
       category: 'Ének',
-      image: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: mikrofon,
       status: 'available',
       rentalPrice: '16 500 Ft/hó',
       teacher: 'Molnár Dávid',
@@ -150,7 +162,7 @@ const Rental = () => {
       id: 12,
       name: 'Hárfa',
       category: 'Egyéb',
-      image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+      image: harfa,
       status: 'rented',
       rentalPrice: '26 500 Ft/hó',
       teacher: 'Szabó Márta',

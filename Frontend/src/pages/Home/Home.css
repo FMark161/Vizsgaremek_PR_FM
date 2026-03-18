@@ -416,3 +416,24 @@
     text-align: center;
   }
 }
+
+.hero .hero-buttons {
+  margin-top: 40px; 
+}
+
+/* Loading állapot */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--light-text);
+  font-size: 1.1rem;
+}
+
+/* Nincs esemény */
+.no-events {
+  text-align: center;
+  padding: 40px;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  grid-column: 1 / -1;
+}

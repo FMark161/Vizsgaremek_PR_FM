@@ -35,19 +35,17 @@
   position: relative;
 }
 
-/* Filter szekció - JAVÍTVA: fix egymás mellett, középen */
+/* Filter szekció */
 .instruments-filter {
   padding: 30px 0;
   background-color: var(--primary-white);
   border-bottom: 1px solid var(--border-light);
-  width: 100%;
 }
 
 .family-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
   gap: 15px;
   max-width: 1200px;
   margin: 0 auto;
@@ -55,7 +53,7 @@
 }
 
 .family-btn {
-  padding: 12px 28px;
+  padding: 10px 25px;
   background: var(--secondary-light);
   border: 2px solid transparent;
   border-radius: 50px;
@@ -63,9 +61,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 1rem;
+  font-size: 0.95rem;
   white-space: nowrap;
-  box-shadow: 0 2px 8px var(--shadow);
 }
 
 .family-btn:hover {
@@ -83,11 +80,7 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-.family-btn.active:hover {
-  background: var(--accent-turquoise-dark);
-}
-
-/* Hangszer-családok */
+/* Hangszer-családok - IKONOK NÉLKÜL */
 .instruments-list {
   padding: 60px 0;
   background-color: var(--secondary-light);
@@ -96,17 +89,15 @@
 .families-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 30px;
 }
 
 .family-card {
   background: var(--primary-white);
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .family-card:hover {
@@ -114,46 +105,20 @@
   box-shadow: 0 20px 40px var(--shadow-strong);
 }
 
-.family-image {
-  position: relative;
-  height: 100%;
-  min-height: 400px;
-  overflow: hidden;
+.family-header {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 20px 30px;
 }
 
-.family-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.family-card:hover .family-image img {
-  transform: scale(1.05);
+.family-header h2 {
+  color: var(--primary-white);
+  font-size: 1.8rem;
+  margin: 0;
 }
 
 .family-content {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-.family-content h2 {
-  color: var(--dark-text);
-  font-size: 2rem;
-  margin-bottom: 20px;
-  position: relative;
-  padding-bottom: 15px;
-}
-
-.family-content h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 80px;
-  height: 3px;
-  background: var(--gradient-gold);
+  padding: 30px;
 }
 
 .family-description {
@@ -217,7 +182,7 @@
 }
 
 .family-footer {
-  margin-top: auto;
+  margin-top: 20px;
 }
 
 .btn-learn {
@@ -240,7 +205,7 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-/* Információs szekció */
+/* Információs szekció - ITT MARADNAK AZ IKONOK */
 .instruments-info {
   padding: 60px 0;
   background-color: var(--primary-white);
@@ -284,21 +249,12 @@
 
 /* Reszponzív */
 @media (max-width: 1024px) {
-  .family-card {
-    grid-template-columns: 1fr;
-  }
-  
-  .family-image {
-    min-height: 300px;
-  }
-  
   .info-boxes {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .family-btn {
-    padding: 10px 22px;
-    font-size: 0.95rem;
+  .family-header h2 {
+    font-size: 1.6rem;
   }
 }
 
@@ -307,25 +263,10 @@
     font-size: 2rem;
   }
   
-  .family-content {
-    padding: 30px;
-  }
-  
-  .family-content h2 {
-    font-size: 1.8rem;
-  }
-  
   .info-boxes {
     grid-template-columns: 1fr;
   }
   
-  .family-btn {
-    padding: 8px 18px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 600px) {
   .family-filters {
     gap: 10px;
   }
@@ -333,6 +274,18 @@
   .family-btn {
     padding: 8px 16px;
     font-size: 0.85rem;
+  }
+  
+  .family-header {
+    padding: 15px 20px;
+  }
+  
+  .family-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .family-content {
+    padding: 20px;
   }
 }
 
@@ -344,15 +297,6 @@
   .hero-description {
     font-size: 1rem;
     padding: 0 15px;
-  }
-  
-  .family-filters {
-    gap: 8px;
-  }
-  
-  .family-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
   }
   
   .info-box {

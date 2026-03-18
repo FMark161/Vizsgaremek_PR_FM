@@ -1,0 +1,15 @@
+{
+  "name": "harmonia-zeneiskola",
+  "version": "1.0.0",
+  "scripts": {
+    "docker-up": "docker-compose up -d",
+    "docker-down": "docker-compose down",
+    "backend": "cd Backend && npm run dev",
+    "frontend": "cd Frontend && npm run dev",
+    "start": "npm run docker-up && concurrently \"npm run backend\" \"npm run frontend\"",
+    "stop": "npm run docker-down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

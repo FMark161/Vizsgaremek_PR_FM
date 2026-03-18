@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+// Importáld a ScrollToTop komponenst
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+
 // Layout
 import Layout from "./components/Layout/Layout.jsx";
 
@@ -14,10 +17,13 @@ import Contact from "./pages/Contact/Contact.jsx";
 import Admin from "./pages/Admin/Admin.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import Lessons from "./pages/Lessons/Lessons.jsx";
 
 function App() {
   return (
     <Router>
+      {/* ScrollToTop itt a Router-en belül, de a Layout-on kívül */}
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,6 +35,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/lessons" element={<Lessons />} />
         </Routes>
       </Layout>
     </Router>
