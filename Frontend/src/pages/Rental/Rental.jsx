@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaShoppingCart,
@@ -9,6 +9,8 @@ import {
   FaChalkboardTeacher
 } from 'react-icons/fa';
 import './Rental.css';
+
+// Importáld a képeket
 import akusztikus_dob from '../../assets/rental/akusztikus_dob.jpg';
 import akusztikus_gitar from '../../assets/rental/akusztikus_gitar.jpg';
 import akusztikus_zongora from '../../assets/rental/akusztikus_zongora.jpg';
@@ -22,157 +24,28 @@ import mikrofon from '../../assets/rental/mikrofon.jpg';
 import szaxofon from '../../assets/rental/szaxofon.jpg';
 import harfa from '../../assets/rental/harfa.jpg';
 
+// Kép mapping a hangszer nevek alapján
+const imageMap = {
+  'Akusztikus zongora': akusztikus_zongora,
+  'Digitális zongora': digitalis_zongora,
+  'Akusztikus gitár': akusztikus_gitar,
+  'Elektromos gitár': elektromos_gitar,
+  'Hegedű': hegedu,
+  'Cselló': csello,
+  'Fuvola': fuvola,
+  'Saxophon': szaxofon,
+  'Akusztikus dob': akusztikus_dob,
+  'Elektromos dob': elektromos_dob,
+  'Énekóra (mikrofon + hangfal)': mikrofon,
+  'Hárfa': harfa
+};
+
 const Rental = () => {
-  const [rentals, setRentals] = useState([
-    // Billentyűsök - van oktató
-    {
-      id: 1,
-      name: 'Akusztikus zongora',
-      category: 'Billentyűs',
-      image: akusztikus_zongora,
-      status: 'available',
-      rentalPrice: '28 500 Ft/hó',
-      teacher: 'Kovács Anna',
-      teacherId: 1,
-      returnDate: null
-    },
-    {
-      id: 2,
-      name: 'Digitális zongora',
-      category: 'Billentyűs',
-      image: digitalis_zongora,
-      status: 'rented',
-      rentalPrice: '22 500 Ft/hó',
-      teacher: 'Kovács Anna',
-      teacherId: 1,
-      returnDate: '2024.04.15'
-    },
-
-    // Gitárok - van oktató
-    {
-      id: 3,
-      name: 'Akusztikus gitár',
-      category: 'Gitár',
-      image: akusztikus_gitar,
-      status: 'available',
-      rentalPrice: '12 500 Ft/hó',
-      teacher: 'Nagy Péter',
-      teacherId: 2,
-      returnDate: null
-    },
-    {
-      id: 4,
-      name: 'Elektromos gitár',
-      category: 'Gitár',
-      image: elektromos_gitar,
-      status: 'maintenance',
-      rentalPrice: '18 500 Ft/hó',
-      teacher: 'Nagy Péter',
-      teacherId: 2,
-      returnDate: null
-    },
-
-    // Vonósok - van oktató
-    {
-      id: 5,
-      name: 'Hegedű',
-      category: 'Vonós',
-      image: hegedu,
-      status: 'available',
-      rentalPrice: '15 500 Ft/hó',
-      teacher: 'Szabó Márta',
-      teacherId: 3,
-      returnDate: null
-    },
-    {
-      id: 6,
-      name: 'Cselló',
-      category: 'Vonós',
-      image: csello,
-      status: 'rented',
-      rentalPrice: '22 500 Ft/hó',
-      teacher: 'Szabó Márta',
-      teacherId: 3,
-      returnDate: '2024.04.20'
-    },
-
-    // Fúvósok - van oktató
-    {
-      id: 7,
-      name: 'Fuvola',
-      category: 'Fúvós',
-      image: fuvola,
-      status: 'available',
-      rentalPrice: '14 500 Ft/hó',
-      teacher: 'Kiss Éva',
-      teacherId: 5,
-      returnDate: null
-    },
-    {
-      id: 8,
-      name: 'Saxophon',
-      category: 'Fúvós',
-      image: szaxofon,
-      status: 'available',
-      rentalPrice: '24 500 Ft/hó',
-      teacher: 'Kiss Éva',
-      teacherId: 5,
-      returnDate: null
-    },
-
-    // Ütősök - van oktató
-    {
-      id: 9,
-      name: 'Akusztikus dob',
-      category: 'Ütős',
-      image: akusztikus_dob,
-      status: 'available',
-      rentalPrice: '32 500 Ft/hó',
-      teacher: 'Takács Gábor',
-      teacherId: 4,
-      returnDate: null
-    },
-    {
-      id: 10,
-      name: 'Elektromos dob',
-      category: 'Ütős',
-      image: elektromos_dob,
-      status: 'maintenance',
-      rentalPrice: '28 500 Ft/hó',
-      teacher: 'Takács Gábor',
-      teacherId: 4,
-      returnDate: '2024.04.30'
-    },
-
-    // Ének - van oktató
-    {
-      id: 11,
-      name: 'Énekóra (mikrofon + hangfal)',
-      category: 'Ének',
-      image: mikrofon,
-      status: 'available',
-      rentalPrice: '16 500 Ft/hó',
-      teacher: 'Molnár Dávid',
-      teacherId: 6,
-      returnDate: null
-    },
-
-    // Egyéb - van oktató
-    {
-      id: 12,
-      name: 'Hárfa',
-      category: 'Egyéb',
-      image: harfa,
-      status: 'rented',
-      rentalPrice: '26 500 Ft/hó',
-      teacher: 'Szabó Márta',
-      teacherId: 3,
-      returnDate: '2024.05.10'
-    }
-  ]);
-
+  const [rentals, setRentals] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showRentalForm, setShowRentalForm] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [rentalFormData, setRentalFormData] = useState({
     name: '',
     email: '',
@@ -181,6 +54,7 @@ const Rental = () => {
     acceptTerms: false
   });
 
+  // Kategóriák listája
   const categories = [
     { id: 'all', name: 'Összes hangszer' },
     { id: 'Billentyűs', name: 'Billentyűsök' },
@@ -191,6 +65,29 @@ const Rental = () => {
     { id: 'Ének', name: 'Ének' },
     { id: 'Egyéb', name: 'Egyéb' }
   ];
+
+  // Hangszerek lekérése az adatbázisból
+  useEffect(() => {
+    const fetchInstruments = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/instruments');
+        const data = await response.json();
+        // Hozzáadjuk a képeket a hangszer adatokhoz
+        const instrumentsWithImages = data.map(instrument => ({
+          ...instrument,
+          image: imageMap[instrument.name] || null
+        }));
+        setRentals(instrumentsWithImages);
+      } catch (error) {
+        console.error('Hiba a hangszerek lekérésekor:', error);
+        setError('Nem sikerült betölteni a hangszereket.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInstruments();
+  }, []);
 
   const filteredRentals = selectedCategory === 'all'
     ? rentals
@@ -209,18 +106,50 @@ const Rental = () => {
     }
   };
 
-  const handleRentalSubmit = (instrumentId) => {
+  const handleRentalSubmit = async (instrumentId) => {
     const instrument = rentals.find(i => i.id === instrumentId);
     const totalPrice = parseInt(rentalFormData.duration) * parseInt(instrument.rentalPrice.replace(/[^0-9]/g, ''));
 
-    alert(`Sikeres kölcsönzés! 
-    
+    // Itt később a bejelentkezett diák ID-ja jön
+    // Ideiglenesen hardcode-oljuk
+    const diakId = 1; // Ez később a bejelentkezett felhasználó ID-ja lesz
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/instruments/${instrumentId}/rental`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          diakId: diakId,
+          duration: rentalFormData.duration,
+          megjegyzes: `Név: ${rentalFormData.name}, Email: ${rentalFormData.email}, Tel: ${rentalFormData.phone}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`Sikeres kölcsönzés! 
+        
 Hangszer: ${instrument.name}
 Oktató: ${instrument.teacher}
 Időtartam: ${rentalFormData.duration} hónap
 Teljes költség: ${totalPrice.toLocaleString()} Ft
 
 Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztetéséhez.`);
+
+        // Frissítjük a listát (a hangszer státusza most már 'rented')
+        setRentals(prev => prev.map(r =>
+          r.id === instrumentId ? { ...r, status: 'rented' } : r
+        ));
+      } else {
+        alert(`Hiba: ${data.error || 'Ismeretlen hiba'}`);
+      }
+    } catch (error) {
+      console.error('Hiba a kölcsönzés során:', error);
+      alert('Hálózati hiba történt. Kérlek próbáld újra később.');
+    }
 
     setShowRentalForm(null);
     setRentalFormData({
@@ -239,6 +168,26 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
       [name]: type === 'checkbox' ? checked : value
     }));
   };
+
+  if (loading) {
+    return (
+      <div className="rental">
+        <div className="container">
+          <div className="loading">Betöltés...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rental">
+        <div className="container">
+          <div className="error-message">{error}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="rental">
@@ -277,7 +226,11 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
             {filteredRentals.map(instrument => (
               <div key={instrument.id} className="instrument-card">
                 <div className="instrument-image">
-                  <img src={instrument.image} alt={instrument.name} />
+                  {instrument.image ? (
+                    <img src={instrument.image} alt={instrument.name} />
+                  ) : (
+                    <div className="no-image">Nincs kép</div>
+                  )}
                 </div>
 
                 <div className="instrument-content">
@@ -293,14 +246,14 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
 
                   <div className="status-section">
                     {getStatusBadge(instrument.status)}
-                    {instrument.status === 'rented' && (
+                    {instrument.status === 'rented' && instrument.returnDate && (
                       <div className="rental-info">
                         <FaCalendarAlt /> Visszavárható: {instrument.returnDate}
                       </div>
                     )}
                     {instrument.status === 'maintenance' && (
                       <div className="rental-info maintenance">
-                        <FaTools /> Szervízben: {instrument.returnDate || 'Várhatóan hamarosan'}
+                        <FaTools /> Szervízben
                       </div>
                     )}
                   </div>

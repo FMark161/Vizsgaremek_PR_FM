@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const instrumentController = require('../controllers/instrumentController');
 
-// Összes hangszer lekérése
-router.get('/', (req, res) => {
-  res.json({ message: 'Instruments list - coming soon' });
-});
+// GET /api/instruments - összes hangszer
+router.get('/', instrumentController.getAll);
 
-// Egy hangszer lekérése ID alapján
-router.get('/:id', (req, res) => {
-  res.json({ message: `Instrument ${req.params.id} - coming soon` });
-});
+// GET /api/instruments/:id - egy hangszer
+router.get('/:id', instrumentController.getById);
+
+// POST /api/instruments/:id/rental - kölcsönzés
+router.post('/:id/rental', instrumentController.createRental);
 
 module.exports = router;

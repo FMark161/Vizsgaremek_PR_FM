@@ -80,21 +80,21 @@ const Events = () => {
 
   if (loading) {
     return (
-      <div className="events">
-        <div className="container">
-          <div className="loading">Betöltés...</div>
+      <div className="events-page">
+        <div className="events-container">
+          <div className="events-loading">Betöltés...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="events">
+    <div className="events-page">
       {/* Hero szekció */}
-      <section className="events-hero">
-        <div className="container">
-          <h1>Események</h1>
-          <p className="hero-description">
+      <section className="events-page-hero">
+        <div className="events-container">
+          <h1 className="events-page-title">Események</h1>
+          <p className="events-page-description">
             Rendszeresen szervezünk koncerteket, nyílt napokat és mesterkurzusokat. 
             Tekintsd meg közelgő eseményeinket!
           </p>
@@ -102,13 +102,13 @@ const Events = () => {
       </section>
 
       {/* Szűrők */}
-      <section className="events-filter">
-        <div className="container">
-          <div className="category-filters">
+      <section className="events-page-filter">
+        <div className="events-container">
+          <div className="events-category-filters">
             {categories.map(category => (
               <button
                 key={category.id}
-                className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+                className={`events-category-btn ${selectedCategory === category.id ? 'active' : ''}`}
                 onClick={() => setSelectedCategory(category.id)}
               >
                 {category.name}
@@ -118,49 +118,49 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Események listája - KÉPEK NÉLKÜL */}
-      <section className="events-list">
-        <div className="container">
-          <div className="events-grid">
+      {/* Események listája */}
+      <section className="events-page-list">
+        <div className="events-container">
+          <div className="events-page-grid">
             {sortedEvents.length > 0 ? (
               sortedEvents.map(event => (
                 <div 
                   key={event.id} 
-                  className="event-card no-image"
+                  className="events-page-card"
                   onClick={() => handleEventClick(event)}
                 >
-                  <div className="event-header">
-                    <h3>{event.cim}</h3>
-                    {event.kiemelt === 1 && <span className="featured-badge">Kiemelt</span>}
+                  <div className="events-page-card-header">
+                    <h3 className="events-page-card-title">{event.cim}</h3>
+                    {event.kiemelt === 1 && <span className="events-page-featured-badge">Kiemelt</span>}
                   </div>
-                  <div className="event-content">
-                    <div className="event-meta">
-                      <div className="meta-item">
-                        <FaCalendarAlt className="meta-icon" />
+                  <div className="events-page-card-content">
+                    <div className="events-page-card-meta">
+                      <div className="events-page-meta-item">
+                        <FaCalendarAlt className="events-page-meta-icon" />
                         <span>{formatDate(event.datum)}</span>
                       </div>
-                      <div className="meta-item">
-                        <FaClock className="meta-icon" />
+                      <div className="events-page-meta-item">
+                        <FaClock className="events-page-meta-icon" />
                         <span>{event.idopont}</span>
                       </div>
-                      <div className="meta-item">
-                        <FaMapMarkerAlt className="meta-icon" />
+                      <div className="events-page-meta-item">
+                        <FaMapMarkerAlt className="events-page-meta-icon" />
                         <span>{event.helyszin}</span>
                       </div>
-                      <div className="meta-item">
-                        <FaTag className="meta-icon" />
+                      <div className="events-page-meta-item">
+                        <FaTag className="events-page-meta-icon" />
                         <span>{categories.find(c => c.id === event.kategoria)?.name || event.kategoria}</span>
                       </div>
                     </div>
-                    <p className="event-description">{event.leiras}</p>
-                    <button className="btn-details">
+                    <p className="events-page-card-description">{event.leiras}</p>
+                    <button className="events-page-details-btn">
                       Részletek
                     </button>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="no-events">
+              <div className="events-page-no-events">
                 <p>Nincsenek események ebben a kategóriában.</p>
               </div>
             )}
@@ -168,31 +168,31 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Részletes nézet modal - CSAK BEZÁRÁS GOMBBAL */}
+      {/* Részletes nézet modal */}
       {selectedEvent && (
-        <div className="event-modal" onClick={closeModal}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>×</button>
-            <div className="modal-body">
-              <h2>{selectedEvent.cim}</h2>
-              {selectedEvent.kiemelt === 1 && <span className="modal-featured">Kiemelt esemény</span>}
-              <div className="modal-meta">
-                <div className="meta-item">
-                  <FaCalendarAlt className="meta-icon" />
+        <div className="events-page-modal" onClick={closeModal}>
+          <div className="events-page-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="events-page-modal-close" onClick={closeModal}>×</button>
+            <div className="events-page-modal-body">
+              <h2 className="events-page-modal-title">{selectedEvent.cim}</h2>
+              {selectedEvent.kiemelt === 1 && <span className="events-page-modal-featured">Kiemelt esemény</span>}
+              <div className="events-page-modal-meta">
+                <div className="events-page-meta-item">
+                  <FaCalendarAlt className="events-page-meta-icon" />
                   <span>{formatDate(selectedEvent.datum)}</span>
                 </div>
-                <div className="meta-item">
-                  <FaClock className="meta-icon" />
+                <div className="events-page-meta-item">
+                  <FaClock className="events-page-meta-icon" />
                   <span>{selectedEvent.idopont}</span>
                 </div>
-                <div className="meta-item">
-                  <FaMapMarkerAlt className="meta-icon" />
+                <div className="events-page-meta-item">
+                  <FaMapMarkerAlt className="events-page-meta-icon" />
                   <span>{selectedEvent.helyszin}</span>
                 </div>
               </div>
-              <p className="modal-description">{selectedEvent.hosszuleiras || selectedEvent.leiras}</p>
-              <div className="modal-footer single-button">
-                <button className="btn-close" onClick={closeModal}>
+              <p className="events-page-modal-description">{selectedEvent.hosszuleiras || selectedEvent.leiras}</p>
+              <div className="events-page-modal-footer">
+                <button className="events-page-modal-close-btn" onClick={closeModal}>
                   Bezárás
                 </button>
               </div>

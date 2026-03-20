@@ -1,5 +1,5 @@
 /* Events Hero */
-.events-hero {
+.events-page-hero {
   background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
   padding: 60px 0;
   text-align: center;
@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.events-hero::before {
+.events-page-hero::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -19,14 +19,14 @@
   border-radius: 50%;
 }
 
-.events-hero h1 {
+.events-page-title {
   font-size: 2.5rem;
   color: var(--dark-text);
   margin-bottom: 20px;
   position: relative;
 }
 
-.hero-description {
+.events-page-description {
   max-width: 700px;
   margin: 0 auto;
   color: var(--light-text);
@@ -35,14 +35,20 @@
   position: relative;
 }
 
+.events-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 /* Filter szekció */
-.events-filter {
+.events-page-filter {
   padding: 30px 0;
   background-color: var(--primary-white);
   border-bottom: 1px solid var(--border-light);
 }
 
-.category-filters {
+.events-category-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -52,7 +58,7 @@
   padding: 5px 20px;
 }
 
-.category-btn {
+.events-category-btn {
   padding: 10px 25px;
   background: var(--secondary-light);
   border: 2px solid transparent;
@@ -65,7 +71,7 @@
   white-space: nowrap;
 }
 
-.category-btn:hover {
+.events-category-btn:hover {
   background: var(--primary-white);
   border-color: var(--accent-turquoise);
   color: var(--accent-turquoise);
@@ -73,26 +79,26 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-.category-btn.active {
+.events-category-btn.active {
   background: var(--gradient-primary);
   color: var(--primary-white);
   border-color: transparent;
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-/* Események lista - KÉPEK NÉLKÜL */
-.events-list {
+/* Események lista */
+.events-page-list {
   padding: 60px 0;
   background-color: var(--secondary-light);
 }
 
-.events-grid {
+.events-page-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
 }
 
-.event-card {
+.events-page-card {
   background: var(--primary-white);
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow);
@@ -101,12 +107,12 @@
   overflow: hidden;
 }
 
-.event-card:hover {
+.events-page-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px var(--shadow-strong);
 }
 
-.event-header {
+.events-page-card-header {
   background: var(--gradient-primary);
   color: var(--primary-white);
   padding: 20px 25px;
@@ -115,13 +121,13 @@
   align-items: center;
 }
 
-.event-header h3 {
+.events-page-card-title {
   color: var(--primary-white);
   font-size: 1.3rem;
   margin: 0;
 }
 
-.featured-badge {
+.events-page-featured-badge {
   background: rgba(255, 255, 255, 0.2);
   color: var(--primary-white);
   padding: 4px 12px;
@@ -130,11 +136,11 @@
   font-weight: 600;
 }
 
-.event-content {
+.events-page-card-content {
   padding: 25px;
 }
 
-.event-meta {
+.events-page-card-meta {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
@@ -144,7 +150,7 @@
   border-radius: 10px;
 }
 
-.meta-item {
+.events-page-meta-item {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -152,20 +158,20 @@
   font-size: 0.9rem;
 }
 
-.meta-icon {
+.events-page-meta-icon {
   color: var(--accent-turquoise);
   font-size: 0.9rem;
   flex-shrink: 0;
 }
 
-.event-description {
+.events-page-card-description {
   color: var(--light-text);
   line-height: 1.6;
   margin-bottom: 20px;
   font-size: 0.95rem;
 }
 
-.btn-details {
+.events-page-details-btn {
   background: transparent;
   color: var(--accent-turquoise);
   border: 2px solid var(--accent-turquoise);
@@ -177,13 +183,13 @@
   transition: all 0.3s ease;
 }
 
-.btn-details:hover {
+.events-page-details-btn:hover {
   background: var(--accent-turquoise);
   color: var(--primary-white);
   transform: translateY(-2px);
 }
 
-.no-events {
+.events-page-no-events {
   text-align: center;
   padding: 60px 20px;
   background: var(--primary-white);
@@ -192,21 +198,21 @@
   grid-column: 1 / -1;
 }
 
-.no-events p {
+.events-page-no-events p {
   color: var(--light-text);
   font-size: 1.1rem;
 }
 
 /* Loading */
-.loading {
+.events-loading {
   text-align: center;
   padding: 60px 20px;
   color: var(--light-text);
   font-size: 1.1rem;
 }
 
-/* Modal - CSAK BEZÁRÁS GOMBBAL */
-.event-modal {
+/* Modal */
+.events-page-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -218,15 +224,15 @@
   justify-content: center;
   z-index: 1100;
   padding: 20px;
-  animation: fadeIn 0.3s ease;
+  animation: eventsFadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes eventsFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.modal-content {
+.events-page-modal-content {
   background: var(--primary-white);
   border-radius: 20px;
   max-width: 600px;
@@ -234,15 +240,15 @@
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  animation: slideUp 0.3s ease;
+  animation: eventsSlideUp 0.3s ease;
 }
 
-@keyframes slideUp {
+@keyframes eventsSlideUp {
   from { transform: translateY(30px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-close {
+.events-page-modal-close {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -262,24 +268,24 @@
   transition: all 0.3s ease;
 }
 
-.modal-close:hover {
+.events-page-modal-close:hover {
   background: var(--error-red);
   color: var(--primary-white);
   transform: rotate(90deg);
 }
 
-.modal-body {
+.events-page-modal-body {
   padding: 40px;
 }
 
-.modal-body h2 {
+.events-page-modal-title {
   color: var(--dark-text);
   font-size: 2rem;
   margin-bottom: 10px;
   padding-right: 40px;
 }
 
-.modal-featured {
+.events-page-modal-featured {
   display: inline-block;
   background: var(--gradient-gold);
   color: var(--dark-text);
@@ -290,7 +296,7 @@
   margin-bottom: 20px;
 }
 
-.modal-meta {
+.events-page-modal-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -300,112 +306,107 @@
   border-radius: 10px;
 }
 
-.modal-description {
+.events-page-modal-description {
   color: var(--light-text);
   line-height: 1.8;
   margin-bottom: 30px;
   font-size: 1.05rem;
 }
 
-/* Modal footer - MÓDOSÍTVA: csak Bezárás gomb */
-.modal-footer {
+.events-page-modal-footer {
   display: flex;
-  gap: 15px;
+  justify-content: center;
   border-top: 1px solid var(--border-light);
   padding-top: 25px;
 }
 
-.modal-footer.single-button {
-  justify-content: center;
-}
-
-.modal-footer.single-button .btn-close {
-  min-width: 200px;
+.events-page-modal-close-btn {
+  padding: 12px 30px;
   background: var(--gradient-primary);
   color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
 }
 
-.modal-footer.single-button .btn-close:hover {
+.events-page-modal-close-btn:hover {
   background: var(--accent-turquoise-dark);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-.btn-close {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
 /* Reszponzív */
 @media (max-width: 1024px) {
-  .events-grid {
+  .events-page-grid {
     grid-template-columns: 1fr;
   }
-  
-  .event-meta {
-    grid-template-columns: 1fr;
+
+  .events-page-card-meta {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .events-hero h1 {
+  .events-page-title {
     font-size: 2rem;
   }
-  
-  .modal-body {
+
+  .events-page-modal-body {
     padding: 30px;
   }
-  
-  .modal-body h2 {
+
+  .events-page-modal-title {
     font-size: 1.5rem;
   }
-  
-  .modal-meta {
+
+  .events-page-modal-meta {
     flex-direction: column;
     gap: 10px;
   }
-  
-  .category-filters {
+
+  .events-category-filters {
     gap: 10px;
   }
-  
-  .category-btn {
+
+  .events-category-btn {
     padding: 8px 16px;
     font-size: 0.85rem;
   }
-  
-  .event-header {
+
+  .events-page-card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
+
+  .events-page-card-meta {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
-  .events-hero h1 {
+  .events-page-title {
     font-size: 1.8rem;
   }
-  
-  .hero-description {
+
+  .events-page-description {
     font-size: 1rem;
     padding: 0 15px;
   }
-  
-  .modal-body {
+
+  .events-page-modal-body {
     padding: 20px;
   }
-  
-  .modal-body h2 {
+
+  .events-page-modal-title {
     font-size: 1.3rem;
   }
-  
-  .modal-footer.single-button .btn-close {
-    min-width: 100%;
+
+  .events-page-modal-close-btn {
+    width: 100%;
   }
 }
