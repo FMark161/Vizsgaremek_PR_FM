@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
     FaUser,
     FaEnvelope,
@@ -12,6 +12,8 @@ import {
     FaGraduationCap
 } from 'react-icons/fa';
 import './Application.css';
+
+// Tanárok képei - importáljuk őket
 import kovacsAnna from '../../assets/teachers/kovacs_anna.jpg';
 import nagyPeter from '../../assets/teachers/nagy_peter.jpg';
 import szaboMarta from '../../assets/teachers/szabo_marta.jpg';
@@ -20,9 +22,6 @@ import kissEva from '../../assets/teachers/kiss_eva.jpg';
 import molnarDavid from '../../assets/teachers/molnar_david.jpg';
 
 const Application = () => {
-    const location = useLocation();
-    const formRef = useRef(null);
-
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -38,74 +37,35 @@ const Application = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [teachers, setTeachers] = useState([]);
+    const [loadingTeachers, setLoadingTeachers] = useState(true);
 
-    // Automatikus görgetés, ha az URL tartalmazza a #application részt
+    // Képek mapping ID alapján
+    const teacherImages = {
+        1: kovacsAnna,
+        2: nagyPeter,
+        3: szaboMarta,
+        4: takacsGabor,
+        5: kissEva,
+        6: molnarDavid
+    };
+
+    // Tanárok lekérése az adatbázisból
     useEffect(() => {
-        if (location.hash === '#application' && formRef.current) {
-            formRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    }, [location]);
+        const fetchTeachers = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/teachers');
+                const data = await response.json();
+                setTeachers(data);
+            } catch (error) {
+                console.error('Hiba a tanárok lekérésekor:', error);
+            } finally {
+                setLoadingTeachers(false);
+            }
+        };
 
-    // Tanárok adatai
-    const teachers = [
-        {
-            id: 1,
-            name: 'Kovács Anna',
-            instrument: 'Zongora',
-            image: kovacsAnna,
-            experience: '15 év',
-            education: 'Liszt Ferenc Zeneművészeti Egyetem',
-            description: 'Versenyző növendékeket is nevel, specialitása a klasszikus zene.',
-        },
-        {
-            id: 2,
-            name: 'Nagy Péter',
-            instrument: 'Gitár',
-            image: nagyPeter,
-            experience: '12 év',
-            education: 'Jazzgitár szak, Royal Academy of Music',
-            description: 'Jazz, pop és rock műfajokban egyaránt otthonosan mozog.',
-        },
-        {
-            id: 3,
-            name: 'Szabó Márta',
-            instrument: 'Hegedű',
-            image: szaboMarta,
-            experience: '27 év',
-            education: 'Zeneakadémia, hegedűművész szak',
-            description: 'Kamarazenekari tapasztalattal, szólistaként is aktív.',
-        },
-        {
-            id: 4,
-            name: 'Takács Gábor',
-            instrument: 'Dob',
-            image: takacsGabor,
-            experience: '10 év',
-            education: 'Modern Drummer School',
-            description: 'Fúziós jazz és rock ütőhangszeres, session zenész.',
-        },
-        {
-            id: 5,
-            name: 'Kiss Éva',
-            instrument: 'Fuvola',
-            image: kissEva,
-            experience: '30 év',
-            education: 'Zeneakadémia, fuvolaművész',
-            description: 'Szimfonikus zenekari tag, egyéni és csoportos órákat is tart.',
-        },
-        {
-            id: 6,
-            name: 'Molnár Dávid',
-            instrument: 'Ének',
-            image: molnarDavid,
-            experience: '29 év',
-            education: 'Színház- és Filmművészeti Egyetem',
-            description: 'Musical és popénekes, magánénekesként is aktív.',
-        }
-    ];
+        fetchTeachers();
+    }, []);
 
     const instruments = [
         { value: 'piano', label: 'Zongora', icon: <FaMusic /> },
@@ -214,38 +174,46 @@ const Application = () => {
                 </div>
             </section>
 
-            {/* Tanáraink szekció */}
+            {/* Tanáraink szekció - adatbázisból */}
             <section className="teachers-section">
                 <div className="container">
                     <h2 className="section-title">Oktatóink</h2>
                     <p className="section-subtitle">Ismerd meg leendő tanárainkat!</p>
 
-                    <div className="teachers-grid">
-                        {teachers.map(teacher => (
-                            <div key={teacher.id} className="teacher-card">
-                                <div className="teacher-image">
-                                    <img
-                                        src={teacher.image}
-                                        alt={teacher.name}
-                                        style={{
-                                            objectPosition: teacher.id === 2 ? 'center 5%' :
-                                                teacher.id === 6 ? 'center 30%' :
+                    {loadingTeachers ? (
+                        <div className="loading">Betöltés...</div>
+                    ) : (
+                        <div className="teachers-grid">
+                            {teachers.map(teacher => (
+                                <div key={teacher.id} className="teacher-card">
+                                    <div className="teacher-image">
+                                        <img
+                                            src={teacherImages[teacher.id]}
+                                            alt={teacher.name}
+                                            style={{
+                                                objectPosition: teacher.id === 2 ? 'center 5%' :
+                                                    teacher.id === 6 ? 'center 30%' :
                                                     'center 30%'
-                                        }}
-                                    />
-                                </div>
-                                <div className="teacher-info">
-                                    <h3>{teacher.name}</h3>
-                                    <p className="teacher-instrument">{teacher.instrument}</p>
-                                    <div className="teacher-details">
-                                        <p><FaGraduationCap /> {teacher.education}</p>
-                                        <p><FaCalendarAlt /> {teacher.experience} tapasztalat</p>
+                                            }}
+                                        />
                                     </div>
-                                    <p className="teacher-description">{teacher.description}</p>
+                                    <div className="teacher-info">
+                                        <h3>{teacher.name}</h3>
+                                        <p className="teacher-instrument">
+                                            {teacher.instruments && teacher.instruments.length > 0 
+                                                ? teacher.instruments.join(', ') 
+                                                : 'Zeneoktató'}
+                                        </p>
+                                        <div className="teacher-details">
+                                            <p><FaGraduationCap /> {teacher.education || 'Zeneakadémia végzettség'}</p>
+                                            <p><FaCalendarAlt /> {teacher.experience || 'Sok éves'} tapasztalat</p>
+                                        </div>
+                                        <p className="teacher-description">{teacher.description || 'Tapasztalt oktató, aki szenvedéllyel tanítja a zenét.'}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -290,8 +258,7 @@ const Application = () => {
                             </div>
                         </div>
 
-                        {/* MÓDOSÍTVA: ref hozzáadva a form-hoz */}
-                        <form ref={formRef} className="application-form" onSubmit={handleSubmit}>
+                        <form className="application-form" onSubmit={handleSubmit}>
                             <h2>Jelentkezési űrlap</h2>
 
                             {error && (
@@ -466,8 +433,8 @@ const Application = () => {
                                 </label>
                             </div>
 
-                            <button
-                                type="submit"
+                            <button 
+                                type="submit" 
                                 className="btn btn-primary btn-submit"
                                 disabled={isLoading}
                             >

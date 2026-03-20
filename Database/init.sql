@@ -167,20 +167,19 @@ CREATE TABLE tanarok (
     tapasztalat VARCHAR(50),
     vegzettseg VARCHAR(255),
     leiras TEXT,
-    kep_url VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (felhasznaloId) REFERENCES bejelentkezesek(id) ON DELETE CASCADE,
     UNIQUE KEY (felhasznaloId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
-INSERT INTO tanarok (felhasznaloId, nev, telefonsz, email, tapasztalat, vegzettseg, leiras, kep_url) VALUES
-(1, 'Kovács Anna', '06701234501', 'kovacs.anna@harmonia.hu', '15 év', 'Liszt Ferenc Zeneművészeti Egyetem', 'Versenyző növendékeket is nevel, specialitása a klasszikus zene.', 'https://images.unsplash.com/photo-1494790108777-296ef5a0d6e8'),
-(2, 'Nagy Péter', '06701234502', 'nagy.peter@harmonia.hu', '12 év', 'Jazzgitár szak, Royal Academy of Music', 'Jazz, pop és rock műfajokban egyaránt otthonosan mozog.', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e'),
-(3, 'Szabó Márta', '06701234503', 'szabo.marta@harmonia.hu', '18 év', 'Zeneakadémia, hegedűművész szak', 'Kamarazenekari tapasztalattal, szólistaként is aktív.', 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80'),
-(4, 'Takács Gábor', '06701234504', 'takacs.gabor@harmonia.hu', '10 év', 'Modern Drummer School', 'Fúziós jazz és rock ütőhangszeres, session zenész.', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e'),
-(5, 'Kiss Éva', '06701234505', 'kiss.eva@harmonia.hu', '14 év', 'Zeneakadémia, fuvolaművész', 'Szimfonikus zenekari tag, egyéni és csoportos órákat is tart.', 'https://images.unsplash.com/photo-1580489944761-15a19d654956'),
-(6, 'Molnár Dávid', '06701234506', 'molnar.david@harmonia.hu', '9 év', 'Színház- és Filmművészeti Egyetem', 'Musical és popénekes, magánénekesként is aktív.', 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d');
+INSERT INTO tanarok (felhasznaloId, nev, telefonsz, email, tapasztalat, vegzettseg, leiras) VALUES
+(1, 'Kovács Anna', '06701234501', 'kovacs.anna@harmonia.hu', '15 év', 'Liszt Ferenc Zeneművészeti Egyetem', 'Versenyző növendékeket is nevel, specialitása a klasszikus zene.'),
+(2, 'Nagy Péter', '06701234502', 'nagy.peter@harmonia.hu', '12 év', 'Jazzgitár szak, Royal Academy of Music', 'Jazz, pop és rock műfajokban egyaránt otthonosan mozog.'),
+(3, 'Szabó Márta', '06701234503', 'szabo.marta@harmonia.hu', '18 év', 'Zeneakadémia, hegedűművész szak', 'Kamarazenekari tapasztalattal, szólistaként is aktív.'),
+(4, 'Takács Gábor', '06701234504', 'takacs.gabor@harmonia.hu', '10 év', 'Modern Drummer School', 'Fúziós jazz és rock ütőhangszeres, session zenész.'),
+(5, 'Kiss Éva', '06701234505', 'kiss.eva@harmonia.hu', '14 év', 'Zeneakadémia, fuvolaművész', 'Szimfonikus zenekari tag, egyéni és csoportos órákat is tart.'),
+(6, 'Molnár Dávid', '06701234506', 'molnar.david@harmonia.hu', '9 év', 'Színház- és Filmművészeti Egyetem', 'Musical és popénekes, magánénekesként is aktív.');
 
 CREATE TABLE tanar_mit_tud (
     id INT AUTO_INCREMENT PRIMARY KEY,
