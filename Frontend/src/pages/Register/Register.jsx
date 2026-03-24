@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaLock, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext.jsx';
 import './Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
+    fnev: '',
     email: '',
-    phone: '',
-    password: '',
+    jelszo: '',
     confirmPassword: '',
     acceptTerms: false
   });
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,64 +28,66 @@ const Register = () => {
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+    setServerError('');
   };
 
   const validateForm = () => {
     const newErrors = {};
-    
-    if (!formData.name) {
-      newErrors.name = 'A név megadása kötelező';
+
+    if (!formData.fnev) {
+      newErrors.fnev = 'A felhasználónév megadása kötelező';
+    } else if (formData.fnev.length < 3) {
+      newErrors.fnev = 'A felhasználónév legalább 3 karakter legyen';
     }
-    
+
     if (!formData.email) {
       newErrors.email = 'Az email cím megadása kötelező';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Érvénytelen email cím';
     }
-    
-    if (!formData.phone) {
-      newErrors.phone = 'A telefonszám megadása kötelező';
+
+    if (!formData.jelszo) {
+      newErrors.jelszo = 'A jelszó megadása kötelező';
+    } else if (formData.jelszo.length < 6) {
+      newErrors.jelszo = 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
     }
-    
-    if (!formData.password) {
-      newErrors.password = 'A jelszó megadása kötelező';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
-    }
-    
-    if (formData.password !== formData.confirmPassword) {
+
+    if (formData.jelszo !== formData.confirmPassword) {
       newErrors.confirmPassword = 'A két jelszó nem egyezik';
     }
-    
+
     if (!formData.acceptTerms) {
       newErrors.acceptTerms = 'El kell fogadnod az adatvédelmi nyilatkozatot';
     }
-    
+
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setIsLoading(true);
-    
-    // Itt lesz később a backend hívás
-    setTimeout(() => {
-      setIsLoading(false);
-      // Sikeres regisztráció után átirányítás a bejelentkezés oldalra
-      navigate('/login');
-    }, 1500);
+    setServerError('');
+
+    const result = await register(formData.fnev, formData.jelszo, formData.email);
+
+    if (result.success) {
+      navigate('/');
+    } else {
+      setServerError(result.error);
+    }
+
+    setIsLoading(false);
   };
 
   return (
     <div className="auth-page">
-      {/* Hero szekció */}
       <section className="auth-hero">
         <div className="container">
           <h1>Regisztráció</h1>
@@ -93,29 +97,32 @@ const Register = () => {
         </div>
       </section>
 
-      {/* Register Form */}
       <section className="auth-section">
         <div className="container">
           <div className="auth-container">
             <div className="auth-card">
               <h2>Hozz létre fiókot</h2>
               <p className="auth-subtitle">Csatlakozz zenei közösségünkhöz</p>
-              
+
+              {serverError && (
+                <div className="auth-server-error">{serverError}</div>
+              )}
+
               <form onSubmit={handleSubmit} className="auth-form">
                 <div className="auth-form-group">
-                  <label htmlFor="name">
-                    <FaUser className="auth-input-icon" /> Teljes név
+                  <label htmlFor="fnev">
+                    <FaUser className="auth-input-icon" /> Felhasználónév
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="fnev"
+                    name="fnev"
+                    value={formData.fnev}
                     onChange={handleChange}
-                    placeholder="Kovács János"
-                    className={errors.name ? 'error' : ''}
+                    placeholder="felhasznalonev"
+                    className={errors.fnev ? 'error' : ''}
                   />
-                  {errors.name && <span className="auth-error-message">{errors.name}</span>}
+                  {errors.fnev && <span className="auth-error-message">{errors.fnev}</span>}
                 </div>
 
                 <div className="auth-form-group">
@@ -135,35 +142,19 @@ const Register = () => {
                 </div>
 
                 <div className="auth-form-group">
-                  <label htmlFor="phone">
-                    <FaPhone className="auth-input-icon" /> Telefonszám
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+36 30 123 4567"
-                    className={errors.phone ? 'error' : ''}
-                  />
-                  {errors.phone && <span className="auth-error-message">{errors.phone}</span>}
-                </div>
-
-                <div className="auth-form-group">
-                  <label htmlFor="password">
+                  <label htmlFor="jelszo">
                     <FaLock className="auth-input-icon" /> Jelszó
                   </label>
                   <input
                     type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
+                    id="jelszo"
+                    name="jelszo"
+                    value={formData.jelszo}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className={errors.password ? 'error' : ''}
+                    className={errors.jelszo ? 'error' : ''}
                   />
-                  {errors.password && <span className="auth-error-message">{errors.password}</span>}
+                  {errors.jelszo && <span className="auth-error-message">{errors.jelszo}</span>}
                 </div>
 
                 <div className="auth-form-group">
@@ -191,14 +182,14 @@ const Register = () => {
                       onChange={handleChange}
                     />
                     <span>
-                      Elfogadom az <Link to="/terms" className="auth-link">Adatvédelmi nyilatkozatot</Link> és a <Link to="/terms" className="auth-link">Felhasználási feltételeket</Link>
+                      Elfogadom az <Link to="/terms">Adatvédelmi nyilatkozatot</Link> és a <Link to="/terms">Felhasználási feltételeket</Link>
                     </span>
                   </label>
                   {errors.acceptTerms && <span className="auth-error-message">{errors.acceptTerms}</span>}
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="auth-submit-btn"
                   disabled={isLoading}
                 >

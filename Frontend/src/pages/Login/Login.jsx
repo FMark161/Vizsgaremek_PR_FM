@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext.jsx';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    fnev: '',
+    jelszo: '',
     rememberMe: false
   });
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -20,31 +23,29 @@ const Login = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    // Töröljük a hibát amikor a felhasználó elkezd gépelni
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+    setServerError('');
   };
 
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.email) {
-      newErrors.email = 'Az email cím megadása kötelező';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Érvénytelen email cím';
+    if (!formData.fnev) {
+      newErrors.fnev = 'A felhasználónév megadása kötelező';
     }
     
-    if (!formData.password) {
-      newErrors.password = 'A jelszó megadása kötelező';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
+    if (!formData.jelszo) {
+      newErrors.jelszo = 'A jelszó megadása kötelező';
+    } else if (formData.jelszo.length < 6) {
+      newErrors.jelszo = 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
     }
     
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     const newErrors = validateForm();
@@ -54,18 +55,21 @@ const Login = () => {
     }
     
     setIsLoading(true);
+    setServerError('');
     
-    // Itt lesz később a backend hívás
-    setTimeout(() => {
-      setIsLoading(false);
-      // Sikeres bejelentkezés esetén átirányítás a főoldalra
+    const result = await login(formData.fnev, formData.jelszo);
+    
+    if (result.success) {
       navigate('/');
-    }, 1500);
+    } else {
+      setServerError(result.error);
+    }
+    
+    setIsLoading(false);
   };
 
   return (
     <div className="auth-page">
-      {/* Hero szekció */}
       <section className="auth-hero">
         <div className="container">
           <h1>Bejelentkezés</h1>
@@ -75,7 +79,6 @@ const Login = () => {
         </div>
       </section>
 
-      {/* Login Form */}
       <section className="auth-section">
         <div className="container">
           <div className="auth-container">
@@ -83,37 +86,41 @@ const Login = () => {
               <h2>Üdv újra itt!</h2>
               <p className="auth-subtitle">Jelentkezz be a folytatáshoz</p>
               
+              {serverError && (
+                <div className="auth-server-error">{serverError}</div>
+              )}
+              
               <form onSubmit={handleSubmit} className="auth-form">
                 <div className="auth-form-group">
-                  <label htmlFor="email">
-                    <FaEnvelope className="auth-input-icon" /> Email cím
+                  <label htmlFor="fnev">
+                    <FaUser className="auth-input-icon" /> Felhasználónév
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                    type="text"
+                    id="fnev"
+                    name="fnev"
+                    value={formData.fnev}
                     onChange={handleChange}
-                    placeholder="pelda@email.hu"
-                    className={errors.email ? 'error' : ''}
+                    placeholder="felhasznalonev"
+                    className={errors.fnev ? 'error' : ''}
                   />
-                  {errors.email && <span className="auth-error-message">{errors.email}</span>}
+                  {errors.fnev && <span className="auth-error-message">{errors.fnev}</span>}
                 </div>
 
                 <div className="auth-form-group">
-                  <label htmlFor="password">
+                  <label htmlFor="jelszo">
                     <FaLock className="auth-input-icon" /> Jelszó
                   </label>
                   <input
                     type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
+                    id="jelszo"
+                    name="jelszo"
+                    value={formData.jelszo}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className={errors.password ? 'error' : ''}
+                    className={errors.jelszo ? 'error' : ''}
                   />
-                  {errors.password && <span className="auth-error-message">{errors.password}</span>}
+                  {errors.jelszo && <span className="auth-error-message">{errors.jelszo}</span>}
                 </div>
 
                 <div className="auth-form-options">
