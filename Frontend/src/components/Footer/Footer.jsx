@@ -34,6 +34,7 @@ const Footer = () => {
                             <li><Link to="/instruments">Hangszerek</Link></li>
                             <li><Link to="/rental">Kölcsönzés</Link></li>
                             <li><Link to="/events">Események</Link></li>
+                            <li><Link to="/lessons">Óráim</Link></li>
                             <li><Link to="/contact">Kapcsolat</Link></li>
                         </ul>
                     </div>
