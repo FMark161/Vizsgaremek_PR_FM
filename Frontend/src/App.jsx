@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
+import { AuthProvider } from './context/AuthContext';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Layout from "./components/Layout/Layout.jsx";
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 // Import oldalak
@@ -23,16 +24,33 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
+            {/* Nyilvános oldalak - bárki láthatja */}
             <Route path="/" element={<Home />} />
             <Route path="/application" element={<Application />} />
             <Route path="/instruments" element={<Instruments />} />
-            <Route path="/rental" element={<Rental />} />
             <Route path="/events" element={<Events />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Admin />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/lessons" element={<Lessons />} />
+
+            {/* Védett oldalak - csak bejelentkezett felhasználók */}
+            <Route path="/rental" element={
+              <ProtectedRoute allowedRoles={['diak', 'tanar', 'admin']}>
+                <Rental />
+              </ProtectedRoute>
+            } />
+            <Route path="/lessons" element={
+              <ProtectedRoute allowedRoles={['diak', 'tanar', 'admin']}>
+                <Lessons />
+              </ProtectedRoute>
+            } />
+
+            {/* Admin oldal - csak adminok */}
+            <Route path="/admin" element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <Admin />
+              </ProtectedRoute>
+            } />
           </Routes>
         </Layout>
       </AuthProvider>
