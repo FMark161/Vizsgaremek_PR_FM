@@ -25,24 +25,24 @@ CREATE TABLE bejelentkezesek (
 -- Megjegyzés: Éles rendszerben bcrypt hash-t használj!
 INSERT INTO bejelentkezesek (fnev, jelszo, jogosultsag, email) VALUES
 -- Tanárok
-('kovacs.anna', 'pass123', 'tanar', 'kovacs.anna@harmonia.hu'),
-('nagy.peter', 'pass123', 'tanar', 'nagy.peter@harmonia.hu'),
-('szabo.marta', 'pass123', 'tanar', 'szabo.marta@harmonia.hu'),
-('takacs.gabor', 'pass123', 'tanar', 'takacs.gabor@harmonia.hu'),
-('kiss.eva', 'pass123', 'tanar', 'kiss.eva@harmonia.hu'),
-('molnar.david', 'pass123', 'tanar', 'molnar.david@harmonia.hu'),
+('kovacs.anna', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'kovacs.anna@harmonia.hu'),
+('nagy.peter', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'nagy.peter@harmonia.hu'),
+('szabo.marta', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'szabo.marta@harmonia.hu'),
+('takacs.gabor', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'takacs.gabor@harmonia.hu'),
+('kiss.eva', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'kiss.eva@harmonia.hu'),
+('molnar.david', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'molnar.david@harmonia.hu'),
 
 -- Diákok (példa adatok)
-('kiss.peter', 'pass123', 'diak', 'kiss.peter@email.hu'),
-('nagy.anna', 'pass123', 'diak', 'nagy.anna@email.hu'),
-('szabo.marton', 'pass123', 'diak', 'szabo.marton@email.hu'),
-('toth.gabor', 'pass123', 'diak', 'toth.gabor@email.hu'),
-('varga.reka', 'pass123', 'diak', 'varga.reka@email.hu'),
+('kiss.peter', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'kiss.peter@email.hu'),
+('nagy.anna', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'nagy.anna@email.hu'),
+('szabo.marton', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'szabo.marton@email.hu'),
+('toth.gabor', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'toth.gabor@email.hu'),
+('varga.reka', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'varga.reka@email.hu'),
 
 -- Admin
-('info', 'Premo900', 'admin', 'info@harmonia.hu');
+('info', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'admin', 'info@harmonia.hu');
 
--- =====================================================
+
 -- ESEMÉNYEK
 -- =====================================================
 
