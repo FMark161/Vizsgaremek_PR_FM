@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext.jsx";
 import { 
   FaMusic, 
   FaGuitar, 
@@ -18,12 +19,7 @@ import {
 import './Admin.css';
 
 const Admin = () => {
-  // Bejelentkezés állapot (ideiglenes, később context-ből jön)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: ''
-  });
+  const { user, isAuthenticated, loading } = useAuth();
 
   // Aktív menüpont
   const [activeTab, setActiveTab] = useState('events');
@@ -64,76 +60,22 @@ const Admin = () => {
 
   // Szerkesztés állapotok
   const [editingEvent, setEditingEvent] = useState(null);
-  const [editingInstrument, setEditingInstrument] = useState(null);
-  const [editingTeacher, setEditingTeacher] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // Bejelentkezés kezelése
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Itt lesz később a backend ellenőrzés
-    if (loginData.username === 'admin' && loginData.password === 'admin123') {
-      setIsLoggedIn(true);
-    } else {
-      alert('Hibás felhasználónév vagy jelszó!');
-    }
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setLoginData({ username: '', password: '' });
-  };
-
-  const handleLoginChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData(prev => ({ ...prev, [name]: value }));
-  };
-
-  // Ha nincs bejelentkezve, mutasd a login formot
-  if (!isLoggedIn) {
+  // Amíg ellenőrizzük a tokent, mutassuk a betöltést
+  if (loading) {
     return (
       <div className="admin">
-        <section className="admin-hero">
-          <div className="container">
-            <h1>Admin felület</h1>
-            <p className="admin-hero-description">Kérjük, jelentkezz be a folytatáshoz.</p>
-          </div>
-        </section>
-
-        <section className="admin-login-section">
-          <div className="container">
-            <div className="admin-login-container">
-              <h2>Bejelentkezés</h2>
-              <form onSubmit={handleLogin} className="admin-login-form">
-                <div className="admin-form-group">
-                  <label htmlFor="username">Felhasználónév</label>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={loginData.username}
-                    onChange={handleLoginChange}
-                    required
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label htmlFor="password">Jelszó</label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={loginData.password}
-                    onChange={handleLoginChange}
-                    required
-                  />
-                </div>
-                <button type="submit" className="admin-login-btn">Bejelentkezés</button>
-              </form>
-            </div>
-          </div>
-        </section>
+        <div className="container">
+          <div className="loading">Betöltés...</div>
+        </div>
       </div>
     );
+  }
+
+  // Ha nem admin, ne jelenítsük meg (a ProtectedRoute már átirányítja, de biztos ami biztos)
+  if (!isAuthenticated || user?.jogosultsag !== 'admin') {
+    return null;
   }
 
   // Admin felület - ha be van jelentkezve
@@ -144,9 +86,10 @@ const Admin = () => {
         <div className="container">
           <div className="admin-header">
             <h1>Admin felület</h1>
-            <button onClick={handleLogout} className="admin-logout-btn">
-              <FaSignOutAlt /> Kijelentkezés
-            </button>
+            <div className="admin-user-info">
+              <span>Bejelentkezve: {user?.fnev}</span>
+              <span className="admin-role">Admin</span>
+            </div>
           </div>
         </div>
       </section>
