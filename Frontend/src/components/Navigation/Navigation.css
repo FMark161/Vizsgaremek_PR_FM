@@ -156,19 +156,26 @@
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   background: var(--secondary-light);
   padding: 5px 15px 5px 20px;
   border-radius: 50px;
   border: 1px solid var(--border-light);
-  flex-shrink: 0;
+}
+
+.user-role {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .user-name {
   font-weight: 600;
   color: var(--accent-turquoise-dark);
   font-size: 0.95rem;
-  white-space: nowrap;
 }
 
 .logout-btn {
@@ -180,7 +187,7 @@
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  white-space: nowrap;
+  cursor: pointer;
 }
 
 .logout-btn:hover {
