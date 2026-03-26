@@ -1,89 +1,60 @@
-const applicationModel = require('../models/applicationModel');
+const pool = require('../models/db');
 
 const applicationController = {
-  // GET /api/applications
   getAll: async (req, res, next) => {
     try {
-      const applications = await applicationModel.getAll();
-      res.json(applications);
+      const [rows] = await pool.query('SELECT * FROM jelentkezesek ORDER BY letrehozas DESC');
+      res.json(rows);
     } catch (error) {
       next(error);
     }
   },
 
-  // GET /api/applications/:id
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const application = await applicationModel.getById(id);
-      
-      if (!application) {
-        return res.status(404).json({ error: 'Application not found' });
-      }
-      
-      res.json(application);
+      const [rows] = await pool.query('SELECT * FROM jelentkezesek WHERE id = ?', [id]);
+      if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
+      res.json(rows[0]);
     } catch (error) {
       next(error);
     }
   },
 
-  // POST /api/applications
   create: async (req, res, next) => {
     try {
-      const { name, email, phone, birthDate, instrument, level, ownInstrument, message } = req.body;
-      
-      // Validation
-      if (!name || !email || !phone) {
-        return res.status(400).json({ error: 'Name, email and phone are required' });
-      }
-      
-      const newId = await applicationModel.create({
-        name, email, phone, birthDate, instrument, level, ownInstrument, message
-      });
-      
-      res.status(201).json({ 
-        message: 'Application successfully saved',
-        id: newId 
-      });
+      const { nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet } = req.body;
+      const [result] = await pool.query(
+        'INSERT INTO jelentkezesek (nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet, statusz) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "new")',
+        [nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet]
+      );
+      res.status(201).json({ id: result.insertId, message: 'Jelentkezés létrehozva' });
     } catch (error) {
       next(error);
     }
   },
 
-  // PATCH /api/applications/:id/status
-  updateStatus: async (req, res, next) => {
+  update: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { status } = req.body;
-      
-      const validStatuses = ['new', 'contacted', 'accepted', 'rejected'];
-      if (!validStatuses.includes(status)) {
-        return res.status(400).json({ error: 'Invalid status' });
-      }
-      
-      const updated = await applicationModel.updateStatus(id, status);
-      
-      if (!updated) {
-        return res.status(404).json({ error: 'Application not found' });
-      }
-      
-      res.json({ message: 'Status updated' });
+      const { nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet, statusz } = req.body;
+      const [result] = await pool.query(
+        'UPDATE jelentkezesek SET nev = ?, email = ?, telefon = ?, szul_datum = ?, hangszer = ?, szint = ?, sajat_hangszer = ?, uzenet = ?, statusz = ? WHERE id = ?',
+        [nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet, statusz, id]
+      );
+      if (result.affectedRows === 0) return res.status(404).json({ error: 'Not found' });
+      res.json({ message: 'Jelentkezés frissítve' });
     } catch (error) {
       next(error);
     }
   },
 
-  // DELETE /api/applications/:id
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const deleted = await applicationModel.delete(id);
-      
-      if (!deleted) {
-        return res.status(404).json({ error: 'Application not found' });
-      }
-      
-      res.json({ message: 'Application deleted' });
+      const [result] = await pool.query('DELETE FROM jelentkezesek WHERE id = ?', [id]);
+      if (result.affectedRows === 0) return res.status(404).json({ error: 'Not found' });
+      res.json({ message: 'Jelentkezés törölve' });
     } catch (error) {
       next(error);
     }

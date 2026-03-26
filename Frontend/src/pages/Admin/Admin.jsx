@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { 
-  FaMusic, 
-  FaGuitar, 
-  FaDrum, 
+import { useAuth } from "../../context/AuthContext";
+import {
+  FaMusic,
+  FaGuitar,
+  FaDrum,
   FaCalendarAlt,
   FaUser,
   FaEnvelope,
@@ -13,7 +13,11 @@ import {
   FaPlus,
   FaSave,
   FaTimes,
-  FaSync
+  FaSync,
+  FaInfoCircle,
+  FaCheck,
+  FaChalkboardTeacher,
+  FaMoneyBillWave
 } from 'react-icons/fa';
 import './Admin.css';
 
@@ -24,6 +28,7 @@ const Admin = () => {
   const [instruments, setInstruments] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [applications, setApplications] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -43,6 +48,10 @@ const Admin = () => {
         const res = await fetch(`${API_URL}/instruments`);
         const data = await res.json();
         setInstruments(data);
+        // Kategóriák betöltése
+        const catRes = await fetch(`${API_URL}/categories`);
+        const catData = await catRes.json();
+        setCategories(catData);
       } else if (activeTab === 'teachers') {
         const res = await fetch(`${API_URL}/teachers`);
         const data = await res.json();
@@ -65,19 +74,19 @@ const Admin = () => {
 
   // Törlés
   const handleDelete = async (id) => {
-    if (!window.confirm('Biztosan törölni szeretnéd ezt az elemet?')) return;
-    
+    if (!window.confirm('Biztosan törölni szeretnéd ezt az elemet? Ez a művelet nem visszavonható!')) return;
+
     try {
-      const res = await fetch(`${API_URL}/${activeTab}/${id}`, {
-        method: 'DELETE'
-      });
+      const res = await fetch(`${API_URL}/${activeTab}/${id}`, { method: 'DELETE' });
       if (res.ok) {
         fetchData();
       } else {
-        alert('Hiba történt a törlés során');
+        const error = await res.json();
+        alert(`Hiba: ${error.error}`);
       }
     } catch (error) {
       console.error('Törlési hiba:', error);
+      alert('Hiba történt a törlés során');
     }
   };
 
@@ -85,10 +94,10 @@ const Admin = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     const method = editingItem ? 'PUT' : 'POST';
-    const url = editingItem 
-      ? `${API_URL}/${activeTab}/${editingItem.id}` 
+    const url = editingItem
+      ? `${API_URL}/${activeTab}/${editingItem.id}`
       : `${API_URL}/${activeTab}`;
-    
+
     try {
       const res = await fetch(url, {
         method,
@@ -106,17 +115,16 @@ const Admin = () => {
       }
     } catch (error) {
       console.error('Mentési hiba:', error);
+      alert('Hiba történt a mentés során');
     }
   };
 
-  // Szerkesztés indítása
   const handleEdit = (item) => {
     setEditingItem(item);
     setFormData(item);
     setShowAddForm(true);
   };
 
-  // Űrlap mezők kezelése
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -125,11 +133,23 @@ const Admin = () => {
     }));
   };
 
-  // Űrlap bezárása
   const closeForm = () => {
     setShowAddForm(false);
     setEditingItem(null);
     setFormData({});
+  };
+
+  const getStatusText = (status) => {
+    const statusMap = {
+      'new': 'Új',
+      'contacted': 'Felvettük a kapcsolatot',
+      'accepted': 'Elfogadva',
+      'rejected': 'Elutasítva',
+      'available': 'Elérhető',
+      'rented': 'Kölcsönözve',
+      'maintenance': 'Szervízben'
+    };
+    return statusMap[status] || status;
   };
 
   if (loading || isLoading) {
@@ -148,7 +168,6 @@ const Admin = () => {
 
   return (
     <div className="admin">
-      {/* Admin Hero */}
       <section className="admin-hero">
         <div className="container">
           <div className="admin-header">
@@ -164,7 +183,6 @@ const Admin = () => {
         </div>
       </section>
 
-      {/* Admin Tabs */}
       <section className="admin-tabs-section">
         <div className="container">
           <div className="admin-tabs">
@@ -175,7 +193,7 @@ const Admin = () => {
               <FaGuitar /> Hangszerek
             </button>
             <button className={`admin-tab ${activeTab === 'teachers' ? 'active' : ''}`} onClick={() => setActiveTab('teachers')}>
-              <FaUser /> Oktatók
+              <FaChalkboardTeacher /> Oktatók
             </button>
             <button className={`admin-tab ${activeTab === 'applications' ? 'active' : ''}`} onClick={() => setActiveTab('applications')}>
               <FaEnvelope /> Jelentkezések
@@ -184,7 +202,6 @@ const Admin = () => {
         </div>
       </section>
 
-      {/* Admin Content */}
       <section className="admin-content-section">
         <div className="container">
           <div className="admin-table-container">
@@ -200,106 +217,109 @@ const Admin = () => {
               </button>
             </div>
 
-            <table className="admin-data-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  {activeTab === 'events' && (
-                    <>
-                      <th>Cím</th>
-                      <th>Dátum</th>
-                      <th>Időpont</th>
-                      <th>Helyszín</th>
-                      <th>Kategória</th>
-                      <th>Kiemelt</th>
-                    </>
-                  )}
-                  {activeTab === 'instruments' && (
-                    <>
-                      <th>Név</th>
-                      <th>Kategória</th>
-                      <th>Oktató</th>
-                      <th>Ár</th>
-                      <th>Státusz</th>
-                    </>
-                  )}
-                  {activeTab === 'teachers' && (
-                    <>
-                      <th>Név</th>
-                      <th>Hangszer</th>
-                      <th>Tapasztalat</th>
-                      <th>Végzettség</th>
-                    </>
-                  )}
-                  {activeTab === 'applications' && (
-                    <>
-                      <th>Név</th>
-                      <th>Email</th>
-                      <th>Hangszer</th>
-                      <th>Dátum</th>
-                      <th>Státusz</th>
-                    </>
-                  )}
-                  <th>Műveletek</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(activeTab === 'events' ? events : 
-                  activeTab === 'instruments' ? instruments :
-                  activeTab === 'teachers' ? teachers : applications).map(item => (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
+            <div className="admin-table-wrapper">
+              <table className="admin-data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
                     {activeTab === 'events' && (
                       <>
-                        <td>{item.cim}</td>
-                        <td>{item.datum}</td>
-                        <td>{item.idopont}</td>
-                        <td>{item.helyszin}</td>
-                        <td>{item.kategoria}</td>
-                        <td>{item.kiemelt ? 'Igen' : 'Nem'}</td>
+                        <th>Cím</th>
+                        <th>Dátum</th>
+                        <th>Időpont</th>
+                        <th>Helyszín</th>
+                        <th>Kategória</th>
+                        <th>Kiemelt</th>
                       </>
                     )}
                     {activeTab === 'instruments' && (
                       <>
-                        <td>{item.name}</td>
-                        <td>{item.category}</td>
-                        <td>{item.teacher}</td>
-                        <td>{item.rentalPrice}</td>
-                        <td>{item.status === 'available' ? 'Elérhető' : 
-                             item.status === 'rented' ? 'Kölcsönözve' : 'Szervízben'}</td>
+                        <th>Név</th>
+                        <th>Kategória</th>
+                        <th>Oktató</th>
+                        <th>Ár</th>
+                        <th>Státusz</th>
                       </>
                     )}
                     {activeTab === 'teachers' && (
                       <>
-                        <td>{item.name}</td>
-                        <td>{item.instrument}</td>
-                        <td>{item.experience}</td>
-                        <td>{item.education}</td>
+                        <th>Név</th>
+                        <th>Telefonszám</th>
+                        <th>Email</th>
+                        <th>Tapasztalat</th>
+                        <th>Végzettség</th>
                       </>
                     )}
                     {activeTab === 'applications' && (
                       <>
-                        <td>{item.name}</td>
-                        <td>{item.email}</td>
-                        <td>{item.instrument}</td>
-                        <td>{item.date}</td>
-                        <td>{item.status === 'new' ? 'Új' : 
-                             item.status === 'contacted' ? 'Felvettük a kapcsolatot' : 
-                             item.status === 'accepted' ? 'Elfogadva' : 'Elutasítva'}</td>
+                        <th>Név</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Hangszer</th>
+                        <th>Dátum</th>
+                        <th>Státusz</th>
                       </>
                     )}
-                    <td className="admin-actions">
-                      <button className="admin-edit-btn" onClick={() => handleEdit(item)}>
-                        <FaEdit />
-                      </button>
-                      <button className="admin-delete-btn" onClick={() => handleDelete(item.id)}>
-                        <FaTrash />
-                      </button>
-                    </td>
+                    <th>Műveletek</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {(activeTab === 'events' ? events :
+                    activeTab === 'instruments' ? instruments :
+                      activeTab === 'teachers' ? teachers : applications).map(item => (
+                        <tr key={item.id}>
+                          <td>{item.id}</td>
+                          {activeTab === 'events' && (
+                            <>
+                              <td>{item.cim}</td>
+                              <td>{item.datum}</td>
+                              <td>{item.idopont}</td>
+                              <td>{item.helyszin}</td>
+                              <td>{item.kategoria}</td>
+                              <td>{item.kiemelt ? 'Igen' : 'Nem'}</td>
+                            </>
+                          )}
+                          {activeTab === 'instruments' && (
+                            <>
+                              <td>{item.name}</td>
+                              <td>{item.category}</td>
+                              <td>{item.teacher || 'Nincs oktató'}</td>
+                              <td>{item.rentalPrice}</td>
+                              <td><span className={`status-badge ${item.status}`}>{getStatusText(item.status)}</span></td>
+                            </>
+                          )}
+                          {activeTab === 'teachers' && (
+                            <>
+                              <td>{item.name}</td>
+                              <td>{item.phone}</td>
+                              <td>{item.email}</td>
+                              <td>{item.experience}</td>
+                              <td>{item.education}</td>
+                            </>
+                          )}
+                          {activeTab === 'applications' && (
+                            <>
+                              <td>{item.nev}</td>
+                              <td>{item.email}</td>
+                              <td>{item.telefon}</td>
+                              <td>{item.hangszer}</td>
+                              <td>{new Date(item.letrehozas).toLocaleDateString()}</td>
+                              <td><span className={`status-badge ${item.statusz}`}>{getStatusText(item.statusz)}</span></td>
+                            </>
+                          )}
+                          <td className="admin-actions">
+                            <button className="admin-edit-btn" onClick={() => handleEdit(item)}>
+                              <FaEdit />
+                            </button>
+                            <button className="admin-delete-btn" onClick={() => handleDelete(item.id)}>
+                              <FaTrash />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
@@ -312,30 +332,12 @@ const Admin = () => {
             <form onSubmit={handleSave}>
               {activeTab === 'events' && (
                 <>
-                  <div className="admin-modal-form-group">
-                    <label>Cím *</label>
-                    <input type="text" name="cim" value={formData.cim || ''} onChange={handleChange} required />
-                  </div>
-                  <div className="admin-modal-form-group">
-                    <label>Dátum *</label>
-                    <input type="date" name="datum" value={formData.datum || ''} onChange={handleChange} required />
-                  </div>
-                  <div className="admin-modal-form-group">
-                    <label>Időpont *</label>
-                    <input type="text" name="idopont" value={formData.idopont || ''} onChange={handleChange} required />
-                  </div>
-                  <div className="admin-modal-form-group">
-                    <label>Helyszín *</label>
-                    <input type="text" name="helyszin" value={formData.helyszin || ''} onChange={handleChange} required />
-                  </div>
-                  <div className="admin-modal-form-group">
-                    <label>Rövid leírás</label>
-                    <textarea name="leiras" value={formData.leiras || ''} onChange={handleChange} rows="3" />
-                  </div>
-                  <div className="admin-modal-form-group">
-                    <label>Hosszú leírás</label>
-                    <textarea name="hosszuleiras" value={formData.hosszuleiras || ''} onChange={handleChange} rows="5" />
-                  </div>
+                  <div className="admin-modal-form-group"><label>Cím *</label><input type="text" name="cim" value={formData.cim || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Dátum *</label><input type="date" name="datum" value={formData.datum || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Időpont *</label><input type="text" name="idopont" value={formData.idopont || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Helyszín *</label><input type="text" name="helyszin" value={formData.helyszin || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Rövid leírás</label><textarea name="leiras" value={formData.leiras || ''} onChange={handleChange} rows="3" /></div>
+                  <div className="admin-modal-form-group"><label>Hosszú leírás</label><textarea name="hosszuleiras" value={formData.hosszuleiras || ''} onChange={handleChange} rows="5" /></div>
                   <div className="admin-modal-form-group">
                     <label>Kategória</label>
                     <select name="kategoria" value={formData.kategoria || ''} onChange={handleChange}>
@@ -347,21 +349,61 @@ const Admin = () => {
                     </select>
                   </div>
                   <div className="admin-modal-checkbox">
-                    <label>
-                      <input type="checkbox" name="kiemelt" checked={formData.kiemelt || false} onChange={handleChange} />
-                      Kiemelt esemény
-                    </label>
+                    <label><input type="checkbox" name="kiemelt" checked={formData.kiemelt || false} onChange={handleChange} /> Kiemelt esemény</label>
                   </div>
                 </>
               )}
-              {/* További táblák űrlapmezői itt... */}
+
+              {activeTab === 'instruments' && (
+                <>
+                  <div className="admin-modal-form-group"><label>Hangszer neve *</label><input type="text" name="name" value={formData.name || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Kategória *</label><input type="text" name="category" value={formData.category || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Oktató</label><input type="text" name="teacher" value={formData.teacher || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Ár (Ft/hó)</label><input type="text" name="rentalPrice" value={formData.rentalPrice || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group">
+                    <label>Státusz</label>
+                    <select name="status" value={formData.status || 'available'} onChange={handleChange}>
+                      <option value="available">Elérhető</option>
+                      <option value="rented">Kölcsönözve</option>
+                      <option value="maintenance">Szervízben</option>
+                    </select>
+                  </div>
+                </>
+              )}
+
+              {activeTab === 'teachers' && (
+                <>
+                  <div className="admin-modal-form-group"><label>Név *</label><input type="text" name="name" value={formData.name || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Telefonszám</label><input type="text" name="phone" value={formData.phone || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Email *</label><input type="email" name="email" value={formData.email || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Tapasztalat</label><input type="text" name="experience" value={formData.experience || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Végzettség</label><input type="text" name="education" value={formData.education || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Leírás</label><textarea name="description" value={formData.description || ''} onChange={handleChange} rows="4" /></div>
+                </>
+              )}
+
+              {activeTab === 'applications' && (
+                <>
+                  <div className="admin-modal-form-group"><label>Név *</label><input type="text" name="nev" value={formData.nev || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Email *</label><input type="email" name="email" value={formData.email || ''} onChange={handleChange} required /></div>
+                  <div className="admin-modal-form-group"><label>Telefonszám</label><input type="text" name="telefon" value={formData.telefon || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Hangszer</label><input type="text" name="hangszer" value={formData.hangszer || ''} onChange={handleChange} /></div>
+                  <div className="admin-modal-form-group"><label>Üzenet</label><textarea name="uzenet" value={formData.uzenet || ''} onChange={handleChange} rows="3" /></div>
+                  <div className="admin-modal-form-group">
+                    <label>Státusz</label>
+                    <select name="statusz" value={formData.statusz || 'new'} onChange={handleChange}>
+                      <option value="new">Új</option>
+                      <option value="contacted">Felvettük a kapcsolatot</option>
+                      <option value="accepted">Elfogadva</option>
+                      <option value="rejected">Elutasítva</option>
+                    </select>
+                  </div>
+                </>
+              )}
+
               <div className="admin-modal-actions">
-                <button type="submit" className="admin-save-btn">
-                  <FaSave /> Mentés
-                </button>
-                <button type="button" className="admin-cancel-btn" onClick={closeForm}>
-                  <FaTimes /> Mégse
-                </button>
+                <button type="submit" className="admin-save-btn"><FaSave /> Mentés</button>
+                <button type="button" className="admin-cancel-btn" onClick={closeForm}><FaTimes /> Mégse</button>
               </div>
             </form>
           </div>
