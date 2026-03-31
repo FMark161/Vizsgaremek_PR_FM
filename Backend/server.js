@@ -6,6 +6,13 @@ const instrumentRoutes = require('./app/routes/instrumentRoutes');
 const eventRoutes = require('./app/routes/eventRoutes');
 const teacherRoutes = require('./app/routes/teacherRoutes');
 const authRoutes = require('./app/routes/authRoutes');
+const categoryRoutes = require('./app/routes/categoryRoutes');
+const stockRoutes = require('./app/routes/stockRoutes');
+const studentRoutes = require('./app/routes/studentRoutes');
+const rentalRoutes = require('./app/routes/rentalRoutes');
+const userRoutes = require('./app/routes/userRoutes');
+const teacherSkillRoutes = require('./app/routes/teacherSkillRoutes');
+const lessonRoutes = require('./app/routes/lessonRoutes');
 const errorMiddleware = require('./app/middleware/errorMiddleware');
 
 dotenv.config();
@@ -27,6 +34,13 @@ app.use('/api/instruments', instrumentRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/stock', stockRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/rentals', rentalRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/teacher-skills', teacherSkillRoutes);
+app.use('/api/lessons', lessonRoutes);
 
 // Test endpoint
 app.get('/api/test', (req, res) => {
