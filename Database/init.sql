@@ -274,4 +274,19 @@ INSERT INTO kolcsonzesek (hangszerId, diakId, kolcsVeg, megjegyzes, statusz) VAL
 (7, 4, '2024-05-01', 'Fuvola órákra', 'aktiv'),
 (9, 5, '2024-05-10', 'Dob gyakorlás', 'aktiv');
 
+CREATE TABLE uzenetek (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nev VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefon VARCHAR(20),
+    targy VARCHAR(255),
+    uzenet TEXT NOT NULL,
+    statusz VARCHAR(50) DEFAULT 'uj',
+    letrehozas TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    megtekintve TIMESTAMP NULL,
+    valasz TEXT,
+    INDEX idx_statusz (statusz),
+    INDEX idx_letrehozas (letrehozas)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;

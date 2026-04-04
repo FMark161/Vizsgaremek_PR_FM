@@ -4,7 +4,8 @@ import {
   FaCalendarAlt, FaGuitar, FaChalkboardTeacher, FaEnvelope,
   FaUserGraduate, FaBoxes, FaTags, FaHandHolding, FaUserLock,
   FaChalkboard, FaEdit, FaTrash, FaPlus, FaSave, FaTimes, FaSync,
-  FaMoneyBillWave, FaPhone, FaMapMarkerAlt, FaClock, FaInfoCircle
+  FaMoneyBillWave, FaPhone, FaMapMarkerAlt, FaClock, FaInfoCircle,
+  FaEye
 } from 'react-icons/fa';
 import './Admin.css';
 
@@ -28,6 +29,7 @@ const Admin = () => {
   const [stock, setStock] = useState([]);
   const [teacherSkills, setTeacherSkills] = useState([]);
   const [lessons, setLessons] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const API_URL = 'http://localhost:5000/api';
 
@@ -43,7 +45,8 @@ const Admin = () => {
     { id: 'categories', name: 'Kategóriák', icon: <FaTags /> },
     { id: 'stock', name: 'Leltár', icon: <FaBoxes /> },
     { id: 'teacherSkills', name: 'Oktatók hangszerei', icon: <FaChalkboard /> },
-    { id: 'lessons', name: 'Órák', icon: <FaClock /> }
+    { id: 'lessons', name: 'Órák', icon: <FaClock /> },
+    { id: 'messages', name: 'Üzenetek', icon: <FaEnvelope /> }
   ];
 
   // Adatok betöltése
@@ -61,7 +64,8 @@ const Admin = () => {
         categories: `${API_URL}/categories`,
         stock: `${API_URL}/stock`,
         teacherSkills: `${API_URL}/teacher-skills`,
-        lessons: `${API_URL}/lessons`
+        lessons: `${API_URL}/lessons`,
+        messages: `${API_URL}/messages`
       };
 
       const res = await fetch(endpoints[activeTab]);
@@ -71,7 +75,7 @@ const Admin = () => {
         events: setEvents, instruments: setInstruments, teachers: setTeachers,
         applications: setApplications, students: setStudents, rentals: setRentals,
         users: setUsers, categories: setCategories, stock: setStock,
-        teacherSkills: setTeacherSkills, lessons: setLessons
+        teacherSkills: setTeacherSkills, lessons: setLessons, messages: setMessages
       };
       setters[activeTab](data);
     } catch (error) {
@@ -84,7 +88,10 @@ const Admin = () => {
   useEffect(() => { fetchData(); }, [activeTab]);
 
   const getCurrentData = () => {
-    const dataMap = { events, instruments, teachers, applications, students, rentals, users, categories, stock, teacherSkills, lessons };
+    const dataMap = {
+      events, instruments, teachers, applications, students, rentals,
+      users, categories, stock, teacherSkills, lessons, messages
+    };
     return dataMap[activeTab] || [];
   };
 
@@ -109,6 +116,14 @@ const Admin = () => {
     } catch (error) { console.error('Mentési hiba:', error); }
   };
 
+  // Üzenet olvasottá jelölése
+  const markAsRead = async (id) => {
+    try {
+      const res = await fetch(`${API_URL}/messages/${id}/read`, { method: 'PATCH' });
+      if (res.ok) fetchData();
+    } catch (error) { console.error('Hiba:', error); }
+  };
+
   const handleEdit = (item) => { setEditingItem(item); setFormData(item); setShowAddForm(true); };
   const handleChange = (e) => { const { name, value, type, checked } = e.target; setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value })); };
   const closeForm = () => { setShowAddForm(false); setEditingItem(null); setFormData({}); };
@@ -128,17 +143,24 @@ const Admin = () => {
       categories: ['ID', 'Kategória név'],
       stock: ['ID', 'Ár', 'Elérhetőség'],
       teacherSkills: ['ID', 'Tanár', 'Hangszer'],
-      lessons: ['ID', 'Tanár', 'Diák', 'Hangszer', 'Téma', 'Dátum', 'Idő', 'Státusz']
+      lessons: ['ID', 'Tanár', 'Diák', 'Hangszer', 'Téma', 'Dátum', 'Idő', 'Státusz'],
+      messages: ['ID', 'Név', 'Email', 'Telefon', 'Tárgy', 'Üzenet', 'Státusz', 'Dátum']
     };
     return headers[activeTab]?.map(header => <th key={header}>{header}</th>) || null;
   };
 
   const renderTableRow = (item) => {
     const getStatusText = (status) => {
-      const map = { 'new': 'Új', 'contacted': 'Felvettük', 'accepted': 'Elfogadva', 'rejected': 'Elutasítva', 'available': 'Elérhető', 'rented': 'Kölcsönözve', 'maintenance': 'Szervízben', 'aktiv': 'Aktív', 'tervezett': 'Tervezett', 'megtartva': 'Megtartva', 'lemondva': 'Lemondva' };
+      const map = {
+        'new': 'Új', 'contacted': 'Felvettük', 'accepted': 'Elfogadva', 'rejected': 'Elutasítva',
+        'available': 'Elérhető', 'rented': 'Kölcsönözve', 'maintenance': 'Szervízben',
+        'aktiv': 'Aktív', 'tervezett': 'Tervezett', 'megtartva': 'Megtartva', 'lemondva': 'Lemondva',
+        'olvasott': 'Olvasott'
+      };
       return map[status] || status;
     };
     const getStatusClass = (status) => {
+      if (status === 'olvasott') return 'status-success';
       if (['available', 'new', 'aktiv', 'tervezett'].includes(status)) return 'status-success';
       if (['rented', 'contacted', 'megtartva'].includes(status)) return 'status-warning';
       return 'status-danger';
@@ -156,6 +178,7 @@ const Admin = () => {
       case 'stock': return (<><td>{item.ar} Ft</td><td>{item.elerhetoseg ? 'Elérhető' : 'Nem elérhető'}</td></>);
       case 'teacherSkills': return (<><td>{item.tanarNev}</td><td>{item.hangszerNev}</td></>);
       case 'lessons': return (<><td>{item.tanarNev}</td><td>{item.diakNev}</td><td>{item.hangszerNev}</td><td>{item.tema}</td><td>{new Date(item.datum).toLocaleDateString()}</td><td>{item.ido}</td><td><span className={`status-badge ${getStatusClass(item.statusz)}`}>{getStatusText(item.statusz)}</span></td></>);
+      case 'messages': return (<><td>{item.nev}</td><td>{item.email}</td><td>{item.telefon || '-'}</td><td>{item.targy || '-'}</td><td className="message-preview">{item.uzenet?.substring(0, 50)}...</td><td><span className={`status-badge ${getStatusClass(item.statusz)}`}>{getStatusText(item.statusz)}</span></td><td>{new Date(item.letrehozas).toLocaleString()}</td></>);
       default: return null;
     }
   };
@@ -172,9 +195,29 @@ const Admin = () => {
       categories: () => (<><div className="admin-modal-form-group"><label>Kategória név *</label><input type="text" name="katNev" value={formData.katNev || ''} onChange={handleChange} required /></div></>),
       stock: () => (<><div className="admin-modal-form-group"><label>Ár (Ft) *</label><input type="number" name="ar" value={formData.ar || ''} onChange={handleChange} required /></div><div className="admin-modal-checkbox"><label><input type="checkbox" name="elerhetoseg" checked={formData.elerhetoseg !== 0} onChange={(e) => setFormData(prev => ({ ...prev, elerhetoseg: e.target.checked ? 1 : 0 }))} /> Elérhető</label></div></>),
       teacherSkills: () => (<><div className="admin-modal-form-group"><label>Tanár ID</label><input type="number" name="tanarId" value={formData.tanarId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Hangszer ID</label><input type="number" name="hangszerId" value={formData.hangszerId || ''} onChange={handleChange} /></div></>),
-      lessons: () => (<><div className="admin-modal-form-group"><label>Tanár ID</label><input type="number" name="tanarId" value={formData.tanarId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Diák ID</label><input type="number" name="diakId" value={formData.diakId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Hangszer ID</label><input type="number" name="hangszerId" value={formData.hangszerId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Téma</label><input type="text" name="tema" value={formData.tema || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Dátum</label><input type="date" name="ora_datum" value={formData.ora_datum || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Időpont</label><input type="time" name="ora_ido" value={formData.ora_ido || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Státusz</label><select name="statusz" value={formData.statusz || 'tervezett'} onChange={handleChange}><option value="tervezett">Tervezett</option><option value="megtartva">Megtartva</option><option value="lemondva">Lemondva</option></select></div></>)
+      lessons: () => (<><div className="admin-modal-form-group"><label>Tanár ID</label><input type="number" name="tanarId" value={formData.tanarId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Diák ID</label><input type="number" name="diakId" value={formData.diakId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Hangszer ID</label><input type="number" name="hangszerId" value={formData.hangszerId || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Téma</label><input type="text" name="tema" value={formData.tema || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Dátum</label><input type="date" name="ora_datum" value={formData.ora_datum || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Időpont</label><input type="time" name="ora_ido" value={formData.ora_ido || ''} onChange={handleChange} /></div><div className="admin-modal-form-group"><label>Státusz</label><select name="statusz" value={formData.statusz || 'tervezett'} onChange={handleChange}><option value="tervezett">Tervezett</option><option value="megtartva">Megtartva</option><option value="lemondva">Lemondva</option></select></div></>),
+      messages: () => (<>
+        <div className="admin-modal-form-group"><label>Név</label><input type="text" name="nev" value={formData.nev || ''} onChange={handleChange} readOnly /></div>
+        <div className="admin-modal-form-group"><label>Email</label><input type="email" name="email" value={formData.email || ''} onChange={handleChange} readOnly /></div>
+        <div className="admin-modal-form-group"><label>Telefonszám</label><input type="text" name="telefon" value={formData.telefon || ''} onChange={handleChange} readOnly /></div>
+        <div className="admin-modal-form-group"><label>Tárgy</label><input type="text" name="targy" value={formData.targy || ''} onChange={handleChange} readOnly /></div>
+        <div className="admin-modal-form-group"><label>Üzenet</label><textarea name="uzenet" value={formData.uzenet || ''} onChange={handleChange} rows="6" readOnly /></div>
+        <div className="admin-modal-form-group"><label>Státusz</label><select name="statusz" value={formData.statusz || 'uj'} onChange={handleChange}><option value="uj">Új</option><option value="olvasott">Olvasott</option></select></div>
+      </>)
     };
     return fields[activeTab]?.() || null;
+  };
+
+  // Extra gombok az üzenetekhez
+  const renderExtraActions = (item) => {
+    if (activeTab === 'messages' && item.statusz !== 'olvasott') {
+      return (
+        <button className="admin-read-btn" onClick={() => markAsRead(item.id)} title="Olvasottá jelölés">
+          <FaEye />
+        </button>
+      );
+    }
+    return null;
   };
 
   return (
@@ -209,7 +252,9 @@ const Admin = () => {
           <div className="admin-table-container">
             <div className="admin-table-header">
               <h2>{tabs.find(t => t.id === activeTab)?.name} kezelése</h2>
-              <button className="admin-add-btn" onClick={() => setShowAddForm(true)}><FaPlus /> Új hozzáadása</button>
+              {activeTab !== 'messages' && (
+                <button className="admin-add-btn" onClick={() => setShowAddForm(true)}><FaPlus /> Új hozzáadása</button>
+              )}
             </div>
             <div className="admin-table-wrapper">
               <table className="admin-data-table">
@@ -219,15 +264,10 @@ const Admin = () => {
                     <tr key={item.id}>
                       <td>{item.id}</td>
                       {renderTableRow(item)}
-                      <td>
-                        <div className="admin-actions">
-                          <button className="admin-edit-btn" onClick={() => handleEdit(item)}>
-                            <FaEdit />
-                          </button>
-                          <button className="admin-delete-btn" onClick={() => handleDelete(item.id)}>
-                            <FaTrash />
-                          </button>
-                        </div>
+                      <td className="admin-actions">
+                        {renderExtraActions(item)}
+                        <button className="admin-edit-btn" onClick={() => handleEdit(item)}><FaEdit /></button>
+                        <button className="admin-delete-btn" onClick={() => handleDelete(item.id)}><FaTrash /></button>
                       </td>
                     </tr>
                   ))}

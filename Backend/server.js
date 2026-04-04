@@ -13,6 +13,7 @@ const rentalRoutes = require('./app/routes/rentalRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 const teacherSkillRoutes = require('./app/routes/teacherSkillRoutes');
 const lessonRoutes = require('./app/routes/lessonRoutes');
+const messageRoutes = require('./app/routes/messageRoutes');
 const errorMiddleware = require('./app/middleware/errorMiddleware');
 
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/rentals', rentalRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/teacher-skills', teacherSkillRoutes);
 app.use('/api/lessons', lessonRoutes);
+app.use('/api/messages', messageRoutes);
 
 // Test endpoint
 app.get('/api/test', (req, res) => {
