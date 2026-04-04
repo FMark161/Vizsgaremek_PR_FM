@@ -17,11 +17,14 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,24 +32,52 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Itt fogjuk majd elküldeni a backendnek
-    console.log('Üzenet:', formData);
-    setIsSubmitted(true);
-    
-    // Űrlap visszaállítás 5 másodperc után
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nev: formData.name,
+          email: formData.email,
+          telefon: formData.phone,
+          targy: formData.subject,
+          uzenet: formData.message
+        })
       });
-    }, 5000);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            subject: '',
+            message: ''
+          });
+        }, 5000);
+      } else {
+        setError(data.error || 'Hiba történt az üzenet küldése során');
+      }
+    } catch (error) {
+      console.error('Hálózati hiba:', error);
+      setError('Nem sikerült csatlakozni a szerverhez. Kérlek próbáld újra később.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSubmitted) {
@@ -66,7 +97,6 @@ const Contact = () => {
 
   return (
     <div className="contact">
-      {/* Hero szekció */}
       <section className="contact-hero">
         <div className="container">
           <h1>Kapcsolat</h1>
@@ -76,7 +106,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Kapcsolati adatok és űrlap */}
       <section className="contact-section">
         <div className="container">
           <div className="contact-grid">
@@ -152,6 +181,10 @@ const Contact = () => {
                 Küldd el üzeneted, és munkatársunk hamarosan felveszi veled a kapcsolatot.
               </p>
               
+              {error && (
+                <div className="error-message">{error}</div>
+              )}
+
               <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">
@@ -184,8 +217,22 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group">
+                  <label htmlFor="phone">
+                    <FaPhone className="input-icon" /> Telefonszám
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+36 30 123 4567"
+                  />
+                </div>
+
+                <div className="form-group">
                   <label htmlFor="subject">
-                    Tárgy *
+                    Tárgy
                   </label>
                   <input
                     type="text"
@@ -193,7 +240,6 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    required
                     placeholder="Mi ügyben keresel?"
                   />
                 </div>
@@ -213,8 +259,12 @@ const Contact = () => {
                   />
                 </div>
 
-                <button type="submit" className="btn-submit">
-                  Üzenet küldése
+                <button 
+                  type="submit" 
+                  className="btn-submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Küldés...' : 'Üzenet küldése'}
                 </button>
               </form>
             </div>
@@ -222,7 +272,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Térkép szekció */}
       <section className="map-section">
         <div className="container">
           <h2 className="section-title">Itt találsz minket</h2>
