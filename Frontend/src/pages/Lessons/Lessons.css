@@ -531,3 +531,297 @@
     justify-content: center;
   }
 }
+
+/* Add Lesson Button */
+.add-lesson-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-lesson-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+}
+
+/* Lesson Actions */
+.lesson-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.edit-btn, .delete-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: var(--secondary-light);
+  color: var(--accent-turquoise);
+}
+
+.edit-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+}
+
+.delete-btn {
+  background: var(--secondary-light);
+  color: var(--error-red);
+}
+
+.delete-btn:hover {
+  background: var(--error-red);
+  color: var(--primary-white);
+}
+
+/* Modal */
+.lessons-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+}
+
+.lessons-modal-content {
+  background: var(--primary-white);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+}
+
+.lessons-modal-content h3 {
+  margin-bottom: 20px;
+  color: var(--dark-text);
+}
+
+.lessons-modal-content .form-group {
+  margin-bottom: 15px;
+}
+
+.lessons-modal-content .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.lessons-modal-content .form-group input,
+.lessons-modal-content .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-btn, .cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.save-btn {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+}
+
+.cancel-btn {
+  background: var(--border-light);
+  color: var(--dark-text);
+}
+
+/* Add Lesson Button */
+.add-lesson-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-lesson-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+}
+
+/* Lesson Actions */
+.lesson-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+.edit-btn, .delete-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background: var(--secondary-light);
+  color: var(--accent-turquoise);
+}
+
+.edit-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+}
+
+.delete-btn {
+  background: var(--secondary-light);
+  color: var(--error-red);
+}
+
+.delete-btn:hover {
+  background: var(--error-red);
+  color: var(--primary-white);
+}
+
+/* Modal */
+.lessons-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+}
+
+.lessons-modal-content {
+  background: var(--primary-white);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+}
+
+.lessons-modal-content h3 {
+  margin-bottom: 20px;
+  color: var(--dark-text);
+}
+
+.lessons-modal-content .form-group {
+  margin-bottom: 15px;
+}
+
+.lessons-modal-content .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.lessons-modal-content .form-group input,
+.lessons-modal-content .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-btn, .cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.save-btn {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+}
+
+.save-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: var(--border-light);
+  color: var(--dark-text);
+}
+
+.cancel-btn:hover {
+  background: var(--light-text);
+  color: var(--primary-white);
+}
+
+.lessons-loading, .lessons-error {
+  text-align: center;
+  padding: 60px;
+  font-size: 1.2rem;
+}
+
+.lessons-error {
+  color: var(--error-red);
+}
