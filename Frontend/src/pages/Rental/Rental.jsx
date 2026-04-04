@@ -54,7 +54,6 @@ const Rental = () => {
     acceptTerms: false
   });
 
-  // Kategóriák listája
   const categories = [
     { id: 'all', name: 'Összes hangszer' },
     { id: 'Billentyűs', name: 'Billentyűsök' },
@@ -66,16 +65,15 @@ const Rental = () => {
     { id: 'Egyéb', name: 'Egyéb' }
   ];
 
-  // Hangszerek lekérése az adatbázisból
   useEffect(() => {
     const fetchInstruments = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/instruments');
         const data = await response.json();
-        // Hozzáadjuk a képeket a hangszer adatokhoz
         const instrumentsWithImages = data.map(instrument => ({
           ...instrument,
-          image: imageMap[instrument.name] || null
+          image: imageMap[instrument.name] || null,
+          status: 'available'
         }));
         setRentals(instrumentsWithImages);
       } catch (error) {
@@ -102,64 +100,75 @@ const Rental = () => {
       case 'maintenance':
         return <span className="status-badge maintenance"><FaTools /> Szervízben</span>;
       default:
-        return null;
+        return <span className="status-badge available"><FaCheck /> Elérhető</span>;
     }
   };
 
-  const handleRentalSubmit = async (instrumentId) => {
-    const instrument = rentals.find(i => i.id === instrumentId);
-    const totalPrice = parseInt(rentalFormData.duration) * parseInt(instrument.rentalPrice.replace(/[^0-9]/g, ''));
+const handleRentalSubmit = async (instrumentId) => {
+  const instrument = rentals.find(i => i.id === instrumentId);
+  
+  let priceNumber;
+  if (typeof instrument.rentalPrice === 'number') {
+    priceNumber = instrument.rentalPrice;
+  } else {
+    priceNumber = parseInt(String(instrument.rentalPrice).replace(/[^0-9]/g, ''));
+  }
+  
+  const totalPrice = parseInt(rentalFormData.duration) * priceNumber;
+  const diakId = 1; // Ideiglenes, később a bejelentkezett felhasználó ID-ja
+  
+  // Végdátum számítása (mai dátum + hónapok)
+  const vegDatum = new Date();
+  vegDatum.setMonth(vegDatum.getMonth() + parseInt(rentalFormData.duration));
+  const kolcsVeg = vegDatum.toISOString().split('T')[0];
 
-    // Itt később a bejelentkezett diák ID-ja jön
-    // Ideiglenesen hardcode-oljuk
-    const diakId = 1; // Ez később a bejelentkezett felhasználó ID-ja lesz
+  try {
+    const response = await fetch(`http://localhost:5000/api/rentals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        hangszerId: instrumentId,
+        diakId: diakId,
+        kolcsVeg: kolcsVeg,
+        megjegyzes: `Név: ${rentalFormData.name}, Email: ${rentalFormData.email}, Tel: ${rentalFormData.phone}`,
+        statusz: 'aktiv'
+      })
+    });
 
-    try {
-      const response = await fetch(`http://localhost:5000/api/instruments/${instrumentId}/rental`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          diakId: diakId,
-          duration: rentalFormData.duration,
-          megjegyzes: `Név: ${rentalFormData.name}, Email: ${rentalFormData.email}, Tel: ${rentalFormData.phone}`
-        })
-      });
+    const data = await response.json();
 
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(`Sikeres kölcsönzés! 
+    if (response.ok) {
+      alert(`Sikeres kölcsönzés! 
         
 Hangszer: ${instrument.name}
 Oktató: ${instrument.teacher}
 Időtartam: ${rentalFormData.duration} hónap
 Teljes költség: ${totalPrice.toLocaleString()} Ft
+Visszavárható: ${kolcsVeg}
 
 Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztetéséhez.`);
 
-        // Frissítjük a listát (a hangszer státusza most már 'rented')
-        setRentals(prev => prev.map(r =>
-          r.id === instrumentId ? { ...r, status: 'rented' } : r
-        ));
-      } else {
-        alert(`Hiba: ${data.error || 'Ismeretlen hiba'}`);
-      }
-    } catch (error) {
-      console.error('Hiba a kölcsönzés során:', error);
-      alert('Hálózati hiba történt. Kérlek próbáld újra később.');
+      setRentals(prev => prev.map(r =>
+        r.id === instrumentId ? { ...r, status: 'rented', returnDate: kolcsVeg } : r
+      ));
+      setShowRentalForm(null);
+      setRentalFormData({
+        name: '',
+        email: '',
+        phone: '',
+        duration: '1',
+        acceptTerms: false
+      });
+    } else {
+      alert(`Hiba: ${data.error || 'Ismeretlen hiba'}`);
     }
-
-    setShowRentalForm(null);
-    setRentalFormData({
-      name: '',
-      email: '',
-      phone: '',
-      duration: '1',
-      acceptTerms: false
-    });
-  };
+  } catch (error) {
+    console.error('Hiba a kölcsönzés során:', error);
+    alert('Hálózati hiba történt. Kérlek próbáld újra később.');
+  }
+};
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -191,7 +200,6 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
 
   return (
     <div className="rental">
-      {/* Hero szekció */}
       <section className="rental-hero">
         <div className="container">
           <h1>Hangszerkölcsönzés</h1>
@@ -202,7 +210,6 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
         </div>
       </section>
 
-      {/* Szűrők */}
       <section className="rental-filter">
         <div className="container">
           <div className="category-filters">
@@ -219,7 +226,6 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
         </div>
       </section>
 
-      {/* Hangszerek listája */}
       <section className="rental-list">
         <div className="container">
           <div className="instruments-grid">
@@ -246,24 +252,18 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
 
                   <div className="status-section">
                     {getStatusBadge(instrument.status)}
-                    {instrument.status === 'rented' && instrument.returnDate && (
-                      <div className="rental-info">
-                        <FaCalendarAlt /> Visszavárható: {instrument.returnDate}
-                      </div>
-                    )}
-                    {instrument.status === 'maintenance' && (
-                      <div className="rental-info maintenance">
-                        <FaTools /> Szervízben
-                      </div>
-                    )}
                   </div>
 
                   <div className="instrument-footer">
                     <div className="price">
-                      <strong>{instrument.rentalPrice}</strong>
+                      <strong>
+                        {typeof instrument.rentalPrice === 'number'
+                          ? `${instrument.rentalPrice.toLocaleString()} Ft/hó`
+                          : instrument.rentalPrice}
+                      </strong>
                     </div>
 
-                    {instrument.status === 'available' && showRentalForm === instrument.id ? (
+                    {showRentalForm === instrument.id ? (
                       <div className="rental-form">
                         <h4>Kölcsönzési adatok</h4>
                         <input
@@ -323,19 +323,11 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
                         </div>
                       </div>
                     ) : (
-                      instrument.status === 'available' && (
-                        <button
-                          className="btn-rent"
-                          onClick={() => setShowRentalForm(instrument.id)}
-                        >
-                          <FaShoppingCart /> Kölcsönzés
-                        </button>
-                      )
-                    )}
-
-                    {instrument.status !== 'available' && (
-                      <button className="btn-rent disabled" disabled>
-                        {instrument.status === 'rented' ? 'Kölcsönözve' : 'Szervízben'}
+                      <button
+                        className="btn-rent"
+                        onClick={() => setShowRentalForm(instrument.id)}
+                      >
+                        <FaShoppingCart /> Kölcsönzés
                       </button>
                     )}
                   </div>
@@ -346,7 +338,6 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
         </div>
       </section>
 
-      {/* Információs szekció */}
       <section className="rental-info-section">
         <div className="container">
           <div className="info-boxes">
