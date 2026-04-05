@@ -26,6 +26,8 @@ const rentalController = {
     try {
       const { hangszerId, diakId, kolcsVeg, megjegyzes, statusz } = req.body;
 
+      console.log('Kölcsönzés létrehozása - kapott adatok:', { hangszerId, diakId, kolcsVeg, megjegyzes, statusz });
+
       // Ellenőrizzük, hogy a hangszer már ki van-e kölcsönözve
       const [activeRental] = await pool.query(
         'SELECT id FROM kolcsonzesek WHERE hangszerId = ? AND statusz = "aktiv"',
@@ -33,31 +35,28 @@ const rentalController = {
       );
 
       if (activeRental.length > 0) {
+        console.log('Hangszer már ki van kölcsönözve, nem hozunk létre új kölcsönzést');
         return res.status(400).json({ error: 'Ez a hangszer már ki van kölcsönözve!' });
       }
 
-      // Ellenőrizzük, hogy a hangszer létezik-e
-      const [instrument] = await pool.query('SELECT id FROM hangszerek WHERE id = ?', [hangszerId]);
-      if (instrument.length === 0) {
-        return res.status(404).json({ error: 'Hangszer nem található' });
-      }
-
-      // Ellenőrizzük, hogy a diák létezik-e
-      const [student] = await pool.query('SELECT id FROM diakok WHERE id = ?', [diakId]);
-      if (student.length === 0) {
-        return res.status(404).json({ error: 'Diák nem található' });
-      }
-
+      // 1. Kölcsönzés beszúrása
       const [result] = await pool.query(
         'INSERT INTO kolcsonzesek (hangszerId, diakId, kolcsVeg, megjegyzes, statusz) VALUES (?, ?, ?, ?, ?)',
-        [hangszerId, diakId, kolcsVeg, megjegyzes, statusz || 'aktiv']
+        [hangszerId, diakId, kolcsVeg, megjegyzes, 'aktiv']
       );
 
-      // Frissítjük a leltárban az elérhetőséget
-      await pool.query(
-        'UPDATE leltarak l JOIN hangszerek h ON l.id = h.leltarId SET l.elerhetoseg = 0 WHERE h.id = ?',
+      console.log('Kölcsönzés beszúrva, ID:', result.insertId);
+
+      // 2. Leltár frissítése
+      const [updateResult] = await pool.query(
+        `UPDATE leltarak l 
+       JOIN hangszerek h ON l.id = h.leltarId 
+       SET l.elerhetoseg = 0 
+       WHERE h.id = ?`,
         [hangszerId]
       );
+
+      console.log('Leltár frissítve, érintett sorok:', updateResult.affectedRows);
 
       res.status(201).json({ id: result.insertId, message: 'Kölcsönzés létrehozva' });
     } catch (error) {

@@ -263,7 +263,7 @@ const Lessons = () => {
       const dateStr = `${year}-${month}-${dayNum}`;
 
       console.log(`${day}: ${dateStr}`);
-
+      
       const dayLessons = lessons.filter(l => {
         const lessonDate = l.datum ? l.datum.split('T')[0] : l.datum;
         return lessonDate === dateStr;

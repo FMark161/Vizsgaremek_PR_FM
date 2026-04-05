@@ -1,16 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  FaShoppingCart,
-  FaCalendarAlt,
-  FaCheck,
-  FaTimes,
-  FaTools,
-  FaChalkboardTeacher
-} from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import { FaShoppingCart, FaCalendarAlt, FaCheck, FaTimes, FaTools, FaChalkboardTeacher } from 'react-icons/fa';
 import './Rental.css';
 
-// Importáld a képeket
+// Képek importálása
 import akusztikus_dob from '../../assets/rental/akusztikus_dob.jpg';
 import akusztikus_gitar from '../../assets/rental/akusztikus_gitar.jpg';
 import akusztikus_zongora from '../../assets/rental/akusztikus_zongora.jpg';
@@ -24,7 +16,7 @@ import mikrofon from '../../assets/rental/mikrofon.jpg';
 import szaxofon from '../../assets/rental/szaxofon.jpg';
 import harfa from '../../assets/rental/harfa.jpg';
 
-// Kép mapping a hangszer nevek alapján
+// Kép mapping
 const imageMap = {
   'Akusztikus zongora': akusztikus_zongora,
   'Digitális zongora': digitalis_zongora,
@@ -54,6 +46,9 @@ const Rental = () => {
     acceptTerms: false
   });
 
+  const isFetching = useRef(false);
+  const initialFetchDone = useRef(false);
+
   const categories = [
     { id: 'all', name: 'Összes hangszer' },
     { id: 'Billentyűs', name: 'Billentyűsök' },
@@ -65,26 +60,34 @@ const Rental = () => {
     { id: 'Egyéb', name: 'Egyéb' }
   ];
 
-  useEffect(() => {
-    const fetchInstruments = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/instruments');
-        const data = await response.json();
-        const instrumentsWithImages = data.map(instrument => ({
-          ...instrument,
-          image: imageMap[instrument.name] || null,
-          status: 'available'
-        }));
-        setRentals(instrumentsWithImages);
-      } catch (error) {
-        console.error('Hiba a hangszerek lekérésekor:', error);
-        setError('Nem sikerült betölteni a hangszereket.');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchInstruments = async () => {
+    if (isFetching.current) return;
+    isFetching.current = true;
 
-    fetchInstruments();
+    try {
+      const response = await fetch('http://localhost:5000/api/instruments');
+      const data = await response.json();
+
+      setRentals(data.map(instrument => ({
+        ...instrument,
+        image: imageMap[instrument.name] || null,
+        status: instrument.status === 'rented' ? 'rented' :
+          instrument.status === 'maintenance' ? 'maintenance' : 'available'
+      })));
+    } catch (error) {
+      console.error('Hiba a hangszerek lekérésekor:', error);
+      setError('Nem sikerült betölteni a hangszereket.');
+    } finally {
+      setLoading(false);
+      isFetching.current = false;
+    }
+  };
+
+  useEffect(() => {
+    if (!initialFetchDone.current) {
+      initialFetchDone.current = true;
+      fetchInstruments();
+    }
   }, []);
 
   const filteredRentals = selectedCategory === 'all'
@@ -104,71 +107,61 @@ const Rental = () => {
     }
   };
 
-const handleRentalSubmit = async (instrumentId) => {
-  const instrument = rentals.find(i => i.id === instrumentId);
-  
-  let priceNumber;
-  if (typeof instrument.rentalPrice === 'number') {
-    priceNumber = instrument.rentalPrice;
-  } else {
-    priceNumber = parseInt(String(instrument.rentalPrice).replace(/[^0-9]/g, ''));
-  }
-  
-  const totalPrice = parseInt(rentalFormData.duration) * priceNumber;
-  const diakId = 1; // Ideiglenes, később a bejelentkezett felhasználó ID-ja
-  
-  // Végdátum számítása (mai dátum + hónapok)
-  const vegDatum = new Date();
-  vegDatum.setMonth(vegDatum.getMonth() + parseInt(rentalFormData.duration));
-  const kolcsVeg = vegDatum.toISOString().split('T')[0];
+  const handleRentalSubmit = async (instrumentId) => {
+    const instrument = rentals.find(i => i.id === instrumentId);
 
-  try {
-    const response = await fetch(`http://localhost:5000/api/rentals`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        hangszerId: instrumentId,
-        diakId: diakId,
-        kolcsVeg: kolcsVeg,
-        megjegyzes: `Név: ${rentalFormData.name}, Email: ${rentalFormData.email}, Tel: ${rentalFormData.phone}`,
-        statusz: 'aktiv'
-      })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert(`Sikeres kölcsönzés! 
-        
-Hangszer: ${instrument.name}
-Oktató: ${instrument.teacher}
-Időtartam: ${rentalFormData.duration} hónap
-Teljes költség: ${totalPrice.toLocaleString()} Ft
-Visszavárható: ${kolcsVeg}
-
-Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztetéséhez.`);
-
-      setRentals(prev => prev.map(r =>
-        r.id === instrumentId ? { ...r, status: 'rented', returnDate: kolcsVeg } : r
-      ));
+    if (instrument.status !== 'available') {
+      alert('Ez a hangszer már nem elérhető!');
       setShowRentalForm(null);
-      setRentalFormData({
-        name: '',
-        email: '',
-        phone: '',
-        duration: '1',
-        acceptTerms: false
-      });
-    } else {
-      alert(`Hiba: ${data.error || 'Ismeretlen hiba'}`);
+      return;
     }
-  } catch (error) {
-    console.error('Hiba a kölcsönzés során:', error);
-    alert('Hálózati hiba történt. Kérlek próbáld újra később.');
-  }
-};
+
+    let priceNumber = typeof instrument.rentalPrice === 'number'
+      ? instrument.rentalPrice
+      : parseInt(String(instrument.rentalPrice).replace(/[^0-9]/g, ''));
+
+    const totalPrice = parseInt(rentalFormData.duration) * priceNumber;
+    const diakId = 1;
+
+    const vegDatum = new Date();
+    vegDatum.setMonth(vegDatum.getMonth() + parseInt(rentalFormData.duration));
+    const kolcsVeg = vegDatum.toISOString().split('T')[0];
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/rentals`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hangszerId: instrumentId,
+          diakId: diakId,
+          kolcsVeg: kolcsVeg,
+          megjegyzes: `Név: ${rentalFormData.name}, Email: ${rentalFormData.email}, Tel: ${rentalFormData.phone}`,
+          statusz: 'aktiv'
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`Sikeres kölcsönzés! Hangszer: ${instrument.name}\nOktató: ${instrument.teacher}\nIdőtartam: ${rentalFormData.duration} hónap\nTeljes költség: ${totalPrice.toLocaleString()} Ft\nVisszavárható: ${kolcsVeg}`);
+
+        // AZONNALI MANUÁLIS FRISSÍTÉS - backend lekérdezés NÉLKÜL
+        setRentals(prevRentals =>
+          prevRentals.map(r =>
+            r.id === instrumentId ? { ...r, status: 'rented' } : r
+          )
+        );
+
+        setShowRentalForm(null);
+        setRentalFormData({ name: '', email: '', phone: '', duration: '1', acceptTerms: false });
+      } else {
+        alert(`Hiba: ${data.error || 'Ismeretlen hiba'}`);
+      }
+    } catch (error) {
+      console.error('Hiba a kölcsönzés során:', error);
+      alert('Hálózati hiba történt. Kérlek próbáld újra később.');
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -178,35 +171,15 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
     }));
   };
 
-  if (loading) {
-    return (
-      <div className="rental">
-        <div className="container">
-          <div className="loading">Betöltés...</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="rental">
-        <div className="container">
-          <div className="error-message">{error}</div>
-        </div>
-      </div>
-    );
-  }
+  if (loading) return <div className="rental"><div className="container"><div className="loading">Betöltés...</div></div></div>;
+  if (error) return <div className="rental"><div className="container"><div className="error-message">{error}</div></div></div>;
 
   return (
     <div className="rental">
       <section className="rental-hero">
         <div className="container">
           <h1>Hangszerkölcsönzés</h1>
-          <p className="hero-description">
-            Diákjaink számára kedvezményes áron biztosítjuk hangszereink kölcsönzését.
-            Minden hangszerhez tapasztalt oktatót is ajánlunk!
-          </p>
+          <p className="hero-description">Diákjaink számára kedvezményes áron biztosítjuk hangszereink kölcsönzését. Minden hangszerhez tapasztalt oktatót is ajánlunk!</p>
         </div>
       </section>
 
@@ -232,11 +205,7 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
             {filteredRentals.map(instrument => (
               <div key={instrument.id} className="instrument-card">
                 <div className="instrument-image">
-                  {instrument.image ? (
-                    <img src={instrument.image} alt={instrument.name} />
-                  ) : (
-                    <div className="no-image">Nincs kép</div>
-                  )}
+                  {instrument.image ? <img src={instrument.image} alt={instrument.name} /> : <div className="no-image">Nincs kép</div>}
                 </div>
 
                 <div className="instrument-content">
@@ -256,79 +225,34 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
 
                   <div className="instrument-footer">
                     <div className="price">
-                      <strong>
-                        {typeof instrument.rentalPrice === 'number'
-                          ? `${instrument.rentalPrice.toLocaleString()} Ft/hó`
-                          : instrument.rentalPrice}
-                      </strong>
+                      <strong>{typeof instrument.rentalPrice === 'number' ? `${instrument.rentalPrice.toLocaleString()} Ft/hó` : instrument.rentalPrice}</strong>
                     </div>
 
-                    {showRentalForm === instrument.id ? (
+                    {instrument.status === 'available' && showRentalForm === instrument.id ? (
                       <div className="rental-form">
                         <h4>Kölcsönzési adatok</h4>
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Teljes név"
-                          value={rentalFormData.name}
-                          onChange={handleChange}
-                        />
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Email cím"
-                          value={rentalFormData.email}
-                          onChange={handleChange}
-                        />
-                        <input
-                          type="tel"
-                          name="phone"
-                          placeholder="Telefonszám"
-                          value={rentalFormData.phone}
-                          onChange={handleChange}
-                        />
-                        <select
-                          name="duration"
-                          value={rentalFormData.duration}
-                          onChange={handleChange}
-                        >
+                        <input type="text" name="name" placeholder="Teljes név" value={rentalFormData.name} onChange={handleChange} />
+                        <input type="email" name="email" placeholder="Email cím" value={rentalFormData.email} onChange={handleChange} />
+                        <input type="tel" name="phone" placeholder="Telefonszám" value={rentalFormData.phone} onChange={handleChange} />
+                        <select name="duration" value={rentalFormData.duration} onChange={handleChange}>
                           <option value="1">1 hónap</option>
                           <option value="3">3 hónap</option>
                           <option value="6">6 hónap</option>
                           <option value="12">12 hónap</option>
                         </select>
                         <label className="checkbox-label">
-                          <input
-                            type="checkbox"
-                            name="acceptTerms"
-                            checked={rentalFormData.acceptTerms}
-                            onChange={handleChange}
-                          />
+                          <input type="checkbox" name="acceptTerms" checked={rentalFormData.acceptTerms} onChange={handleChange} />
                           <span>Elfogadom a kölcsönzési feltételeket</span>
                         </label>
                         <div className="form-buttons">
-                          <button
-                            className="btn-submit"
-                            onClick={() => handleRentalSubmit(instrument.id)}
-                            disabled={!rentalFormData.name || !rentalFormData.email || !rentalFormData.phone || !rentalFormData.acceptTerms}
-                          >
-                            Megerősítés
-                          </button>
-                          <button
-                            className="btn-cancel"
-                            onClick={() => setShowRentalForm(null)}
-                          >
-                            Mégse
-                          </button>
+                          <button className="btn-submit" onClick={() => handleRentalSubmit(instrument.id)} disabled={!rentalFormData.name || !rentalFormData.email || !rentalFormData.phone || !rentalFormData.acceptTerms}>Megerősítés</button>
+                          <button className="btn-cancel" onClick={() => setShowRentalForm(null)}>Mégse</button>
                         </div>
                       </div>
+                    ) : instrument.status === 'available' ? (
+                      <button className="btn-rent" onClick={() => setShowRentalForm(instrument.id)}><FaShoppingCart /> Kölcsönzés</button>
                     ) : (
-                      <button
-                        className="btn-rent"
-                        onClick={() => setShowRentalForm(instrument.id)}
-                      >
-                        <FaShoppingCart /> Kölcsönzés
-                      </button>
+                      <button className="btn-rent disabled" disabled>{instrument.status === 'rented' ? 'Kölcsönözve' : 'Szervízben'}</button>
                     )}
                   </div>
                 </div>
@@ -341,21 +265,9 @@ Kollégánk hamarosan felveszi Önnel a kapcsolatot a pontos részletek egyeztet
       <section className="rental-info-section">
         <div className="container">
           <div className="info-boxes">
-            <div className="info-box">
-              <FaCheck className="info-icon" />
-              <h3>Csak diákjainknak</h3>
-              <p>A hangszerkölcsönzés csak beiratkozott diákjaink számára elérhető.</p>
-            </div>
-            <div className="info-box">
-              <FaChalkboardTeacher className="info-icon" />
-              <h3>Oktatóval együtt</h3>
-              <p>Minden hangszerhez ajánlunk egy tapasztalt oktatót is.</p>
-            </div>
-            <div className="info-box">
-              <FaCalendarAlt className="info-icon" />
-              <h3>Rugalmas időtartam</h3>
-              <p>1-12 hónapig bérelheted a hangszereket, havonta újratölthető.</p>
-            </div>
+            <div className="info-box"><FaCheck className="info-icon" /><h3>Csak diákjainknak</h3><p>A hangszerkölcsönzés csak beiratkozott diákjaink számára elérhető.</p></div>
+            <div className="info-box"><FaChalkboardTeacher className="info-icon" /><h3>Oktatóval együtt</h3><p>Minden hangszerhez ajánlunk egy tapasztalt oktatót is.</p></div>
+            <div className="info-box"><FaCalendarAlt className="info-icon" /><h3>Rugalmas időtartam</h3><p>1-12 hónapig bérelheted a hangszereket, havonta újratölthető.</p></div>
           </div>
         </div>
       </section>
