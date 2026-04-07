@@ -113,7 +113,7 @@
   text-align: center;
 }
 
-/* Week View */
+/* Week View - 7 nap egymás mellett, középre igazítva, görgetés nélkül */
 .lessons .week-view {
   padding: 60px 0;
   background-color: var(--secondary-light);
@@ -121,8 +121,11 @@
 
 .lessons .week-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .lessons .day-column {
@@ -130,39 +133,40 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 5px 20px var(--shadow);
+  min-width: 0;
 }
 
 .lessons .day-header {
   background: var(--gradient-primary);
   color: var(--primary-white);
-  padding: 15px;
+  padding: 12px 8px;
   text-align: center;
 }
 
 .lessons .day-header h3 {
   color: var(--primary-white);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   margin-bottom: 5px;
 }
 
 .lessons .day-date {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   opacity: 0.9;
 }
 
 .lessons .day-lessons {
-  padding: 15px;
-  min-height: 400px;
+  padding: 12px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 .lessons .lesson-card {
   background: var(--secondary-light);
-  border-radius: 10px;
-  padding: 12px;
-  border-left: 4px solid var(--accent-turquoise);
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 3px solid var(--accent-turquoise);
   transition: all 0.3s ease;
 }
 
@@ -186,8 +190,8 @@
   gap: 5px;
   color: var(--accent-turquoise);
   font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 8px;
+  font-size: 0.75rem;
+  margin-bottom: 6px;
 }
 
 .lessons .lesson-card.cancelled .lesson-time {
@@ -199,8 +203,8 @@
 }
 
 .lessons .lesson-info p {
-  margin-bottom: 5px;
-  font-size: 0.9rem;
+  margin-bottom: 4px;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -210,45 +214,50 @@
 .lessons .lesson-student {
   color: var(--dark-text);
   font-weight: 600;
+  font-size: 0.75rem;
 }
 
 .lessons .lesson-instrument {
   color: var(--accent-turquoise);
   font-weight: 500;
+  font-size: 0.75rem;
 }
 
 .lessons .lesson-topic {
   color: var(--light-text);
   font-style: italic;
-  margin: 5px 0;
+  margin: 4px 0;
+  font-size: 0.7rem;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .lessons .lesson-room {
   color: var(--light-text);
-  font-size: 0.85rem;
+  font-size: 0.7rem;
 }
 
 .lessons .lesson-level {
   color: var(--dark-text);
   background: var(--primary-white);
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
   display: inline-block;
-  font-size: 0.8rem;
-  margin-top: 5px;
+  font-size: 0.7rem;
+  margin-top: 4px;
 }
 
 .lessons .lesson-status {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .lessons .status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
+  gap: 4px;
+  padding: 2px 8px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
 }
 
@@ -270,10 +279,52 @@
 .lessons .no-lesson {
   text-align: center;
   color: var(--light-text);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   padding: 20px 0;
   background: var(--secondary-light);
   border-radius: 8px;
+}
+
+/* Lesson Actions */
+.lessons .lesson-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: flex-end;
+}
+
+.lessons .edit-btn,
+.lessons .delete-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 0.7rem;
+}
+
+.lessons .edit-btn {
+  background: var(--secondary-light);
+  color: var(--accent-turquoise);
+}
+
+.lessons .edit-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+}
+
+.lessons .delete-btn {
+  background: var(--secondary-light);
+  color: var(--error-red);
+}
+
+.lessons .delete-btn:hover {
+  background: var(--error-red);
+  color: var(--primary-white);
 }
 
 /* List View */
@@ -396,6 +447,26 @@
   text-align: right;
 }
 
+/* Add Lesson Button */
+.lessons .add-lesson-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lessons .add-lesson-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+}
+
 /* Info Section */
 .lessons .lessons-info {
   padding: 60px 0;
@@ -438,61 +509,144 @@
   line-height: 1.6;
 }
 
+/* Modal */
+.lessons .lessons-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+}
+
+.lessons .lessons-modal-content {
+  background: var(--primary-white);
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  padding: 30px;
+}
+
+.lessons .lessons-modal-content h3 {
+  margin-bottom: 20px;
+  color: var(--dark-text);
+}
+
+.lessons .lessons-modal-content .form-group {
+  margin-bottom: 15px;
+}
+
+.lessons .lessons-modal-content .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.lessons .lessons-modal-content .form-group input,
+.lessons .lessons-modal-content .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.lessons .modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.lessons .save-btn,
+.lessons .cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lessons .save-btn {
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+}
+
+.lessons .save-btn:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+}
+
+.lessons .cancel-btn {
+  background: var(--border-light);
+  color: var(--dark-text);
+}
+
+.lessons .cancel-btn:hover {
+  background: var(--light-text);
+  color: var(--primary-white);
+}
+
+/* Loading & Error */
+.lessons .lessons-loading,
+.lessons .lessons-error {
+  text-align: center;
+  padding: 60px;
+  font-size: 1.2rem;
+}
+
+.lessons .lessons-error {
+  color: var(--error-red);
+}
+
 /* Reszponzív */
 @media (max-width: 1200px) {
   .lessons .week-grid {
-    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 15px;
+  }
+  
+  .lessons .day-header h3 {
+    font-size: 0.8rem;
+  }
+  
+  .lessons .day-date {
+    font-size: 0.7rem;
   }
 }
 
-@media (max-width: 1024px) {
-  .lessons .lessons-hero h1 {
-    font-size: 2.2rem;
+@media (max-width: 992px) {
+  .lessons .week-grid {
+    gap: 8px;
+    padding: 0 10px;
   }
   
-  .lessons .lessons-hero-text {
-    font-size: 1rem;
+  .lessons .day-lessons {
+    padding: 8px;
   }
   
-  .lessons .controls-wrapper {
-    flex-direction: column;
-    align-items: stretch;
+  .lessons .lesson-time {
+    font-size: 0.7rem;
   }
   
-  .lessons .view-toggle {
-    justify-content: center;
-  }
-  
-  .lessons .week-navigation {
-    justify-content: center;
-  }
-  
-  .lessons .list-lesson-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .lessons .list-lesson-date {
-    border-right: none;
-    border-bottom: 1px solid var(--border-light);
-    padding-right: 0;
-    padding-bottom: 15px;
-    width: 100%;
-  }
-  
-  .lessons .list-lesson-status {
-    text-align: center;
-    width: 100%;
+  .lessons .lesson-info p {
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 768px) {
   .lessons .lessons-hero h1 {
     font-size: 2rem;
-  }
-  
-  .lessons .week-grid {
-    grid-template-columns: 1fr;
   }
   
   .lessons .week-navigation {
@@ -515,6 +669,48 @@
   .lessons .view-btn {
     width: 100%;
   }
+  
+  .lessons .list-lesson-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .lessons .list-lesson-date {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding-right: 0;
+    padding-bottom: 15px;
+    width: 100%;
+  }
+  
+  .lessons .list-lesson-status {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .lessons .week-grid {
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+  }
+  
+  .lessons .day-header h3 {
+    font-size: 0.7rem;
+  }
+  
+  .lessons .day-date {
+    font-size: 0.6rem;
+  }
+  
+  .lessons .lesson-time {
+    font-size: 0.65rem;
+    flex-wrap: wrap;
+  }
+  
+  .lessons .lesson-info p {
+    font-size: 0.65rem;
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 480px) {
@@ -530,298 +726,4 @@
   .lessons .time-badge {
     justify-content: center;
   }
-}
-
-/* Add Lesson Button */
-.add-lesson-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--gradient-primary);
-  color: var(--primary-white);
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-lesson-btn:hover {
-  background: var(--accent-turquoise-dark);
-  transform: translateY(-2px);
-}
-
-/* Lesson Actions */
-.lesson-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  justify-content: flex-end;
-}
-
-.edit-btn, .delete-btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.edit-btn {
-  background: var(--secondary-light);
-  color: var(--accent-turquoise);
-}
-
-.edit-btn:hover {
-  background: var(--accent-turquoise);
-  color: var(--primary-white);
-}
-
-.delete-btn {
-  background: var(--secondary-light);
-  color: var(--error-red);
-}
-
-.delete-btn:hover {
-  background: var(--error-red);
-  color: var(--primary-white);
-}
-
-/* Modal */
-.lessons-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1200;
-  padding: 20px;
-}
-
-.lessons-modal-content {
-  background: var(--primary-white);
-  border-radius: 20px;
-  max-width: 500px;
-  width: 100%;
-  padding: 30px;
-}
-
-.lessons-modal-content h3 {
-  margin-bottom: 20px;
-  color: var(--dark-text);
-}
-
-.lessons-modal-content .form-group {
-  margin-bottom: 15px;
-}
-
-.lessons-modal-content .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--dark-text);
-  font-weight: 500;
-}
-
-.lessons-modal-content .form-group input,
-.lessons-modal-content .form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid var(--border-light);
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.save-btn, .cancel-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.save-btn {
-  background: var(--gradient-primary);
-  color: var(--primary-white);
-}
-
-.cancel-btn {
-  background: var(--border-light);
-  color: var(--dark-text);
-}
-
-/* Add Lesson Button */
-.add-lesson-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--gradient-primary);
-  color: var(--primary-white);
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-lesson-btn:hover {
-  background: var(--accent-turquoise-dark);
-  transform: translateY(-2px);
-}
-
-/* Lesson Actions */
-.lesson-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  justify-content: flex-end;
-}
-
-.edit-btn, .delete-btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.edit-btn {
-  background: var(--secondary-light);
-  color: var(--accent-turquoise);
-}
-
-.edit-btn:hover {
-  background: var(--accent-turquoise);
-  color: var(--primary-white);
-}
-
-.delete-btn {
-  background: var(--secondary-light);
-  color: var(--error-red);
-}
-
-.delete-btn:hover {
-  background: var(--error-red);
-  color: var(--primary-white);
-}
-
-/* Modal */
-.lessons-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1200;
-  padding: 20px;
-}
-
-.lessons-modal-content {
-  background: var(--primary-white);
-  border-radius: 20px;
-  max-width: 500px;
-  width: 100%;
-  padding: 30px;
-}
-
-.lessons-modal-content h3 {
-  margin-bottom: 20px;
-  color: var(--dark-text);
-}
-
-.lessons-modal-content .form-group {
-  margin-bottom: 15px;
-}
-
-.lessons-modal-content .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--dark-text);
-  font-weight: 500;
-}
-
-.lessons-modal-content .form-group input,
-.lessons-modal-content .form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid var(--border-light);
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.save-btn, .cancel-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.save-btn {
-  background: var(--gradient-primary);
-  color: var(--primary-white);
-}
-
-.save-btn:hover {
-  background: var(--accent-turquoise-dark);
-  transform: translateY(-2px);
-}
-
-.cancel-btn {
-  background: var(--border-light);
-  color: var(--dark-text);
-}
-
-.cancel-btn:hover {
-  background: var(--light-text);
-  color: var(--primary-white);
-}
-
-.lessons-loading, .lessons-error {
-  text-align: center;
-  padding: 60px;
-  font-size: 1.2rem;
-}
-
-.lessons-error {
-  color: var(--error-red);
 }
