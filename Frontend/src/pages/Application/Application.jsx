@@ -429,7 +429,7 @@ const Application = () => {
                                         onChange={handleChange}
                                         required
                                     />
-                                    <span>Elfogadom az <Link to="/terms">Adatvédelmi nyilatkozatot</Link> és hozzájárulok adataim kezeléséhez. *</span>
+                                    <span>Elfogadom az <Link to="/terms" target="_blank" className="terms-link">Adatvédelmi nyilatkozatot</Link> és hozzájárulok adataim kezeléséhez. *</span>
                                 </label>
                             </div>
 

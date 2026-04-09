@@ -188,7 +188,7 @@ const Register = () => {
                       onChange={handleChange}
                     />
                     <span>
-                      Elfogadom az <Link to="/terms" className="terms-link">Adatvédelmi nyilatkozatot</Link> és a <Link to="/terms" className="terms-link">Felhasználási feltételeket</Link>
+                      Elfogadom az <Link to="/terms" target="_blank" className="terms-link">Adatvédelmi nyilatkozatot</Link> és a <Link to="/terms" target="_blank" className="terms-link">Felhasználási feltételeket</Link>
                     </span>
                   </label>
                   {errors.acceptTerms && <span className="auth-error-message">{errors.acceptTerms}</span>}

@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaShoppingCart, FaCalendarAlt, FaCheck, FaTimes, FaTools, FaChalkboardTeacher } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; 
+import {
+  FaShoppingCart,
+  FaCalendarAlt,
+  FaCheck,
+  FaTimes,
+  FaTools,
+  FaChalkboardTeacher
+} from 'react-icons/fa';
 import './Rental.css';
 
 // Képek importálása
@@ -241,8 +249,13 @@ const Rental = () => {
                           <option value="12">12 hónap</option>
                         </select>
                         <label className="checkbox-label">
-                          <input type="checkbox" name="acceptTerms" checked={rentalFormData.acceptTerms} onChange={handleChange} />
-                          <span>Elfogadom a kölcsönzési feltételeket</span>
+                          <input
+                            type="checkbox"
+                            name="acceptTerms"
+                            checked={rentalFormData.acceptTerms}
+                            onChange={handleChange}
+                          />
+                          <span>Elfogadom a <Link to="/rental-terms" target="_blank" className="terms-link">kölcsönzési feltételeket</Link></span>
                         </label>
                         <div className="form-buttons">
                           <button className="btn-submit" onClick={() => handleRentalSubmit(instrument.id)} disabled={!rentalFormData.name || !rentalFormData.email || !rentalFormData.phone || !rentalFormData.acceptTerms}>Megerősítés</button>
