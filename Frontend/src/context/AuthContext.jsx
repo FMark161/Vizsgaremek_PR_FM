@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
@@ -41,20 +41,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (fnev, jelszo) => {
+  const login = async (fnev, jelszo, rememberMe = false) => {
     try {
       const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fnev, jelszo })
+        body: JSON.stringify({ fnev, jelszo, rememberMe })
       });
 
       const data = await response.json();
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        if (rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('rememberMe');
+        }
         setToken(data.token);
         setUser(data.user);
         return { success: true };
@@ -67,14 +72,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (fnev, jelszo, email, jogosultsag = 'diak') => {
+  const register = async (fnev, jelszo, email, telefonsz, szulDatum, jogosultsag = 'diak') => {
     try {
       const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fnev, jelszo, email, jogosultsag })
+        body: JSON.stringify({ fnev, jelszo, email, jogosultsag, telefonsz, szulDatum })
       });
 
       const data = await response.json();

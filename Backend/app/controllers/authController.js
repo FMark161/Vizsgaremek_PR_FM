@@ -30,7 +30,7 @@ const authController = {
         return res.status(400).json({ error: 'Ez az email cím már regisztrálva van' });
       }
 
-      // Új felhasználó létrehozása (alapból 'diak' jogosultság)
+      // Új felhasználó létrehozása
       const userRole = jogosultsag || 'diak';
       const userId = await authModel.create({
         fnev,
@@ -39,19 +39,7 @@ const authController = {
         email
       });
 
-      // Ha diák, akkor hozzuk létre a diakok táblában is
-      if (userRole === 'diak') {
-        try {
-          const [result] = await pool.query(
-            'INSERT INTO diakok (nev, email, telefonsz, felhasznaloId) VALUES (?, ?, ?, ?)',
-            [fnev, email, '', userId]
-          );
-          console.log('Diák rekord létrehozva, ID:', result.insertId);
-        } catch (dbError) {
-          console.error('Hiba a diák rekord létrehozásakor:', dbError);
-          // Nem állítjuk le a regisztrációt, csak logoljuk a hibát
-        }
-      }
+      console.log('Létrehozott felhasználó ID:', userId);
 
       // Token generálás
       const token = jwt.sign(
@@ -76,10 +64,10 @@ const authController = {
     }
   },
 
-  // BEJELENTKEZÉS (marad ugyanaz)
+  // BEJELENTKEZÉS
   login: async (req, res, next) => {
     try {
-      const { fnev, jelszo } = req.body;
+      const { fnev, jelszo, rememberMe } = req.body;
 
       if (!fnev || !jelszo) {
         return res.status(400).json({ error: 'Felhasználónév és jelszó megadása kötelező' });
@@ -95,10 +83,13 @@ const authController = {
         return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó' });
       }
 
+      // Token lejárati idő: ha rememberMe = true, akkor 30 nap, különben 1 nap
+      const expiresIn = rememberMe ? '30d' : '1d';
+
       const token = jwt.sign(
         { id: user.id, fnev: user.fnev, jogosultsag: user.jogosultsag, email: user.email },
         JWT_SECRET,
-        { expiresIn: '7d' }
+        { expiresIn: expiresIn }
       );
 
       res.json({
@@ -117,7 +108,7 @@ const authController = {
     }
   },
 
-  // TOKEN ELLENŐRZÉS (marad ugyanaz)
+  // TOKEN ELLENŐRZÉS
   verify: async (req, res, next) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];

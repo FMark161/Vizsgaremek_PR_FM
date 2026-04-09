@@ -31,40 +31,41 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.fnev) {
       newErrors.fnev = 'A felhasználónév megadása kötelező';
     }
-    
+
     if (!formData.jelszo) {
       newErrors.jelszo = 'A jelszó megadása kötelező';
     } else if (formData.jelszo.length < 6) {
       newErrors.jelszo = 'A jelszónak legalább 6 karakter hosszúnak kell lennie';
     }
-    
+
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setIsLoading(true);
     setServerError('');
-    
-    const result = await login(formData.fnev, formData.jelszo);
-    
+
+    // Az expires érték függ az emlékezz rám opciótól
+    const result = await login(formData.fnev, formData.jelszo, formData.rememberMe);
+
     if (result.success) {
       navigate('/');
     } else {
       setServerError(result.error);
     }
-    
+
     setIsLoading(false);
   };
 
@@ -85,11 +86,11 @@ const Login = () => {
             <div className="auth-card">
               <h2>Üdv újra itt!</h2>
               <p className="auth-subtitle">Jelentkezz be a folytatáshoz</p>
-              
+
               {serverError && (
                 <div className="auth-server-error">{serverError}</div>
               )}
-              
+
               <form onSubmit={handleSubmit} className="auth-form">
                 <div className="auth-form-group">
                   <label htmlFor="fnev">
@@ -138,8 +139,8 @@ const Login = () => {
                   </Link>
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="auth-submit-btn"
                   disabled={isLoading}
                 >

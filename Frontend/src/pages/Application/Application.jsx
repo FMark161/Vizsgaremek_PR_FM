@@ -104,14 +104,14 @@ const Application = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: formData.name,
+                    nev: formData.name,           // name helyett nev
                     email: formData.email,
-                    phone: formData.phone,
-                    birthDate: formData.birthDate,
-                    instrument: formData.instrument,
-                    level: formData.experience,
-                    ownInstrument: formData.hasOwnInstrument,
-                    message: formData.message
+                    telefon: formData.phone,      // phone helyett telefon
+                    szul_datum: formData.birthDate,  // birthDate helyett szul_datum
+                    hangszer: formData.instrument,
+                    szint: formData.experience,
+                    sajat_hangszer: formData.hasOwnInstrument,
+                    uzenet: formData.message
                 })
             });
 
@@ -193,15 +193,15 @@ const Application = () => {
                                             style={{
                                                 objectPosition: teacher.id === 2 ? 'center 5%' :
                                                     teacher.id === 6 ? 'center 30%' :
-                                                    'center 30%'
+                                                        'center 30%'
                                             }}
                                         />
                                     </div>
                                     <div className="teacher-info">
                                         <h3>{teacher.name}</h3>
                                         <p className="teacher-instrument">
-                                            {teacher.instruments && teacher.instruments.length > 0 
-                                                ? teacher.instruments.join(', ') 
+                                            {teacher.instruments && teacher.instruments.length > 0
+                                                ? teacher.instruments.join(', ')
                                                 : 'Zeneoktató'}
                                         </p>
                                         <div className="teacher-details">
@@ -433,8 +433,8 @@ const Application = () => {
                                 </label>
                             </div>
 
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 className="btn btn-primary btn-submit"
                                 disabled={isLoading}
                             >

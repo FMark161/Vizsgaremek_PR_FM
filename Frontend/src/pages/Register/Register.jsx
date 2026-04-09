@@ -75,7 +75,13 @@ const Register = () => {
     setIsLoading(true);
     setServerError('');
 
-    const result = await register(formData.fnev, formData.jelszo, formData.email);
+    const result = await register(
+      formData.fnev,
+      formData.jelszo,
+      formData.email,
+      formData.phone,
+      formData.birthDate
+    );
 
     if (result.success) {
       navigate('/');
