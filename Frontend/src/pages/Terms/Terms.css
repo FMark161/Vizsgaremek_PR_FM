@@ -1,0 +1,152 @@
+/* Terms Hero */
+.terms-hero {
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.terms-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  border-radius: 50%;
+}
+
+.terms-hero h1 {
+  font-size: 2.5rem;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.terms-description {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--light-text);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Terms Content */
+.terms-content {
+  padding: 60px 0 80px;
+  background-color: var(--secondary-light);
+}
+
+.terms-card {
+  background: var(--primary-white);
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 10px 30px var(--shadow);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.terms-card h2 {
+  color: var(--dark-text);
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent-turquoise);
+}
+
+.terms-card h2:first-of-type {
+  margin-top: 0;
+}
+
+.terms-card p {
+  color: var(--light-text);
+  line-height: 1.8;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.terms-card ul {
+  margin: 15px 0 15px 30px;
+  color: var(--light-text);
+  line-height: 1.8;
+}
+
+.terms-card li {
+  margin-bottom: 8px;
+}
+
+.terms-card strong {
+  color: var(--dark-text);
+}
+
+.terms-footer {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.terms-footer p {
+  color: var(--light-text);
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.btn-back {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: var(--primary-white);
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: var(--accent-turquoise-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+/* Reszponzív */
+@media (max-width: 768px) {
+  .terms-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .terms-card {
+    padding: 30px;
+  }
+  
+  .terms-card h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .terms-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .terms-description {
+    font-size: 1rem;
+  }
+  
+  .terms-card {
+    padding: 20px;
+  }
+  
+  .terms-card h2 {
+    font-size: 1.2rem;
+  }
+  
+  .terms-card p,
+  .terms-card ul {
+    font-size: 0.9rem;
+  }
+}   

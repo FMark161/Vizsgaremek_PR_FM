@@ -16,6 +16,7 @@ import Admin from "./pages/Admin/Admin.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 import Lessons from "./pages/Lessons/Lessons.jsx";
+import Terms from './pages/Terms/Terms.jsx';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/terms" element={<Terms />} />
 
             {/* Védett oldalak - csak bejelentkezett felhasználók */}
             <Route path="/rental" element={

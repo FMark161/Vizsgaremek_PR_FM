@@ -249,3 +249,15 @@
   border-left: 4px solid var(--error-red);
   font-size: 0.9rem;
 }
+
+/* Adatvédelmi nyilatkozat link stílusa */
+.terms-link {
+  color: var(--accent-turquoise);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.terms-link:hover {
+  color: var(--accent-turquoise-dark);
+  text-decoration: none;
+}

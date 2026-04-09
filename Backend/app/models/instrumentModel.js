@@ -1,56 +1,58 @@
 const pool = require('./db');
 
 const instrumentModel = {
-getAll: async () => {
-  try {
-    console.log('=== instrumentModel.getAll lefut ===');
-    
-    // Aktív kölcsönzések lekérése
-    const [activeRentals] = await pool.query(`
-      SELECT DISTINCT hangszerId 
-      FROM kolcsonzesek 
-      WHERE statusz = 'aktiv'
-    `);
-    
-    const rentedIds = activeRentals.map(r => r.hangszerId);
-    console.log('Kölcsönzött ID-k:', rentedIds);
-    
-    // Egyszerű lekérdezés GROUP BY nélkül
-    const [instruments] = await pool.query(`
-      SELECT 
-        h.id,
-        h.nev as name,
-        k.katNev as category,
-        l.ar as rentalPrice,
-        t.nev as teacher,
-        t.id as teacherId
-      FROM hangszerek h
-      JOIN kategoriak k ON h.katId = k.id
-      JOIN leltarak l ON h.leltarId = l.id
-      LEFT JOIN tanar_mit_tud tmt ON h.katId = tmt.hangszerId
-      LEFT JOIN tanarok t ON tmt.tanarId = t.id
-      ORDER BY h.id
-    `);
-    
-    console.log('Hangszerek lekérve, darabszám:', instruments.length);
-    
-    const result = instruments.map(instrument => ({
-      ...instrument,
-      status: rentedIds.includes(instrument.id) ? 'rented' : 'available'
-    }));
-    
-    console.log('Eredmény státuszok:', result.map(r => ({ id: r.id, name: r.name, status: r.status })));
-    return result;
-  } catch (error) {
-    console.error('Hiba a instrumentModel.getAll-ben:', error);
-    throw error;
-  }
-},
+  getAll: async () => {
+    try {
+      console.log('=== instrumentModel.getAll lefut ===');
+      
+      // Aktív kölcsönzések lekérése
+      const [activeRentals] = await pool.query(`
+        SELECT DISTINCT hangszerId 
+        FROM kolcsonzesek 
+        WHERE statusz = 'aktiv'
+      `);
+      
+      const rentedIds = activeRentals.map(r => r.hangszerId);
+      console.log('Kölcsönzött ID-k:', rentedIds);
+      
+      // JAVÍTVA: h.id = tmt.hangszerId (nem h.katId)
+      const [instruments] = await pool.query(`
+        SELECT 
+          h.id,
+          h.nev as name,
+          k.katNev as category,
+          l.ar as rentalPrice,
+          t.nev as teacher,
+          t.id as teacherId
+        FROM hangszerek h
+        JOIN kategoriak k ON h.katId = k.id
+        JOIN leltarak l ON h.leltarId = l.id
+        LEFT JOIN tanar_mit_tud tmt ON h.id = tmt.hangszerId
+        LEFT JOIN tanarok t ON tmt.tanarId = t.id
+        ORDER BY h.id
+      `);
+      
+      console.log('Hangszerek tanárokkal:', instruments.map(r => ({ name: r.name, teacher: r.teacher })));
+      console.log('Hangszerek lekérve, darabszám:', instruments.length);
+      
+      const result = instruments.map(instrument => ({
+        ...instrument,
+        status: rentedIds.includes(instrument.id) ? 'rented' : 'available'
+      }));
+      
+      console.log('Eredmény státuszok:', result.map(r => ({ id: r.id, name: r.name, status: r.status })));
+      return result;
+    } catch (error) {
+      console.error('Hiba a instrumentModel.getAll-ben:', error);
+      throw error;
+    }
+  },
 
   getById: async (id) => {
     try {
       console.log('=== instrumentModel.getById lefut, id:', id);
       
+      // JAVÍTVA: h.id = tmt.hangszerId (nem h.katId)
       const [rows] = await pool.query(`
         SELECT 
           h.id,
@@ -62,10 +64,10 @@ getAll: async () => {
         FROM hangszerek h
         JOIN kategoriak k ON h.katId = k.id
         JOIN leltarak l ON h.leltarId = l.id
-        LEFT JOIN tanar_mit_tud tmt ON h.katId = tmt.hangszerId
+        LEFT JOIN tanar_mit_tud tmt ON h.id = tmt.hangszerId
         LEFT JOIN tanarok t ON tmt.tanarId = t.id
         WHERE h.id = ?
-        GROUP BY h.id
+        ORDER BY h.id
       `, [id]);
       
       if (rows.length === 0) return null;

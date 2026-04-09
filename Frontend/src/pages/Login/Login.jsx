@@ -134,9 +134,6 @@ const Login = () => {
                     />
                     <span>Emlékezz rám</span>
                   </label>
-                  <Link to="/forgot-password" className="auth-forgot-link">
-                    Elfelejtetted a jelszavad?
-                  </Link>
                 </div>
 
                 <button
