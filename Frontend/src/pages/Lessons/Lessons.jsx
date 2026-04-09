@@ -14,7 +14,8 @@ import {
   FaEdit,
   FaTrash,
   FaSave,
-  FaTimes
+  FaTimes,
+  FaSync
 } from 'react-icons/fa';
 import './Lessons.css';
 
@@ -46,17 +47,49 @@ const Lessons = () => {
     if (!user) return { role: null, id: null };
     if (user.jogosultsag === 'admin') return { role: 'admin', id: null };
     if (user.jogosultsag === 'tanar') {
-      // Kovács Anna ID-ja a tanarok táblában = 1
       return { role: 'teacher', id: 1 };
     }
     if (user.jogosultsag === 'diak') {
-      // Kiss Péter ID-ja a diakok táblában = 1
       return { role: 'student', id: 1 };
     }
     return { role: null, id: null };
   };
 
   const { role, id } = getUserRoleAndId();
+
+  // Diákok betöltése
+  const fetchStudents = async () => {
+    try {
+      const studentsRes = await fetch(`${API_URL}/students`);
+      const studentsData = await studentsRes.json();
+      console.log('Betöltött diákok:', studentsData);
+      setStudents(studentsData);
+    } catch (error) {
+      console.error('Hiba a diákok betöltésekor:', error);
+    }
+  };
+
+  // Hangszerek betöltése
+  const fetchInstruments = async () => {
+    try {
+      const instrumentsRes = await fetch(`${API_URL}/instruments`);
+      const instrumentsData = await instrumentsRes.json();
+      setInstruments(instrumentsData);
+    } catch (error) {
+      console.error('Hiba a hangszerek betöltésekor:', error);
+    }
+  };
+
+  // Tanárok betöltése
+  const fetchTeachers = async () => {
+    try {
+      const teachersRes = await fetch(`${API_URL}/teachers`);
+      const teachersData = await teachersRes.json();
+      setTeachers(teachersData);
+    } catch (error) {
+      console.error('Hiba a tanárok betöltésekor:', error);
+    }
+  };
 
   // Órák betöltése
   useEffect(() => {
@@ -73,14 +106,23 @@ const Lessons = () => {
         }
         const res = await fetch(url);
         const data = await res.json();
-        console.log('Backend válasza:', data);
+        console.log('Backend válasza (órák):', data);
 
-        // Biztosítsuk, hogy a dátum csak a dátum részt tartalmazza
-        const formattedData = data.map(lesson => ({
-          ...lesson,
-          datum: lesson.datum ? lesson.datum.split('T')[0] : lesson.datum,
-          hangszerId: lesson.hangszerId
-        }));
+        const formattedData = data.map(lesson => {
+          let localDate = lesson.datum;
+          if (lesson.datum && lesson.datum.includes('T')) {
+            const date = new Date(lesson.datum);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            localDate = `${year}-${month}-${day}`;
+          }
+          return {
+            ...lesson,
+            datum: localDate,
+            hangszerId: lesson.hangszerId
+          };
+        });
         setLessons(formattedData);
       } catch (error) {
         console.error('Hiba az órák betöltésekor:', error);
@@ -95,24 +137,12 @@ const Lessons = () => {
   // Tanárok, diákok, hangszerek betöltése (admin számára az űrlaphoz)
   useEffect(() => {
     if (role === 'admin' || role === 'teacher') {
-      const fetchData = async () => {
-        try {
-          const [studentsRes, instrumentsRes] = await Promise.all([
-            fetch(`${API_URL}/students`),
-            fetch(`${API_URL}/instruments`)
-          ]);
-          setStudents(await studentsRes.json());
-          setInstruments(await instrumentsRes.json());
-
-          if (role === 'admin') {
-            const teachersRes = await fetch(`${API_URL}/teachers`);
-            setTeachers(await teachersRes.json());
-          }
-        } catch (error) {
-          console.error('Hiba:', error);
-        }
-      };
-      fetchData();
+      fetchStudents();
+      fetchInstruments();
+      
+      if (role === 'admin') {
+        fetchTeachers();
+      }
     }
   }, [role]);
 
@@ -122,12 +152,10 @@ const Lessons = () => {
 
     let saveData = { ...formData };
 
-    // Tanár esetén automatikusan beállítjuk a tanarId-t
     if (role === 'teacher') {
       saveData.tanarId = id;
     }
 
-    // Ellenőrizzük, hogy a kötelező mezők ki vannak-e töltve
     if (!saveData.tanarId || !saveData.diakId || !saveData.hangszerId || !saveData.ora_datum || !saveData.ora_ido) {
       alert('Minden mező kitöltése kötelező!');
       return;
@@ -146,9 +174,8 @@ const Lessons = () => {
       console.log('Szerver válasz:', responseData);
 
       if (res.ok) {
-        closeForm();
+        alert(editingLesson ? 'Óra sikeresen módosítva!' : 'Óra sikeresen létrehozva!');
 
-        // Frissítjük a listát a szerverről
         let fetchUrl;
         if (role === 'admin') {
           fetchUrl = `${API_URL}/lessons`;
@@ -159,9 +186,15 @@ const Lessons = () => {
         }
         const fetchRes = await fetch(fetchUrl);
         const data = await fetchRes.json();
-        setLessons(data);
 
-        alert(editingLesson ? 'Óra sikeresen módosítva!' : 'Óra sikeresen létrehozva!');
+        const formattedData = data.map(lesson => ({
+          ...lesson,
+          datum: lesson.datum ? lesson.datum.split('T')[0] : lesson.datum,
+          hangszerId: lesson.hangszerId
+        }));
+        setLessons(formattedData);
+
+        closeForm();
       } else {
         alert(`Hiba: ${responseData.error || 'Ismeretlen hiba'}`);
       }
@@ -204,7 +237,6 @@ const Lessons = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Űrlap bezárása és visszaállítása
   const closeForm = () => {
     setShowAddForm(false);
     setEditingLesson(null);
@@ -232,29 +264,16 @@ const Lessons = () => {
     }
   };
 
-  // Heti nézet létrehozása
   const weekDays = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
+
   const getWeekSchedule = () => {
-    // A kiválasztott dátumból kiindulva számoljuk ki a hét hétfőjét
-    const currentDate = new Date(selectedDate);
-    const dayOfWeek = currentDate.getDay(); // 0=Vasárnap, 1=Hétfő, ..., 6=Szombat
+    const selected = new Date(selectedDate);
+    const dayOfWeek = selected.getDay();
+    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const monday = new Date(selected);
+    monday.setDate(selected.getDate() - daysToMonday);
 
-    // Átalakítás: hétfő legyen a hét első napja (1=Hétfő, 0=Vasárnap)
-    let daysToMonday;
-    if (dayOfWeek === 0) { // Vasárnap
-      daysToMonday = 6; // 6 napot kell visszamenni hétfőig
-    } else {
-      daysToMonday = dayOfWeek - 1; // Hétfő=0, Kedd=1, ..., Szombat=5
-    }
-
-    const monday = new Date(currentDate);
-    monday.setDate(currentDate.getDate() - daysToMonday);
-    monday.setHours(0, 0, 0, 0);
-
-    console.log('Kiválasztott dátum:', selectedDate);
-    console.log('Hétfő dátuma:', monday.toISOString().split('T')[0]);
-
-    return weekDays.map((day, index) => {
+    const weekSchedule = weekDays.map((day, index) => {
       const date = new Date(monday);
       date.setDate(monday.getDate() + index);
       const year = date.getFullYear();
@@ -262,10 +281,8 @@ const Lessons = () => {
       const dayNum = String(date.getDate()).padStart(2, '0');
       const dateStr = `${year}-${month}-${dayNum}`;
 
-      console.log(`${day}: ${dateStr}`);
-      
-      const dayLessons = lessons.filter(l => {
-        const lessonDate = l.datum ? l.datum.split('T')[0] : l.datum;
+      const dayLessons = lessons.filter(lesson => {
+        const lessonDate = lesson.datum ? lesson.datum.split('T')[0] : lesson.datum;
         return lessonDate === dateStr;
       });
 
@@ -276,6 +293,8 @@ const Lessons = () => {
         lessons: dayLessons.sort((a, b) => (a.ido || '').localeCompare(b.ido || ''))
       };
     });
+
+    return weekSchedule;
   };
 
   const weekSchedule = getWeekSchedule();
@@ -432,10 +451,20 @@ const Lessons = () => {
                   </div>
                   <div className="form-group">
                     <label>Diák</label>
-                    <select name="diakId" value={formData.diakId} onChange={handleChange} required>
-                      <option value="">Válassz diákot</option>
-                      {students.map(s => <option key={s.id} value={s.id}>{s.nev}</option>)}
-                    </select>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                      <select name="diakId" value={formData.diakId} onChange={handleChange} required style={{ flex: 1 }}>
+                        <option value="">Válassz diákot</option>
+                        {students.map(s => <option key={s.id} value={s.id}>{s.nev}</option>)}
+                      </select>
+                      <button 
+                        type="button" 
+                        className="refresh-btn" 
+                        onClick={fetchStudents}
+                        title="Diákok listájának frissítése"
+                      >
+                        <FaSync />
+                      </button>
+                    </div>
                   </div>
                 </>
               )}
@@ -443,10 +472,20 @@ const Lessons = () => {
               {(role === 'teacher') && (
                 <div className="form-group">
                   <label>Diák</label>
-                  <select name="diakId" value={formData.diakId} onChange={handleChange} required>
-                    <option value="">Válassz diákot</option>
-                    {students.map(s => <option key={s.id} value={s.id}>{s.nev}</option>)}
-                  </select>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <select name="diakId" value={formData.diakId} onChange={handleChange} required style={{ flex: 1 }}>
+                      <option value="">Válassz diákot</option>
+                      {students.map(s => <option key={s.id} value={s.id}>{s.nev}</option>)}
+                    </select>
+                    <button 
+                      type="button" 
+                      className="refresh-btn" 
+                      onClick={fetchStudents}
+                      title="Diákok listájának frissítése"
+                    >
+                      <FaSync />
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -465,7 +504,7 @@ const Lessons = () => {
 
               <div className="form-group">
                 <label>Dátum</label>
-                <input type="date" name="ora_datum" value={formData.ora_datum} onChange={handleChange} required />
+                <input type="date" name="ora_datum" value={formData.ora_datum || ''} onChange={handleChange} required />
               </div>
 
               <div className="form-group">

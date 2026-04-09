@@ -4,9 +4,8 @@ const studentController = {
   getAll: async (req, res, next) => {
     try {
       const [rows] = await pool.query(`
-        SELECT d.id, d.nev, d.telefonsz, d.email, d.szulDatum, d.sajatHangszer, b.fnev as felhasznaloNev
+        SELECT d.id, d.nev, d.email, d.telefonsz, d.szulDatum, d.sajatHangszer, d.felhasznaloId
         FROM diakok d
-        LEFT JOIN bejelentkezesek b ON d.felhasznaloId = b.id
         ORDER BY d.id
       `);
       res.json(rows);

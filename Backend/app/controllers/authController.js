@@ -1,3 +1,4 @@
+const pool = require('../models/db');
 const authModel = require('../models/authModel');
 const jwt = require('jsonwebtoken');
 
@@ -30,16 +31,31 @@ const authController = {
       }
 
       // Új felhasználó létrehozása (alapból 'diak' jogosultság)
+      const userRole = jogosultsag || 'diak';
       const userId = await authModel.create({
         fnev,
         jelszo,
-        jogosultsag: jogosultsag || 'diak',
+        jogosultsag: userRole,
         email
       });
 
+      // Ha diák, akkor hozzuk létre a diakok táblában is
+      if (userRole === 'diak') {
+        try {
+          const [result] = await pool.query(
+            'INSERT INTO diakok (nev, email, telefonsz, felhasznaloId) VALUES (?, ?, ?, ?)',
+            [fnev, email, '', userId]
+          );
+          console.log('Diák rekord létrehozva, ID:', result.insertId);
+        } catch (dbError) {
+          console.error('Hiba a diák rekord létrehozásakor:', dbError);
+          // Nem állítjuk le a regisztrációt, csak logoljuk a hibát
+        }
+      }
+
       // Token generálás
       const token = jwt.sign(
-        { id: userId, fnev, jogosultsag: jogosultsag || 'diak', email },
+        { id: userId, fnev, jogosultsag: userRole, email },
         JWT_SECRET,
         { expiresIn: '7d' }
       );
@@ -51,7 +67,7 @@ const authController = {
           id: userId,
           fnev,
           email,
-          jogosultsag: jogosultsag || 'diak'
+          jogosultsag: userRole
         }
       });
     } catch (error) {
@@ -60,7 +76,7 @@ const authController = {
     }
   },
 
-  // BEJELENTKEZÉS
+  // BEJELENTKEZÉS (marad ugyanaz)
   login: async (req, res, next) => {
     try {
       const { fnev, jelszo } = req.body;
@@ -69,19 +85,16 @@ const authController = {
         return res.status(400).json({ error: 'Felhasználónév és jelszó megadása kötelező' });
       }
 
-      // Felhasználó keresése
       const user = await authModel.findByUsername(fnev);
       if (!user) {
         return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó' });
       }
 
-      // Jelszó ellenőrzése
       const isValid = await authModel.verifyPassword(jelszo, user.jelszo);
       if (!isValid) {
         return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó' });
       }
 
-      // Token generálás
       const token = jwt.sign(
         { id: user.id, fnev: user.fnev, jogosultsag: user.jogosultsag, email: user.email },
         JWT_SECRET,
@@ -104,7 +117,7 @@ const authController = {
     }
   },
 
-  // TOKEN ELLENŐRZÉS (felhasználó adatainak lekérése tokenből)
+  // TOKEN ELLENŐRZÉS (marad ugyanaz)
   verify: async (req, res, next) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];
