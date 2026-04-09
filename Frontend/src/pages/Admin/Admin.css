@@ -163,7 +163,7 @@
 }
 
 /* ============================================ */
-/* ADMIN TABLE - LEEGYSZERŰSÍTETT VERZIÓ */
+/* ADMIN TABLE - EGYENLETES VONALAK */
 /* ============================================ */
 .admin-table-wrapper {
   overflow-x: auto;
@@ -179,7 +179,9 @@
 .admin-data-table td {
   padding: 12px 15px;
   text-align: left;
+  vertical-align: middle;
   border: none;
+  /* Eltávolítjuk a cellák szegélyeit */
 }
 
 .admin-data-table th {
@@ -189,13 +191,11 @@
   border-bottom: 2px solid var(--border-light);
 }
 
-.admin-data-table td {
+.admin-data-table tr {
   border-bottom: 1px solid var(--border-light);
-  vertical-align: middle;
-  box-sizing: border-box;
 }
 
-.admin-data-table tr:last-child td {
+.admin-data-table tr:last-child {
   border-bottom: none;
 }
 
@@ -203,12 +203,16 @@
   background: var(--secondary-light);
 }
 
-/* Admin Actions */
+/* Fix magasság a gombok miatt */
+.admin-data-table td {
+  height: 65px;
+}
+
 .admin-actions {
   display: flex;
   gap: 8px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
 }
 
@@ -219,7 +223,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
@@ -417,13 +421,25 @@
 
 /* Animations */
 @keyframes adminFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes adminSlideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Reszponzív */
@@ -431,7 +447,7 @@
   .admin-tabs {
     flex-wrap: wrap;
   }
-  
+
   .admin-tab {
     flex: 1 1 auto;
   }
@@ -442,39 +458,39 @@
     flex-direction: column;
     text-align: center;
   }
-  
+
   .admin-hero h1 {
     font-size: 2rem;
   }
-  
+
   .admin-table-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .admin-add-btn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .admin-table-container {
     padding: 20px;
   }
-  
+
   .admin-modal-actions {
     flex-direction: column;
   }
-  
+
   .admin-actions {
     flex-direction: column;
     gap: 5px;
   }
-  
+
   .admin-tab {
     padding: 8px 16px;
     font-size: 0.85rem;
   }
-  
+
   .admin-data-table th,
   .admin-data-table td {
     padding: 10px 12px;
@@ -485,44 +501,91 @@
   .admin-hero h1 {
     font-size: 1.8rem;
   }
-  
+
   .admin-user-info {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .admin-tabs {
     flex-direction: column;
   }
-  
+
   .admin-tab {
     width: 100%;
     justify-content: center;
   }
-  
+
   .admin-modal-content {
     padding: 20px;
   }
-  
+
   .admin-modal-content h3 {
     font-size: 1.3rem;
   }
-  
+
   .admin-data-table th,
   .admin-data-table td {
     padding: 8px 10px;
     font-size: 0.85rem;
   }
-  
+
   .status-badge,
   .user-role-badge {
     padding: 2px 8px;
     font-size: 0.7rem;
   }
-  
+
   .admin-edit-btn,
   .admin-delete-btn {
     width: 28px;
     height: 28px;
   }
+}
+
+/* Olvasottá jelölés gomb - modern dizájn */
+.admin-read-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
+  color: var(--accent-turquoise);
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-read-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(29, 211, 198, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.admin-read-btn:hover::before {
+  width: 60px;
+  height: 60px;
+}
+
+.admin-read-btn:hover {
+  background: var(--accent-turquoise);
+  color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-strong);
+}
+
+.admin-read-btn:active {
+  transform: translateY(0);
 }
