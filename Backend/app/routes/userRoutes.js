@@ -11,26 +11,25 @@ const userController = require('../controllers/userController');
  *       required:
  *         - fnev
  *         - email
- *         - jelszo
  *       properties:
  *         id:
  *           type: integer
- *           description: A felhasználó egyedi azonosítója
+ *           description: "A felhasználó egyedi azonosítója"
  *         fnev:
  *           type: string
- *           description: Felhasználónév
+ *           description: "Felhasználónév"
  *         email:
  *           type: string
  *           format: email
- *           description: Email cím
+ *           description: "Email cím"
  *         jogosultsag:
  *           type: string
  *           enum: [admin, tanar, diak]
- *           description: Jogosultság
+ *           description: "Jogosultság"
  *         created_at:
  *           type: string
  *           format: date-time
- *           description: Regisztráció dátuma
+ *           description: "Regisztráció dátuma"
  *     UserCreate:
  *       type: object
  *       required:
@@ -40,31 +39,31 @@ const userController = require('../controllers/userController');
  *       properties:
  *         fnev:
  *           type: string
- *           description: Felhasználónév
+ *           description: "Felhasználónév"
  *         jelszo:
  *           type: string
- *           description: Jelszó (min. 6 karakter)
+ *           description: "Jelszó (min. 6 karakter)"
  *         email:
  *           type: string
  *           format: email
- *           description: Email cím
+ *           description: "Email cím"
  *         jogosultsag:
  *           type: string
  *           enum: [admin, tanar, diak]
- *           description: Jogosultság (alapértelmezett: diak)
+ *           description: "Jogosultság (alapértelmezett: diak)"
  */
 
 /**
  * @swagger
  * /users:
  *   get:
- *     summary: Összes felhasználó lekérése
+ *     summary: "Összes felhasználó lekérése"
  *     tags: [Felhasználók]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A felhasználók listája
+ *         description: "A felhasználók listája"
  *         content:
  *           application/json:
  *             schema:
@@ -78,7 +77,7 @@ router.get('/', userController.getAll);
  * @swagger
  * /users/{id}:
  *   get:
- *     summary: Egy felhasználó lekérése ID alapján
+ *     summary: "Egy felhasználó lekérése ID alapján"
  *     tags: [Felhasználók]
  *     security:
  *       - bearerAuth: []
@@ -88,16 +87,16 @@ router.get('/', userController.getAll);
  *         required: true
  *         schema:
  *           type: integer
- *         description: A felhasználó ID-ja
+ *         description: "A felhasználó ID-ja"
  *     responses:
  *       200:
- *         description: A felhasználó adatai
+ *         description: "A felhasználó adatai"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       404:
- *         description: Felhasználó nem található
+ *         description: "Felhasználó nem található"
  */
 router.get('/:id', userController.getById);
 
@@ -105,7 +104,7 @@ router.get('/:id', userController.getById);
  * @swagger
  * /users:
  *   post:
- *     summary: Új felhasználó létrehozása
+ *     summary: "Új felhasználó létrehozása"
  *     tags: [Felhasználók]
  *     security:
  *       - bearerAuth: []
@@ -117,9 +116,9 @@ router.get('/:id', userController.getById);
  *             $ref: '#/components/schemas/UserCreate'
  *     responses:
  *       201:
- *         description: Felhasználó sikeresen létrehozva
+ *         description: "Felhasználó sikeresen létrehozva"
  *       400:
- *         description: Hiányzó vagy érvénytelen adatok
+ *         description: "Hiányzó vagy érvénytelen adatok"
  */
 router.post('/', userController.create);
 
@@ -127,7 +126,7 @@ router.post('/', userController.create);
  * @swagger
  * /users/{id}:
  *   put:
- *     summary: Felhasználó frissítése
+ *     summary: "Felhasználó frissítése"
  *     tags: [Felhasználók]
  *     security:
  *       - bearerAuth: []
@@ -137,7 +136,7 @@ router.post('/', userController.create);
  *         required: true
  *         schema:
  *           type: integer
- *         description: A felhasználó ID-ja
+ *         description: "A felhasználó ID-ja"
  *     requestBody:
  *       required: true
  *       content:
@@ -146,9 +145,9 @@ router.post('/', userController.create);
  *             $ref: '#/components/schemas/UserCreate'
  *     responses:
  *       200:
- *         description: Felhasználó sikeresen frissítve
+ *         description: "Felhasználó sikeresen frissítve"
  *       404:
- *         description: Felhasználó nem található
+ *         description: "Felhasználó nem található"
  */
 router.put('/:id', userController.update);
 
@@ -156,7 +155,7 @@ router.put('/:id', userController.update);
  * @swagger
  * /users/{id}:
  *   delete:
- *     summary: Felhasználó törlése
+ *     summary: "Felhasználó törlése"
  *     tags: [Felhasználók]
  *     security:
  *       - bearerAuth: []
@@ -166,12 +165,12 @@ router.put('/:id', userController.update);
  *         required: true
  *         schema:
  *           type: integer
- *         description: A felhasználó ID-ja
+ *         description: "A felhasználó ID-ja"
  *     responses:
  *       200:
- *         description: Felhasználó sikeresen törölve
+ *         description: "Felhasználó sikeresen törölve"
  *       404:
- *         description: Felhasználó nem található
+ *         description: "Felhasználó nem található"
  */
 router.delete('/:id', userController.delete);
 

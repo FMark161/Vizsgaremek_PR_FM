@@ -15,18 +15,18 @@ const authController = require('../controllers/authController');
  *       properties:
  *         fnev:
  *           type: string
- *           description: Felhasználónév
+ *           description: "Felhasználónév"
  *         jelszo:
  *           type: string
- *           description: Jelszó (min. 6 karakter)
+ *           description: "Jelszó (min. 6 karakter)"
  *         email:
  *           type: string
  *           format: email
- *           description: Email cím
+ *           description: "Email cím"
  *         jogosultsag:
  *           type: string
  *           enum: [admin, tanar, diak]
- *           description: Jogosultság (alapértelmezett: diak)
+ *           description: "Jogosultság (alapértelmezett: diak)"
  *     LoginRequest:
  *       type: object
  *       required:
@@ -35,10 +35,10 @@ const authController = require('../controllers/authController');
  *       properties:
  *         fnev:
  *           type: string
- *           description: Felhasználónév
+ *           description: "Felhasználónév"
  *         jelszo:
  *           type: string
- *           description: Jelszó
+ *           description: "Jelszó"
  *     AuthResponse:
  *       type: object
  *       properties:
@@ -63,7 +63,7 @@ const authController = require('../controllers/authController');
  * @swagger
  * /auth/register:
  *   post:
- *     summary: Új felhasználó regisztrálása
+ *     summary: "Új felhasználó regisztrálása"
  *     tags: [Autentikáció]
  *     requestBody:
  *       required: true
@@ -73,13 +73,13 @@ const authController = require('../controllers/authController');
  *             $ref: '#/components/schemas/RegisterRequest'
  *     responses:
  *       201:
- *         description: Sikeres regisztráció
+ *         description: "Sikeres regisztráció"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/AuthResponse'
  *       400:
- *         description: Hibás adatok vagy már létező felhasználó
+ *         description: "Hibás adatok vagy már létező felhasználó"
  */
 router.post('/register', authController.register);
 
@@ -87,7 +87,7 @@ router.post('/register', authController.register);
  * @swagger
  * /auth/login:
  *   post:
- *     summary: Bejelentkezés
+ *     summary: "Bejelentkezés"
  *     tags: [Autentikáció]
  *     requestBody:
  *       required: true
@@ -97,13 +97,13 @@ router.post('/register', authController.register);
  *             $ref: '#/components/schemas/LoginRequest'
  *     responses:
  *       200:
- *         description: Sikeres bejelentkezés
+ *         description: "Sikeres bejelentkezés"
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/AuthResponse'
  *       401:
- *         description: Hibás felhasználónév vagy jelszó
+ *         description: "Hibás felhasználónév vagy jelszó"
  */
 router.post('/login', authController.login);
 
@@ -111,13 +111,13 @@ router.post('/login', authController.login);
  * @swagger
  * /auth/verify:
  *   get:
- *     summary: Token ellenőrzése
+ *     summary: "Token ellenőrzése"
  *     tags: [Autentikáció]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Token érvényes
+ *         description: "Token érvényes"
  *         content:
  *           application/json:
  *             schema:
@@ -137,7 +137,7 @@ router.post('/login', authController.login);
  *                     jogosultsag:
  *                       type: string
  *       401:
- *         description: Érvénytelen vagy hiányzó token
+ *         description: "Érvénytelen vagy hiányzó token"
  */
 router.get('/verify', authController.verify);
 
