@@ -34,16 +34,19 @@ const studentController = {
       res.json(rows[0]);
     } catch (error) { next(error); }
   },
-  
+
   create: async (req, res, next) => {
     try {
       const { nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId } = req.body;
       const [result] = await pool.query(
         'INSERT INTO diakok (nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId) VALUES (?, ?, ?, ?, ?, ?)',
-        [nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId]
+        [nev, telefonsz || null, email || null, szulDatum || null, sajatHangszer || null, felhasznaloId || null]
       );
       res.status(201).json({ id: result.insertId, message: 'Diák létrehozva' });
-    } catch (error) { next(error); }
+    } catch (error) {
+      console.error('Hiba a diák létrehozásakor:', error);
+      next(error);
+    }
   },
   update: async (req, res, next) => {
     try {
@@ -51,9 +54,9 @@ const studentController = {
       const { nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId } = req.body;
       const [result] = await pool.query(
         'UPDATE diakok SET nev = ?, telefonsz = ?, email = ?, szulDatum = ?, sajatHangszer = ?, felhasznaloId = ? WHERE id = ?',
-        [nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId, id]
+        [nev, telefonsz || null, email || null, szulDatum || null, sajatHangszer || null, felhasznaloId || null, id]
       );
-      if (result.affectedRows === 0) return res.status(404).json({ error: 'Not found' });
+      if (result.affectedRows === 0) return res.status(404).json({ error: 'Diák nem található' });
       res.json({ message: 'Diák frissítve' });
     } catch (error) { next(error); }
   },
