@@ -88,10 +88,22 @@ const teacherController = {
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const [result] = await pool.query('DELETE FROM tanarok WHERE id = ?', [id]);
-      if (result.affectedRows === 0) return res.status(404).json({ error: 'Not found' });
+
+      // Ellenőrizzük, hogy létezik-e a tanár
+      const [teacher] = await pool.query('SELECT id FROM tanarok WHERE id = ?', [id]);
+      if (teacher.length === 0) {
+        return res.status(404).json({ error: 'Oktató nem található' });
+      }
+
+      // Töröljük a kapcsolódó rekordokat a tanar_mit_tud táblából
+      await pool.query('DELETE FROM tanar_mit_tud WHERE tanarId = ?', [id]);
+
+      // Töröljük a tanárt
+      await pool.query('DELETE FROM tanarok WHERE id = ?', [id]);
+
       res.json({ message: 'Oktató törölve' });
     } catch (error) {
+      console.error('Hiba az oktató törlésekor:', error);
       next(error);
     }
   }
