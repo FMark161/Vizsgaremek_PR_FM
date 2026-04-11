@@ -4,20 +4,36 @@ const rentalController = {
   getAll: async (req, res, next) => {
     try {
       const [rows] = await pool.query(`
-        SELECT k.id, k.kolcsKezd, k.kolcsVeg, k.megjegyzes, k.statusz,
-               h.nev as hangszerNev, d.nev as diakNev
-        FROM kolcsonzesek k
-        JOIN hangszerek h ON k.hangszerId = h.id
-        JOIN diakok d ON k.diakId = d.id
-        ORDER BY k.kolcsKezd DESC
-      `);
+      SELECT 
+        k.id, 
+        DATE_FORMAT(k.kolcsKezd, '%Y-%m-%d') as kolcsKezd,
+        DATE_FORMAT(k.kolcsVeg, '%Y-%m-%d') as kolcsVeg,
+        k.megjegyzes, k.statusz,
+        h.nev as hangszerNev, d.nev as diakNev
+      FROM kolcsonzesek k
+      JOIN hangszerek h ON k.hangszerId = h.id
+      JOIN diakok d ON k.diakId = d.id
+      ORDER BY k.kolcsKezd DESC
+    `);
       res.json(rows);
     } catch (error) { next(error); }
   },
+
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const [rows] = await pool.query('SELECT * FROM kolcsonzesek WHERE id = ?', [id]);
+      const [rows] = await pool.query(`
+      SELECT 
+        k.id, 
+        DATE_FORMAT(k.kolcsKezd, '%Y-%m-%d') as kolcsKezd,
+        DATE_FORMAT(k.kolcsVeg, '%Y-%m-%d') as kolcsVeg,
+        k.megjegyzes, k.statusz,
+        h.nev as hangszerNev, d.nev as diakNev
+      FROM kolcsonzesek k
+      JOIN hangszerek h ON k.hangszerId = h.id
+      JOIN diakok d ON k.diakId = d.id
+      WHERE k.id = ?
+    `, [id]);
       if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
       res.json(rows[0]);
     } catch (error) { next(error); }

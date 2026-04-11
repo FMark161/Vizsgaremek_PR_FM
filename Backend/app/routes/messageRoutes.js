@@ -3,6 +3,7 @@ const router = express.Router();
 const messageController = require('../controllers/messageController');
 
 router.get('/', messageController.getAll);
+router.get('/:id', messageController.getById);
 router.post('/', messageController.create);
 router.patch('/:id/read', messageController.markAsRead);
 router.delete('/:id', messageController.delete);

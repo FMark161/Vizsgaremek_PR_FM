@@ -4,7 +4,14 @@ const eventController = {
   // Összes esemény lekérése
   getAll: async (req, res, next) => {
     try {
-      const [rows] = await pool.query('SELECT * FROM esemenyek ORDER BY datum ASC');
+      const [rows] = await pool.query(`
+  SELECT 
+    id, cim, 
+    DATE_FORMAT(datum, '%Y-%m-%d') as datum,
+    idopont, helyszin, leiras, hosszuleiras, kategoria, kiemelt
+  FROM esemenyek
+  ORDER BY datum ASC
+`);
       res.json(rows);
     } catch (error) {
       next(error);

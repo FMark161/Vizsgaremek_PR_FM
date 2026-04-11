@@ -125,16 +125,12 @@ const Admin = () => {
   };
 
   const handleEdit = (item) => {
-  setEditingItem(item);
-  setFormData({
-    name: item.name || '',
-    category: item.category || '',
-    teacher: item.teacher || '',
-    rentalPrice: item.rentalPrice || '',
-    status: item.status || 'available'
-  });
-  setShowAddForm(true);
-};
+    console.log('Szerkesztendő elem:', item); // Debug (opcionális)
+    setEditingItem(item);
+    // Egyszerűen másoljuk az egész item-et a formData-ba
+    setFormData({ ...item });
+    setShowAddForm(true);
+  };
   const handleChange = (e) => { const { name, value, type, checked } = e.target; setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value })); };
   const closeForm = () => { setShowAddForm(false); setEditingItem(null); setFormData({}); };
 
@@ -187,7 +183,7 @@ const Admin = () => {
       case 'categories': return (<><td>{item.katNev}</td></>);
       case 'stock': return (<><td>{item.ar} Ft</td><td>{item.elerhetoseg ? 'Elérhető' : 'Nem elérhető'}</td></>);
       case 'teacherSkills': return (<><td>{item.tanarNev}</td><td>{item.hangszerNev}</td></>);
-      case 'lessons': return (<><td>{item.tanarNev}</td><td>{item.diakNev}</td><td>{item.hangszerNev}</td><td>{item.tema}</td><td>{new Date(item.datum).toLocaleDateString()}</td><td>{item.ido}</td><td><span className={`status-badge ${getStatusClass(item.statusz)}`}>{getStatusText(item.statusz)}</span></td></>);
+      case 'lessons': return (<><td>{item.tanarNev}</td><td>{item.diakNev}</td><td>{item.hangszerNev}</td><td>{item.tema}</td><td>{item.ora_datum || '-'}</td><td>{item.ora_ido || '-'}</td><td><span className={`status-badge ${getStatusClass(item.statusz)}`}>{getStatusText(item.statusz)}</span></td></>);
       case 'messages': return (<><td>{item.nev}</td><td>{item.email}</td><td>{item.telefon || '-'}</td><td>{item.targy || '-'}</td><td className="message-preview">{item.uzenet?.substring(0, 50)}...</td><td><span className={`status-badge ${getStatusClass(item.statusz)}`}>{getStatusText(item.statusz)}</span></td><td>{new Date(item.letrehozas).toLocaleString()}</td></>);
       default: return null;
     }

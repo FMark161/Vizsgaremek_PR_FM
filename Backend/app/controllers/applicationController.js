@@ -3,22 +3,35 @@ const pool = require('../models/db');
 const applicationController = {
   getAll: async (req, res, next) => {
     try {
-      const [rows] = await pool.query('SELECT * FROM jelentkezesek ORDER BY letrehozas DESC');
+      const [rows] = await pool.query(`
+      SELECT 
+        id, nev, email, telefon, 
+        DATE_FORMAT(szul_datum, '%Y-%m-%d') as szul_datum,
+        hangszer, szint, sajat_hangszer, uzenet, statusz,
+        DATE_FORMAT(letrehozas, '%Y-%m-%d') as letrehozas,
+        DATE_FORMAT(feldolgozva, '%Y-%m-%d') as feldolgozva
+      FROM jelentkezesek
+      ORDER BY letrehozas DESC
+    `);
       res.json(rows);
-    } catch (error) {
-      next(error);
-    }
+    } catch (error) { next(error); }
   },
 
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const [rows] = await pool.query('SELECT * FROM jelentkezesek WHERE id = ?', [id]);
+      const [rows] = await pool.query(`
+      SELECT 
+        id, nev, email, telefon, 
+        DATE_FORMAT(szul_datum, '%Y-%m-%d') as szul_datum,
+        hangszer, szint, sajat_hangszer, uzenet, statusz,
+        DATE_FORMAT(letrehozas, '%Y-%m-%d') as letrehozas,
+        DATE_FORMAT(feldolgozva, '%Y-%m-%d') as feldolgozva
+      FROM jelentkezesek WHERE id = ?
+    `, [id]);
       if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
       res.json(rows[0]);
-    } catch (error) {
-      next(error);
-    }
+    } catch (error) { next(error); }
   },
 
   create: async (req, res, next) => {

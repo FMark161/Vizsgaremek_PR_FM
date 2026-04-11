@@ -1,10 +1,17 @@
 const pool = require('../models/db');
 
 const messageController = {
-  // Összes üzenet lekérése
+  // Összes üzenet lekérése (dátumformázással)
   getAll: async (req, res, next) => {
     try {
-      const [rows] = await pool.query('SELECT * FROM uzenetek ORDER BY letrehozas DESC');
+      const [rows] = await pool.query(`
+        SELECT 
+          id, nev, email, telefon, targy, uzenet, statusz,
+          DATE_FORMAT(letrehozas, '%Y-%m-%d') as letrehozas,
+          DATE_FORMAT(megtekintve, '%Y-%m-%d') as megtekintve
+        FROM uzenetek 
+        ORDER BY letrehozas DESC
+      `);
       res.json(rows);
     } catch (error) { 
       console.error('Hiba az üzenetek lekérésekor:', error);
@@ -12,7 +19,29 @@ const messageController = {
     }
   },
 
-  // Új üzenet létrehozása
+  // Egy üzenet lekérése ID alapján (dátumformázással)
+  getById: async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const [rows] = await pool.query(`
+        SELECT 
+          id, nev, email, telefon, targy, uzenet, statusz,
+          DATE_FORMAT(letrehozas, '%Y-%m-%d') as letrehozas,
+          DATE_FORMAT(megtekintve, '%Y-%m-%d') as megtekintve
+        FROM uzenetek 
+        WHERE id = ?
+      `, [id]);
+      if (rows.length === 0) {
+        return res.status(404).json({ error: 'Üzenet nem található' });
+      }
+      res.json(rows[0]);
+    } catch (error) { 
+      console.error('Hiba az üzenet lekérésekor:', error);
+      next(error); 
+    }
+  },
+
+  // Új üzenet létrehozása (nincs változás)
   create: async (req, res, next) => {
     try {
       const { nev, email, telefon, targy, uzenet } = req.body;
@@ -33,7 +62,7 @@ const messageController = {
     }
   },
 
-  // Üzenet olvasottá jelölése
+  // Üzenet olvasottá jelölése (nincs változás)
   markAsRead: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -49,7 +78,7 @@ const messageController = {
     }
   },
 
-  // Üzenet törlése
+  // Üzenet törlése (nincs változás)
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;

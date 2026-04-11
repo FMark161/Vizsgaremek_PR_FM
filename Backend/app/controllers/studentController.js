@@ -4,21 +4,37 @@ const studentController = {
   getAll: async (req, res, next) => {
     try {
       const [rows] = await pool.query(`
-        SELECT d.id, d.nev, d.email, d.telefonsz, d.szulDatum, d.sajatHangszer, d.felhasznaloId
-        FROM diakok d
-        ORDER BY d.id
-      `);
+      SELECT 
+        d.id, d.nev, d.telefonsz, d.email, 
+        DATE_FORMAT(d.szulDatum, '%Y-%m-%d') as szulDatum,
+        d.sajatHangszer, d.felhasznaloId,
+        b.fnev as felhasznaloNev
+      FROM diakok d
+      LEFT JOIN bejelentkezesek b ON d.felhasznaloId = b.id
+      ORDER BY d.id
+    `);
       res.json(rows);
     } catch (error) { next(error); }
   },
+
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
-      const [rows] = await pool.query('SELECT * FROM diakok WHERE id = ?', [id]);
+      const [rows] = await pool.query(`
+      SELECT 
+        d.id, d.nev, d.telefonsz, d.email, 
+        DATE_FORMAT(d.szulDatum, '%Y-%m-%d') as szulDatum,
+        d.sajatHangszer, d.felhasznaloId,
+        b.fnev as felhasznaloNev
+      FROM diakok d
+      LEFT JOIN bejelentkezesek b ON d.felhasznaloId = b.id
+      WHERE d.id = ?
+    `, [id]);
       if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
       res.json(rows[0]);
     } catch (error) { next(error); }
   },
+  
   create: async (req, res, next) => {
     try {
       const { nev, telefonsz, email, szulDatum, sajatHangszer, felhasznaloId } = req.body;
