@@ -37,12 +37,20 @@ const applicationController = {
   create: async (req, res, next) => {
     try {
       const { nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet } = req.body;
+
+      // VALIDÁCIÓ - EZ HIÁNYZOTT!
+      if (!nev || !email) {
+        return res.status(400).json({ error: 'Név és email megadása kötelező' });
+      }
+
       const [result] = await pool.query(
         'INSERT INTO jelentkezesek (nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet, statusz) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "new")',
         [nev, email, telefon, szul_datum, hangszer, szint, sajat_hangszer, uzenet]
       );
+
       res.status(201).json({ id: result.insertId, message: 'Jelentkezés létrehozva' });
     } catch (error) {
+      console.error('Hiba a jelentkezés létrehozásakor:', error);
       next(error);
     }
   },
