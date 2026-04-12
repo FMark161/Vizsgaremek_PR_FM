@@ -1,0 +1,38 @@
+const { Builder, By, until } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+
+describe('Harmónia Zeneiskola - Kezdőlap tesztek', () => {
+  let driver;
+
+  beforeAll(async () => {
+    const options = new chrome.Options();
+    options.addArguments('--remote-allow-origins=*');
+    options.addArguments('--start-maximized');
+    
+    driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(options)
+      .build();
+  });
+
+  afterAll(async () => {
+    await driver.quit();
+  });
+
+  test('A kezdőlap betöltődik', async () => {
+    await driver.get('http://localhost:5173');
+    const title = await driver.getTitle();
+    expect(title).toBe('Harmónia Zeneiskola');
+  });
+
+  test('A "Jelentkezem" gomb a jelentkezés oldalra visz', async () => {
+    await driver.get('http://localhost:5173');
+    
+    const jelentkezemBtn = await driver.findElement(By.css('.btn-primary'));
+    await jelentkezemBtn.click();
+    
+    await driver.wait(until.urlContains('/application'), 5000);
+    const currentUrl = await driver.getCurrentUrl();
+    expect(currentUrl).toContain('/application');
+  });
+});
