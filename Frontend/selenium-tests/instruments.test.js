@@ -20,21 +20,17 @@ describe('Hangszerek oldal szűrőinek tesztelése', () => {
 
   test('Az oldal betöltődik és a szűrők megjelennek', async () => {
     await driver.get('http://localhost:5173/instruments');
+    await driver.wait(until.elementLocated(By.css('.instruments-hero')), 10000);
+    // Javítás: a szűrőgombok osztálya .family-btn
     const filterButtons = await driver.findElements(By.css('.family-btn'));
     expect(filterButtons.length).toBeGreaterThan(0);
   }, 15000);
 
   test('A "Vonósok" szűrőre kattintva csak a vonós hangszerek jelennek meg', async () => {
     await driver.get('http://localhost:5173/instruments');
-
-    // Kattints a "Vonósok" szűrőre (a gomb szövege alapján)
     const stringsFilter = await driver.findElement(By.xpath("//button[contains(text(),'Vonósok')]"));
     await stringsFilter.click();
-
-    // Várj, amíg a kártyák frissülnek (pl. a DOM változására)
-    await driver.sleep(1000); // egyszerű várakozás; használhatnánk wait-tel is
-
-    // Ellenőrizzük, hogy csak olyan kártyák jelennek meg, amelyek címe "Vonós hangszerek"
+    await driver.sleep(1000);
     const visibleCards = await driver.findElements(By.css('.family-card'));
     for (const card of visibleCards) {
       const title = await card.findElement(By.css('.family-header h2')).getText();
