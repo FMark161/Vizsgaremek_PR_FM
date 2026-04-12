@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -94,76 +94,76 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const pool = <span class="cstat-no" title="statement not covered" >require('./db');</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const pool = require('./db');
 &nbsp;
-const eventModel = <span class="cstat-no" title="statement not covered" >{</span>
+const eventModel = {
   // Összes esemény lekérése
-  getAll: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-    const [rows] = <span class="cstat-no" title="statement not covered" >await pool.query('SELECT * FROM esemenyek ORDER BY datum ASC');</span>
-<span class="cstat-no" title="statement not covered" >    return rows;</span>
+  getAll: async () =&gt; {
+    const [rows] = await pool.query('SELECT * FROM esemenyek ORDER BY datum ASC');
+    return rows;
   },
 &nbsp;
   // Kiemelt események lekérése
-  getFeatured: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-    const [rows] = <span class="cstat-no" title="statement not covered" >await pool.query('SELECT * FROM esemenyek WHERE kiemelt = TRUE ORDER BY datum ASC');</span>
-<span class="cstat-no" title="statement not covered" >    return rows;</span>
+  getFeatured: async () =&gt; {
+    const [rows] = await pool.query('SELECT * FROM esemenyek WHERE kiemelt = TRUE ORDER BY datum ASC');
+    return rows;
   },
 &nbsp;
   // Legközelebbi 4 esemény lekérése
-  getUpcoming: <span class="fstat-no" title="function not covered" >as</span>ync (limit = <span class="branch-0 cbranch-no" title="branch not covered" >4)</span> =&gt; {
-    const [rows] = <span class="cstat-no" title="statement not covered" >await pool.query(</span>
+  getUpcoming: async (limit = <span class="branch-0 cbranch-no" title="branch not covered" >4)</span> =&gt; {
+    const [rows] = await pool.query(
       'SELECT * FROM esemenyek WHERE datum &gt;= CURDATE() ORDER BY datum ASC LIMIT ?',
       [limit]
     );
-<span class="cstat-no" title="statement not covered" >    return rows;</span>
+    return rows;
   },
 &nbsp;
   // Egy esemény lekérése ID alapján
-  getById: <span class="fstat-no" title="function not covered" >as</span>ync (id) =&gt; {
-    const [rows] = <span class="cstat-no" title="statement not covered" >await pool.query('SELECT * FROM esemenyek WHERE id = ?', [id]);</span>
-<span class="cstat-no" title="statement not covered" >    return rows[0];</span>
+  getById: async (id) =&gt; {
+    const [rows] = await pool.query('SELECT * FROM esemenyek WHERE id = ?', [id]);
+    return rows[0];
   }
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >module.exports = eventModel;</span></pre></td></tr></table></pre>
+module.exports = eventModel;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-12T08:03:04.383Z
+                at 2026-04-12T08:08:31.253Z
             </div>
         <script src="../prettify.js"></script>
         <script>
