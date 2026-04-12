@@ -41,6 +41,7 @@ const eventController = {
         [cim, datum, idopont, helyszin, leiras, hosszuleiras, kategoria, kiemelt || 0]
       );
       res.status(201).json({ id: result.insertId, message: 'Esemény létrehozva' });
+      console.log('Received body:', req.body);
     } catch (error) {
       next(error);
     }
