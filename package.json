@@ -10,6 +10,8 @@
     "stop": "npm run docker-down"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "edgedriver": "^6.3.0",
+    "selenium-webdriver": "^4.43.0"
   }
 }
