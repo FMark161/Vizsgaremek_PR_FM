@@ -56,7 +56,6 @@ describe('Jelentkezési űrlap tesztek', () => {
     const submitBtn = await driver.findElement(By.css('.btn-submit'));
     await submitBtn.click();
 
-    // Várjuk a sikeres üzenetet
     await driver.wait(until.elementLocated(By.css('.success-message')), 10000);
     const successMsg = await driver.findElement(By.css('.success-message'));
     expect(await successMsg.isDisplayed()).toBe(true);

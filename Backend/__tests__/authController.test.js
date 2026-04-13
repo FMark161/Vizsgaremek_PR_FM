@@ -1,4 +1,3 @@
-// Mock-ok a fájl tetején (az importok ELŐTT)
 jest.mock('../app/models/authModel', () => ({
   findByUsername: jest.fn(),
   findByEmail: jest.fn(),
@@ -16,7 +15,6 @@ jest.mock('bcrypt', () => ({
   compare: jest.fn().mockResolvedValue(true)
 }));
 
-// Importok a mock-ok UTÁN
 const { register, login, verify } = require('../app/controllers/authController');
 const authModel = require('../app/models/authModel');
 
@@ -35,7 +33,6 @@ describe('Auth Controller', () => {
     };
     next = jest.fn();
     
-    // Clear all mocks before each test
     jest.clearAllMocks();
   });
 

@@ -1,4 +1,3 @@
-/* Application Hero */
 .application-hero {
   background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
   padding: 60px 0;
@@ -35,7 +34,6 @@
   position: relative;
 }
 
-/* Teachers Section - JAVÍTVA */
 .teachers-section {
   padding: 60px 0;
   background: var(--secondary-light);
@@ -166,7 +164,6 @@
   border-top: 1px solid var(--border-light);
 }
 
-/* Application Form Section */
 .application-form-section {
   padding: 60px 0 80px;
   background-color: var(--primary-white);
@@ -182,7 +179,6 @@
   box-shadow: 0 10px 30px var(--shadow);
 }
 
-/* Info oldal */
 .form-info {
   background: var(--gradient-primary);
   color: var(--primary-white);
@@ -244,7 +240,6 @@
   gap: 8px;
 }
 
-/* Űrlap */
 .application-form {
   padding: 40px;
   background: var(--primary-white);
@@ -308,7 +303,6 @@
   opacity: 0.6;
 }
 
-/* Radio group */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -332,7 +326,6 @@
   color: var(--dark-text);
 }
 
-/* Checkbox */
 .checkbox-group {
   margin: 30px 0;
 }
@@ -363,7 +356,6 @@
   color: var(--accent-turquoise-dark);
 }
 
-/* Submit gomb */
 .btn-submit {
   width: 100%;
   padding: 15px;
@@ -384,7 +376,6 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-/* Sikeres küldés */
 .success-message {
   text-align: center;
   padding: 60px 20px;
@@ -429,7 +420,6 @@
   }
 }
 
-/* Field note */
 .field-note {
   color: var(--light-text);
   font-size: 0.9rem;
@@ -444,7 +434,6 @@
   font-size: 1.2rem;
 }
 
-/* Reszponzív */
 @media (max-width: 1024px) {
   .teachers-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -539,7 +528,6 @@
   }
 }
 
-/* Error message */
 .error-message {
   background: rgba(220, 53, 69, 0.1);
   color: var(--error-red);
@@ -555,7 +543,6 @@
   cursor: not-allowed;
 }
 
-/* Loading állapot */
 .loading {
   text-align: center;
   padding: 40px;
@@ -563,7 +550,6 @@
   font-size: 1.1rem;
 }
 
-/* Tanár placeholder */
 .teacher-placeholder {
   width: 100%;
   height: 100%;

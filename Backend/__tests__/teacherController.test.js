@@ -1,4 +1,3 @@
-// Mock-ok a fájl tetején
 jest.mock('../app/models/db', () => ({
   query: jest.fn()
 }));
@@ -157,10 +156,9 @@ describe('Teacher Controller', () => {
     it('should delete a teacher successfully', async () => {
       req.params.id = '1';
 
-      // A tanár létezik
-      pool.query.mockResolvedValueOnce([[{ id: 1 }]]); // SELECT - tanár létezik
-      pool.query.mockResolvedValueOnce([{ affectedRows: 1 }]); // DELETE FROM tanar_mit_tud
-      pool.query.mockResolvedValueOnce([{ affectedRows: 1 }]); // DELETE FROM tanarok
+      pool.query.mockResolvedValueOnce([[{ id: 1 }]]);
+      pool.query.mockResolvedValueOnce([{ affectedRows: 1 }]);
+      pool.query.mockResolvedValueOnce([{ affectedRows: 1 }]);
 
       await deleteTeacher(req, res, next);
 
@@ -170,8 +168,7 @@ describe('Teacher Controller', () => {
     it('should return 404 if teacher not found', async () => {
       req.params.id = '999';
       
-      // A tanár nem található
-      pool.query.mockResolvedValueOnce([[]]); // SELECT - nincs találat
+      pool.query.mockResolvedValueOnce([[]]);
 
       await deleteTeacher(req, res, next);
 

@@ -5,7 +5,6 @@ const instrumentModel = {
     try {
       console.log('=== instrumentModel.getAll lefut ===');
       
-      // Aktív kölcsönzések lekérése
       const [activeRentals] = await pool.query(`
         SELECT DISTINCT hangszerId 
         FROM kolcsonzesek 
@@ -15,7 +14,6 @@ const instrumentModel = {
       const rentedIds = activeRentals.map(r => r.hangszerId);
       console.log('Kölcsönzött ID-k:', rentedIds);
       
-      // JAVÍTVA: h.id = tmt.hangszerId (nem h.katId)
       const [instruments] = await pool.query(`
         SELECT 
           h.id,
@@ -52,7 +50,6 @@ const instrumentModel = {
     try {
       console.log('=== instrumentModel.getById lefut, id:', id);
       
-      // JAVÍTVA: h.id = tmt.hangszerId (nem h.katId)
       const [rows] = await pool.query(`
         SELECT 
           h.id,
@@ -72,7 +69,6 @@ const instrumentModel = {
       
       if (rows.length === 0) return null;
       
-      // Ellenőrizzük, hogy van-e aktív kölcsönzés
       const [activeRental] = await pool.query(`
         SELECT id FROM kolcsonzesek WHERE hangszerId = ? AND statusz = 'aktiv'
       `, [id]);

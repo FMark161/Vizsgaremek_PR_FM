@@ -13,7 +13,6 @@ describe('Admin felület tesztek', () => {
       .setEdgeOptions(options)
       .build();
 
-    // Bejelentkezés admin felhasználóval
     await driver.get('http://localhost:5173/login');
     await driver.findElement(By.name('fnev')).sendKeys('info');
     await driver.findElement(By.name('jelszo')).sendKeys('123456');
@@ -33,24 +32,21 @@ describe('Admin felület tesztek', () => {
 
   test('Az összes tab betölti a megfelelő táblát', async () => {
     await driver.get('http://localhost:5173/admin');
-    // Várjuk, hogy a tabok megjelenjenek
+
     const tabs = await driver.wait(until.elementsLocated(By.css('.admin-tab')), 10000);
     expect(tabs.length).toBeGreaterThan(0);
 
     for (let i = 0; i < tabs.length; i++) {
-      // Újra lekérjük a tabokat minden iterációban, hogy elkerüljük a "stale element" hibát
       const currentTabs = await driver.findElements(By.css('.admin-tab'));
       const tab = currentTabs[i];
       const tabText = await tab.getText();
       console.log(`Kattintás a(z) "${tabText}" tabra`);
 
       await tab.click();
-      // Várunk egy kicsit a tartalom betöltésére
       await driver.sleep(1000);
 
-      // Ellenőrizzük, hogy a tab tartalma (táblázat) megjelent-e
       const table = await driver.findElement(By.css('.admin-table-container'));
       expect(await table.isDisplayed()).toBe(true);
     }
-  }, 60000); // megnövelt időtúllépés, mert több tab van
+  }, 60000);
 });

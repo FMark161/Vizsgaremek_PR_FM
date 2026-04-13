@@ -42,7 +42,6 @@ const Lessons = () => {
 
   const API_URL = 'http://localhost:5000/api';
 
-  // Felhasználó szerepkörének és azonosítójának meghatározása
   const getUserRoleAndId = () => {
     if (!user) return { role: null, id: null };
     if (user.jogosultsag === 'admin') return { role: 'admin', id: null };
@@ -53,7 +52,6 @@ const Lessons = () => {
 
   const { role, id } = getUserRoleAndId();
 
-  // --- Adatlekérő függvények ---
   const fetchStudents = async () => {
     try {
       const studentsRes = await fetch(`${API_URL}/students`);
@@ -84,7 +82,6 @@ const Lessons = () => {
     }
   };
 
-  // Órák lekérése (kiemelve a komponens szintjére)
   const fetchLessons = async () => {
     if (!role) return;
     setLoading(true);
@@ -102,7 +99,7 @@ const Lessons = () => {
       console.log('Backend válasza (órák):', data);
 
       const formattedData = data.map(lesson => {
-        let localDate = lesson.ora_datum; // itt a helyes mezőnév
+        let localDate = lesson.ora_datum;
         if (localDate && localDate.includes('T')) {
           const date = new Date(localDate);
           const year = date.getFullYear();
@@ -112,7 +109,7 @@ const Lessons = () => {
         }
         return {
           ...lesson,
-          datum: localDate, // egységesen datum néven tároljuk a naptárhoz
+          datum: localDate,
           ido: lesson.ora_ido,
           hangszerId: lesson.hangszerId
         };
@@ -125,13 +122,10 @@ const Lessons = () => {
     }
   };
 
-  // --- useEffect-ek ---
-  // Órák betöltése szerepkör változásakor
   useEffect(() => {
     if (role) fetchLessons();
   }, [role, id]);
 
-  // Tanárok, diákok, hangszerek betöltése (admin/tanár űrlaphoz)
   useEffect(() => {
     if (role === 'admin' || role === 'teacher') {
       fetchStudents();
@@ -140,7 +134,6 @@ const Lessons = () => {
     }
   }, [role]);
 
-  // --- Űrlap kezelés ---
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -199,7 +192,7 @@ const Lessons = () => {
 
       if (res.ok) {
         alert(editingLesson ? 'Óra sikeresen módosítva!' : 'Óra sikeresen létrehozva!');
-        await fetchLessons();  // Egyszerűen újratöltjük az órákat
+        await fetchLessons();
         closeForm();
       } else {
         alert(`Hiba: ${responseData.error || 'Ismeretlen hiba'}`);
@@ -222,7 +215,6 @@ const Lessons = () => {
     }
   };
 
-  // --- Segédfüggvények a megjelenítéshez ---
   const getStatusBadge = (status) => {
     switch (status) {
       case 'tervezett':
@@ -272,7 +264,6 @@ const Lessons = () => {
 
   const weekSchedule = getWeekSchedule();
 
-  // --- UI ---
   if (authLoading || loading) {
     return <div className="lessons"><div className="container"><div className="lessons-loading">Betöltés...</div></div></div>;
   }
@@ -397,7 +388,6 @@ const Lessons = () => {
         </section>
       )}
 
-      {/* Modal űrlap (változatlan) */}
       {showAddForm && (
         <div className="lessons-modal-overlay" onClick={closeForm}>
           <div className="lessons-modal-content" onClick={e => e.stopPropagation()}>

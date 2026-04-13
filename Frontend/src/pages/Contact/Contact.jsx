@@ -109,7 +109,6 @@ const Contact = () => {
       <section className="contact-section">
         <div className="container">
           <div className="contact-grid">
-            {/* Bal oldal - Elérhetőségek */}
             <div className="contact-info">
               <h2>Elérhetőségeink</h2>
               
@@ -174,7 +173,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Jobb oldal - Űrlap */}
             <div className="contact-form-container">
               <h2>Írj nekünk</h2>
               <p className="form-subtitle">

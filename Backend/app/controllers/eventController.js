@@ -1,7 +1,6 @@
 const pool = require('../models/db');
 
 const eventController = {
-  // Összes esemény lekérése
   getAll: async (req, res, next) => {
     try {
       const [rows] = await pool.query(`
@@ -18,7 +17,6 @@ const eventController = {
     }
   },
 
-  // Egy esemény lekérése
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -32,7 +30,6 @@ const eventController = {
     }
   },
 
-  // Esemény létrehozása
   create: async (req, res, next) => {
     try {
       const { cim, datum, idopont, helyszin, leiras, hosszuleiras, kategoria, kiemelt } = req.body;
@@ -47,7 +44,6 @@ const eventController = {
     }
   },
 
-  // Esemény frissítése
   update: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -65,7 +61,6 @@ const eventController = {
     }
   },
 
-  // Esemény törlése
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;

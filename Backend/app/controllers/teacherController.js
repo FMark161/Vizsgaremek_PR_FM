@@ -15,7 +15,7 @@ const teacherController = {
       FROM tanarok
       ORDER BY id
     `);
-      console.log('Tanárok adatok:', rows); // Debug
+      console.log('Tanárok adatok:', rows);
       res.json(rows);
     } catch (error) {
       next(error);
@@ -27,7 +27,6 @@ const teacherController = {
       const { id } = req.params;
       const [rows] = await pool.query('SELECT * FROM tanarok WHERE id = ?', [id]);
       if (rows.length === 0) return res.status(404).json({ error: 'Not found' });
-      // Átalakítjuk a mezőneveket a frontend által várt formátumra
       const teacher = {
         id: rows[0].id,
         name: rows[0].nev,
@@ -45,7 +44,6 @@ const teacherController = {
 
   create: async (req, res, next) => {
     try {
-      // A frontend által küldött mezőnevek: name, phone, email, experience, education, description
       const { name, phone, email, experience, education, description } = req.body;
 
       if (!name || !email) {
@@ -89,16 +87,13 @@ const teacherController = {
     try {
       const { id } = req.params;
 
-      // Ellenőrizzük, hogy létezik-e a tanár
       const [teacher] = await pool.query('SELECT id FROM tanarok WHERE id = ?', [id]);
       if (teacher.length === 0) {
         return res.status(404).json({ error: 'Oktató nem található' });
       }
 
-      // Töröljük a kapcsolódó rekordokat a tanar_mit_tud táblából
       await pool.query('DELETE FROM tanar_mit_tud WHERE tanarId = ?', [id]);
 
-      // Töröljük a tanárt
       await pool.query('DELETE FROM tanarok WHERE id = ?', [id]);
 
       res.json({ message: 'Oktató törölve' });

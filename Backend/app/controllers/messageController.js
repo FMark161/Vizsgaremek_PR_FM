@@ -1,7 +1,6 @@
 const pool = require('../models/db');
 
 const messageController = {
-  // Összes üzenet lekérése (dátumformázással)
   getAll: async (req, res, next) => {
     try {
       const [rows] = await pool.query(`
@@ -19,7 +18,6 @@ const messageController = {
     }
   },
 
-  // Egy üzenet lekérése ID alapján (dátumformázással)
   getById: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -41,7 +39,6 @@ const messageController = {
     }
   },
 
-  // Új üzenet létrehozása (nincs változás)
   create: async (req, res, next) => {
     try {
       const { nev, email, telefon, targy, uzenet } = req.body;
@@ -62,7 +59,6 @@ const messageController = {
     }
   },
 
-  // Üzenet olvasottá jelölése (nincs változás)
   markAsRead: async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -78,7 +74,6 @@ const messageController = {
     }
   },
 
-  // Üzenet törlése (nincs változás)
   delete: async (req, res, next) => {
     try {
       const { id } = req.params;

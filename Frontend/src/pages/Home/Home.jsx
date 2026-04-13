@@ -10,7 +10,6 @@ const Home = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Automatikus görgetés, ha az URL tartalmazza a #application részt
     useEffect(() => {
         if (location.hash === '#application' && applicationRef.current) {
             applicationRef.current.scrollIntoView({
@@ -20,7 +19,6 @@ const Home = () => {
         }
     }, [location]);
 
-    // Események lekérése az adatbázisból
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -35,7 +33,6 @@ const Home = () => {
                 const data = await response.json();
                 console.log('Kapott események:', data);
 
-                // Csak az első 4 eseményt jelenítjük meg
                 setEvents(data.slice(0, 4));
             } catch (error) {
                 console.error('Hiba az események lekérésekor:', error);
@@ -47,7 +44,6 @@ const Home = () => {
         fetchEvents();
     }, []);
 
-    // Dátum formázása (pl. "2025-04-12" -> "2025. április 12.")
     const formatDate = (dateString) => {
         if (!dateString) return '';
         const date = new Date(dateString);
@@ -58,7 +54,6 @@ const Home = () => {
 
     return (
         <div className="home">
-            {/* Hero szekció - Bal oldalon szöveg, jobb oldalon kép */}
             <section className="hero">
                 <div className="container">
                     <div className="hero-grid">
@@ -88,7 +83,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Bemutatkozás + Miért válassz minket */}
             <section className="about">
                 <div className="container">
                     <div className="about-content">
@@ -176,7 +170,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Események szekció */}
             <section className="events-section">
                 <div className="container">
                     <h2 className="section-title">Közelgő események</h2>
@@ -209,7 +202,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Térkép és nyitvatartás */}
             <section className="info-section">
                 <div className="container">
                     <div className="info-grid">
@@ -257,7 +249,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Application ref - ez a jelentkezési űrlaphoz visz */}
             <div ref={applicationRef} style={{ scrollMarginTop: '20px' }}></div>
         </div>
     );

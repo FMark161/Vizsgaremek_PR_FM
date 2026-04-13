@@ -24,7 +24,6 @@ const PORT = process.env.PORT || 5000;
 
 setupSwagger(app);
 
-// Middleware
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
@@ -32,7 +31,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
 app.use('/api/applications', applicationRoutes);
 app.use('/api/instruments', instrumentRoutes);
 app.use('/api/events', eventRoutes);
@@ -47,17 +45,14 @@ app.use('/api/teacher-skills', teacherSkillRoutes);
 app.use('/api/lessons', lessonRoutes);
 app.use('/api/messages', messageRoutes);
 
-// Test endpoint
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend is running!' });
 });
 
-// 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found' });
 });
 
-// Error middleware
 app.use(errorMiddleware);
 
 app.listen(PORT, () => {

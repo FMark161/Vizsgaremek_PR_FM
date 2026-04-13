@@ -6,7 +6,6 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { user, isAuthenticated } = useAuth();
 
-  // Nyilvános linkek (mindenki láthatja)
   const publicLinks = [
     { name: 'Kezdőlap', path: '/' },
     { name: 'Jelentkezés', path: '/application' },
@@ -15,18 +14,15 @@ const Footer = () => {
     { name: 'Kapcsolat', path: '/contact' }
   ];
 
-  // Védett linkek (csak bejelentkezett felhasználóknak)
   const protectedLinks = [
     { name: 'Kölcsönzés', path: '/rental' },
     { name: 'Óráim', path: '/lessons' }
   ];
 
-  // Admin link (csak adminnak)
   const adminLinks = [
     { name: 'Admin', path: '/admin' }
   ];
 
-  // Összes link összegyűjtése a jogosultság alapján
   const getFooterLinks = () => {
     let links = [...publicLinks];
     
@@ -47,7 +43,6 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="footer-content">
-          {/* Első oszlop - Elérhetőségek */}
           <div className="footer-section">
             <h3>Harmónia Zeneiskola</h3>
             <p>Budapest, Jókai tér 1.</p>
@@ -56,7 +51,6 @@ const Footer = () => {
             <p>Email: info@harmoniazeneiskola.hu</p>
           </div>
 
-          {/* Második oszlop - Nyitvatartás */}
           <div className="footer-section">
             <h3>Nyitvatartás</h3>
             <p>Hétfő - Péntek: 14:00 - 20:00</p>
@@ -64,7 +58,6 @@ const Footer = () => {
             <p>Vasárnap: Zárva</p>
           </div>
 
-          {/* Harmadik oszlop - Gyorslinkek (dinamikus) */}
           <div className="footer-section">
             <h3>Gyorslinkek</h3>
             <ul className="footer-links">
@@ -76,7 +69,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Negyedik oszlop - Közösségi média */}
           <div className="footer-section">
             <h3>Kövess minket</h3>
             <div className="social-links">
@@ -87,7 +79,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Alsó rész - Copyright */}
         <div className="footer-bottom">
           <p>&copy; {currentYear} Harmónia Zeneiskola. Minden jog fenntartva.</p>
         </div>

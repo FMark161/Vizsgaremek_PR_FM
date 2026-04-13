@@ -1,4 +1,3 @@
-// Mock-ok a fájl tetején
 jest.mock('../app/models/db', () => ({
   query: jest.fn()
 }));

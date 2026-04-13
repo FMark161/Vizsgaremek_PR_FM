@@ -57,7 +57,6 @@ const Login = () => {
     setIsLoading(true);
     setServerError('');
 
-    // Az expires érték függ az emlékezz rám opciótól
     const result = await login(formData.fnev, formData.jelszo, formData.rememberMe);
 
     if (result.success) {

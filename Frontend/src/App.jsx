@@ -5,7 +5,6 @@ import Layout from "./components/Layout/Layout.jsx";
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
 
-// Import oldalak
 import Home from "./pages/Home/Home.jsx";
 import Application from "./pages/Application/Application.jsx";
 import Instruments from "./pages/Instruments/Instruments.jsx";
@@ -26,7 +25,6 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
-            {/* Nyilvános oldalak - bárki láthatja */}
             <Route path="/" element={<Home />} />
             <Route path="/application" element={<Application />} />
             <Route path="/instruments" element={<Instruments />} />
@@ -37,7 +35,6 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/rental-terms" element={<RentalTerms />} />
 
-            {/* Védett oldalak - csak bejelentkezett felhasználók */}
             <Route path="/rental" element={
               <ProtectedRoute allowedRoles={['diak', 'tanar', 'admin']}>
                 <Rental />
@@ -49,7 +46,6 @@ function App() {
               </ProtectedRoute>
             } />
 
-            {/* Admin oldal - csak adminok */}
             <Route path="/admin" element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <Admin />

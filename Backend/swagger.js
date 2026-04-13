@@ -34,14 +34,13 @@ const options = {
       }
     ]
   },
-  apis: ['./app/routes/*.js'], // A route fájlokban lesznek a Swagger annotációk
+  apis: ['./app/routes/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
 const setupSwagger = (app) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log('Swagger dokumentáció elérhető: http://localhost:5000/api-docs');
 };
 
 module.exports = setupSwagger;

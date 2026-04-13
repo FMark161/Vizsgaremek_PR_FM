@@ -17,7 +17,6 @@ const Admin = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({});
 
-  // Adatok állapotok
   const [events, setEvents] = useState([]);
   const [instruments, setInstruments] = useState([]);
   const [teachers, setTeachers] = useState([]);
@@ -33,7 +32,6 @@ const Admin = () => {
 
   const API_URL = 'http://localhost:5000/api';
 
-  // Táblák konfigurációja
   const tabs = [
     { id: 'events', name: 'Események', icon: <FaCalendarAlt /> },
     { id: 'instruments', name: 'Hangszerek', icon: <FaGuitar /> },
@@ -49,7 +47,6 @@ const Admin = () => {
     { id: 'messages', name: 'Üzenetek', icon: <FaEnvelope /> }
   ];
 
-  // Adatok betöltése
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -116,7 +113,6 @@ const Admin = () => {
     } catch (error) { console.error('Mentési hiba:', error); }
   };
 
-  // Üzenet olvasottá jelölése
   const markAsRead = async (id) => {
     try {
       const res = await fetch(`${API_URL}/messages/${id}/read`, { method: 'PATCH' });
@@ -125,9 +121,8 @@ const Admin = () => {
   };
 
   const handleEdit = (item) => {
-    console.log('Szerkesztendő elem:', item); // Debug (opcionális)
+    console.log('Szerkesztendő elem:', item);
     setEditingItem(item);
-    // Egyszerűen másoljuk az egész item-et a formData-ba
     setFormData({ ...item });
     setShowAddForm(true);
   };
@@ -214,7 +209,6 @@ const Admin = () => {
     return fields[activeTab]?.() || null;
   };
 
-  // Extra gombok az üzenetekhez
   const renderExtraActions = (item) => {
     if (activeTab === 'messages' && item.statusz !== 'olvasott') {
       return (

@@ -1,4 +1,3 @@
-// Mock-ok a fájl tetején
 jest.mock('../app/models/instrumentModel', () => ({
   getAll: jest.fn(),
   getById: jest.fn(),
@@ -129,18 +128,11 @@ describe('Instrument Controller', () => {
         status: 'available'
       };
 
-      // Mock sorrend:
-      // 1. Kategória keresés - nincs ilyen
       pool.query.mockResolvedValueOnce([[]]);
-      // 2. Új kategória létrehozása
       pool.query.mockResolvedValueOnce([{ insertId: 10 }]);
-      // 3. Leltár beszúrás
       pool.query.mockResolvedValueOnce([{ insertId: 5 }]);
-      // 4. Hangszer beszúrás
       pool.query.mockResolvedValueOnce([{ insertId: 3 }]);
-      // 5. Tanár keresés
       pool.query.mockResolvedValueOnce([[{ id: 1 }]]);
-      // 6. Tanár kapcsolat beszúrás
       pool.query.mockResolvedValueOnce([{ affectedRows: 1 }]);
 
       await create(req, res, next);
@@ -160,10 +152,10 @@ describe('Instrument Controller', () => {
       };
 
       pool.query
-        .mockResolvedValueOnce([[]]) // kategória keresés
-        .mockResolvedValueOnce([{ insertId: 10 }]) // új kategória
-        .mockResolvedValueOnce([{ insertId: 5 }]) // leltár
-        .mockResolvedValueOnce([{ insertId: 3 }]); // hangszer
+        .mockResolvedValueOnce([[]])
+        .mockResolvedValueOnce([{ insertId: 10 }])
+        .mockResolvedValueOnce([{ insertId: 5 }])
+        .mockResolvedValueOnce([{ insertId: 3 }]);
 
       await create(req, res, next);
 
@@ -183,14 +175,14 @@ describe('Instrument Controller', () => {
       };
 
       pool.query
-        .mockResolvedValueOnce([[{ leltarId: 5 }]]) // hangszer létezik
-        .mockResolvedValueOnce([[]]) // nincs ilyen kategória
-        .mockResolvedValueOnce([{ insertId: 11 }]) // új kategória
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // leltár frissítés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // hangszer frissítés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // régi tanár kapcsolat törlés
-        .mockResolvedValueOnce([[{ id: 2 }]]) // tanár keresés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]); // új tanár kapcsolat
+        .mockResolvedValueOnce([[{ leltarId: 5 }]])
+        .mockResolvedValueOnce([[]])
+        .mockResolvedValueOnce([{ insertId: 11 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([[{ id: 2 }]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
       await update(req, res, next);
 
@@ -207,12 +199,12 @@ describe('Instrument Controller', () => {
       };
 
       pool.query
-        .mockResolvedValueOnce([[{ leltarId: 5 }]]) // hangszer létezik
-        .mockResolvedValueOnce([[]]) // nincs ilyen kategória
-        .mockResolvedValueOnce([{ insertId: 11 }]) // új kategória
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // leltár frissítés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // hangszer frissítés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]); // régi tanár kapcsolat törlés (teacher nélkül)
+        .mockResolvedValueOnce([[{ leltarId: 5 }]])
+        .mockResolvedValueOnce([[]])
+        .mockResolvedValueOnce([{ insertId: 11 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
       await update(req, res, next);
 
@@ -227,7 +219,7 @@ describe('Instrument Controller', () => {
         rentalPrice: '35000 Ft/hó'
       };
 
-      pool.query.mockResolvedValueOnce([[]]); // hangszer nem található
+      pool.query.mockResolvedValueOnce([[]]);
 
       await update(req, res, next);
 
@@ -241,11 +233,11 @@ describe('Instrument Controller', () => {
       req.params.id = '1';
 
       pool.query
-        .mockResolvedValueOnce([[{ leltarId: 5 }]]) // hangszer létezik
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // tanar_mit_tud törlés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // kolcsonzesek törlés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]) // hangszer törlés
-        .mockResolvedValueOnce([{ affectedRows: 1 }]); // leltár törlés
+        .mockResolvedValueOnce([[{ leltarId: 5 }]])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }])
+        .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
       await deleteInstrument(req, res, next);
 
@@ -255,7 +247,7 @@ describe('Instrument Controller', () => {
     it('should return 404 if instrument not found', async () => {
       req.params.id = '999';
 
-      pool.query.mockResolvedValueOnce([[]]); // hangszer nem található
+      pool.query.mockResolvedValueOnce([[]]);
 
       await deleteInstrument(req, res, next);
 

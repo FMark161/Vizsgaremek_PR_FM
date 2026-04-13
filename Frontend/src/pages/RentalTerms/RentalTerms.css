@@ -1,4 +1,3 @@
-/* Rental Terms Hero */
 .rental-terms-hero {
   background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
   padding: 60px 0;
@@ -35,7 +34,6 @@
   position: relative;
 }
 
-/* Terms Content */
 .rental-terms-content {
   padding: 60px 0 80px;
   background-color: var(--secondary-light);
@@ -99,7 +97,6 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-/* Reszponzív */
 @media (max-width: 768px) {
   .rental-terms-hero h1 {
     font-size: 2rem;

@@ -10,7 +10,6 @@ const Events = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Események lekérése az API-ból
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -27,7 +26,6 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  // URL paraméter ellenőrzése
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const eventId = params.get('id');
@@ -48,7 +46,6 @@ const Events = () => {
     { id: 'fesztival', name: 'Fesztivál' }
   ];
 
-  // Dátum formázása
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -61,7 +58,6 @@ const Events = () => {
     ? events 
     : events.filter(event => event.kategoria === selectedCategory);
 
-  // Rendezés dátum szerint (legközelebbi legyen elöl)
   const sortedEvents = [...filteredEvents].sort((a, b) => {
     const dateA = new Date(a.datum);
     const dateB = new Date(b.datum);
@@ -90,7 +86,6 @@ const Events = () => {
 
   return (
     <div className="events-page">
-      {/* Hero szekció */}
       <section className="events-page-hero">
         <div className="events-container">
           <h1 className="events-page-title">Események</h1>
@@ -101,7 +96,6 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Szűrők */}
       <section className="events-page-filter">
         <div className="events-container">
           <div className="events-category-filters">
@@ -118,7 +112,6 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Események listája */}
       <section className="events-page-list">
         <div className="events-container">
           <div className="events-page-grid">
@@ -168,7 +161,6 @@ const Events = () => {
         </div>
       </section>
 
-      {/* Részletes nézet modal */}
       {selectedEvent && (
         <div className="events-page-modal" onClick={closeModal}>
           <div className="events-page-modal-content" onClick={e => e.stopPropagation()}>

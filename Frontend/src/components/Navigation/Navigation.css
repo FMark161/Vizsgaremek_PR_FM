@@ -21,7 +21,6 @@
   width: 100%;
 }
 
-/* Logó stílusok */
 .logo {
   display: flex;
   align-items: center;
@@ -31,7 +30,7 @@
   color: var(--dark-text);
   transition: all 0.3s ease;
   white-space: nowrap;
-  flex-shrink: 0; /* Megakadályozza, hogy a logó összenyomódjon */
+  flex-shrink: 0;
 }
 
 .logo:hover {
@@ -53,13 +52,12 @@
   font-weight: 700;
 }
 
-/* Menüpontok - középen */
 .nav-menu {
   display: flex;
   list-style: none;
   gap: 35px;
-  margin: 0 auto; /* Ez középre igazítja */
-  padding: 0 20px; /* Egy kis hely a menüpontok körül */
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .nav-item {
@@ -81,7 +79,6 @@
   color: var(--accent-turquoise);
 }
 
-/* Aláhúzás animáció */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -99,7 +96,6 @@
   width: 100%;
 }
 
-/* Aktív menüpont */
 .nav-link.active {
   color: var(--accent-turquoise);
   font-weight: 600;
@@ -109,11 +105,10 @@
   width: 100%;
 }
 
-/* Auth gombok - jobbra igazítva */
 .auth-buttons {
   display: flex;
   gap: 15px;
-  flex-shrink: 0; /* Megakadályozza, hogy összenyomódjon */
+  flex-shrink: 0;
 }
 
 .btn {
@@ -152,7 +147,6 @@
   box-shadow: 0 5px 15px var(--shadow-strong);
 }
 
-/* Felhasználói profil (ha be van jelentkezve) */
 .user-profile {
   display: flex;
   align-items: center;
@@ -197,7 +191,6 @@
   box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
 }
 
-/* Reszponzív design */
 @media (max-width: 1200px) {
   .nav-menu {
     gap: 25px;

@@ -87,7 +87,6 @@ const Instruments = () => {
 
   return (
     <div className="instruments">
-      {/* Hero szekció */}
       <section className="instruments-hero">
         <div className="container">
           <h1>Hangszerek világa</h1>
@@ -98,7 +97,6 @@ const Instruments = () => {
         </div>
       </section>
 
-      {/* Szűrők */}
       <section className="instruments-filter">
         <div className="container">
           <div className="family-filters">
@@ -115,7 +113,6 @@ const Instruments = () => {
         </div>
       </section>
 
-      {/* Hangszer-családok listája - IKONOK NÉLKÜL */}
       <section className="instruments-list">
         <div className="container">
           <div className="families-grid">
@@ -153,7 +150,6 @@ const Instruments = () => {
         </div>
       </section>
 
-      {/* Információs szekció - ITT MARADHATNAK AZ IKONOK */}
       <section className="instruments-info">
         <div className="container">
           <div className="info-boxes">

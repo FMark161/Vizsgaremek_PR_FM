@@ -7,11 +7,11 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Ez sima, egyenletes görgetést biztosít
+      behavior: 'smooth'
     });
   }, [pathname]);
 
-  return null; // Ez a komponens nem renderel semmit
+  return null;
 };
 
 export default ScrollToTop;

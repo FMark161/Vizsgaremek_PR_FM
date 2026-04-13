@@ -28,13 +28,10 @@ describe('Regisztráció tesztek', () => {
     await driver.findElement(By.name('email')).sendKeys(email);
     await driver.findElement(By.name('jelszo')).sendKeys('123456');
     await driver.findElement(By.name('confirmPassword')).sendKeys('123456');
-    // Checkbox bepipálása (click)
+
     const checkbox = await driver.findElement(By.name('acceptTerms'));
     await checkbox.click();
-    // Regisztráció gomb
     await driver.findElement(By.css('.auth-submit-btn')).click();
-
-    // Sikeres regisztráció után a főoldalra irányít, és be is jelentkezik
     await driver.wait(until.elementLocated(By.css('.user-name')), 10000);
     const userNameElem = await driver.findElement(By.css('.user-name'));
     expect(await userNameElem.getText()).toBe(username);

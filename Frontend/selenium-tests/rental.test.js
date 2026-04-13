@@ -13,7 +13,6 @@ describe('Kölcsönzés oldal (bejelentkezés után)', () => {
       .setEdgeOptions(options)
       .build();
 
-    // Bejelentkezés admin felhasználóval (biztos, hogy létezik)
     await driver.get('http://localhost:5173/login');
     await driver.findElement(By.name('fnev')).sendKeys('info');
     await driver.findElement(By.name('jelszo')).sendKeys('123456');

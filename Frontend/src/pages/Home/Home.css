@@ -1,4 +1,3 @@
-/* Hero szekció */
 .hero {
   padding: 60px 0;
   background: linear-gradient(135deg, var(--secondary-light) 0%, var(--primary-white) 100%);
@@ -100,7 +99,6 @@
   transform: scale(1.02);
 }
 
-/* Bemutatkozás szekció */
 .about {
   padding: 80px 0;
   background-color: var(--primary-white);
@@ -123,7 +121,6 @@
   margin-bottom: 0;
 }
 
-/* Features (Miért válassz minket) */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -158,7 +155,6 @@
   font-size: 0.95rem;
 }
 
-/* Események szekció */
 .events-section {
   padding: 80px 0;
   background-color: var(--secondary-light);
@@ -252,7 +248,6 @@
   transform: translateX(5px);
 }
 
-/* Info szekció (térkép + nyitvatartás) */
 .info-section {
   padding: 80px 0;
   background-color: var(--primary-white);
@@ -346,7 +341,6 @@
   box-shadow: 0 10px 25px var(--shadow-strong);
 }
 
-/* Reszponzív design */
 @media (max-width: 1024px) {
   .hero h1 {
     font-size: 2.5rem;
@@ -421,7 +415,6 @@
   margin-top: 40px; 
 }
 
-/* Loading állapot */
 .loading {
   text-align: center;
   padding: 40px;
@@ -429,7 +422,6 @@
   font-size: 1.1rem;
 }
 
-/* Nincs esemény */
 .no-events {
   text-align: center;
   padding: 40px;

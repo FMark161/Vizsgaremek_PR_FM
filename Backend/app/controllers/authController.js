@@ -5,12 +5,10 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'harmonia_zeneiskola_secret_key_2025';
 
 const authController = {
-  // REGISZTRÁCIÓ
   register: async (req, res, next) => {
     try {
       const { fnev, jelszo, email, jogosultsag } = req.body;
 
-      // Validáció
       if (!fnev || !jelszo || !email) {
         return res.status(400).json({ error: 'Minden mező kitöltése kötelező' });
       }
@@ -19,7 +17,6 @@ const authController = {
         return res.status(400).json({ error: 'A jelszónak legalább 6 karakter hosszúnak kell lennie' });
       }
 
-      // Ellenőrizzük, hogy létezik-e már a felhasználónév vagy email
       const existingUser = await authModel.findByUsername(fnev);
       if (existingUser) {
         return res.status(400).json({ error: 'Ez a felhasználónév már foglalt' });
@@ -30,7 +27,6 @@ const authController = {
         return res.status(400).json({ error: 'Ez az email cím már regisztrálva van' });
       }
 
-      // Új felhasználó létrehozása
       const userRole = jogosultsag || 'diak';
       const userId = await authModel.create({
         fnev,
@@ -41,7 +37,6 @@ const authController = {
 
       console.log('Létrehozott felhasználó ID:', userId);
 
-      // Token generálás
       const token = jwt.sign(
         { id: userId, fnev, jogosultsag: userRole, email },
         JWT_SECRET,
@@ -64,7 +59,6 @@ const authController = {
     }
   },
 
-  // BEJELENTKEZÉS
   login: async (req, res, next) => {
     try {
       const { fnev, jelszo, rememberMe } = req.body;
@@ -83,7 +77,6 @@ const authController = {
         return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó' });
       }
 
-      // Token lejárati idő: ha rememberMe = true, akkor 30 nap, különben 1 nap
       const expiresIn = rememberMe ? '30d' : '1d';
 
       const token = jwt.sign(
@@ -108,7 +101,6 @@ const authController = {
     }
   },
 
-  // TOKEN ELLENŐRZÉS
   verify: async (req, res, next) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];

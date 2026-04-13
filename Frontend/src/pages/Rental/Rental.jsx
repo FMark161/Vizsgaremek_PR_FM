@@ -10,7 +10,6 @@ import {
 } from 'react-icons/fa';
 import './Rental.css';
 
-// Képek importálása
 import akusztikus_dob from '../../assets/rental/akusztikus_dob.jpg';
 import akusztikus_gitar from '../../assets/rental/akusztikus_gitar.jpg';
 import akusztikus_zongora from '../../assets/rental/akusztikus_zongora.jpg';
@@ -24,7 +23,6 @@ import mikrofon from '../../assets/rental/mikrofon.jpg';
 import szaxofon from '../../assets/rental/szaxofon.jpg';
 import harfa from '../../assets/rental/harfa.jpg';
 
-// Kép mapping
 const imageMap = {
   'Akusztikus zongora': akusztikus_zongora,
   'Digitális zongora': digitalis_zongora,
@@ -153,7 +151,6 @@ const Rental = () => {
       if (response.ok) {
         alert(`Sikeres kölcsönzés! Hangszer: ${instrument.name}\nOktató: ${instrument.teacher}\nIdőtartam: ${rentalFormData.duration} hónap\nTeljes költség: ${totalPrice.toLocaleString()} Ft\nVisszavárható: ${kolcsVeg}`);
 
-        // AZONNALI MANUÁLIS FRISSÍTÉS - backend lekérdezés NÉLKÜL
         setRentals(prevRentals =>
           prevRentals.map(r =>
             r.id === instrumentId ? { ...r, status: 'rented' } : r

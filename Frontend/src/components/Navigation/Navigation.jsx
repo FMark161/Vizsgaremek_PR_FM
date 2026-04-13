@@ -6,7 +6,6 @@ import logo from '../../assets/logo.png';
 const Navigation = () => {
   const { user, logout, isAuthenticated } = useAuth();
 
-  // Nyilvános menüpontok
   const publicMenuItems = [
     { name: 'Kezdőlap', path: '/' },
     { name: 'Jelentkezés', path: '/application' },
@@ -15,13 +14,11 @@ const Navigation = () => {
     { name: 'Kapcsolat', path: '/contact' }
   ];
 
-  // Védett menüpontok (csak bejelentkezetteknek)
   const protectedMenuItems = [
     { name: 'Kölcsönzés', path: '/rental' },
     { name: 'Óráim', path: '/lessons' }
   ];
 
-  // Admin menüpont (csak adminoknak)
   const adminMenuItems = [
     { name: 'Admin', path: '/admin' }
   ];
@@ -29,7 +26,6 @@ const Navigation = () => {
   return (
     <nav className="navbar">
       <div className="container nav-container">
-        {/* Bal oldal - Logó és név */}
         <Link to="/" className="logo">
           <img src={logo} alt="Harmónia Zeneiskola" />
           <span>
@@ -37,9 +33,7 @@ const Navigation = () => {
           </span>
         </Link>
 
-        {/* Középső - Menüpontok */}
         <ul className="nav-menu">
-          {/* Nyilvános menüpontok */}
           {publicMenuItems.map((item) => (
             <li key={item.path} className="nav-item">
               <Link to={item.path} className="nav-link">
@@ -48,7 +42,6 @@ const Navigation = () => {
             </li>
           ))}
 
-          {/* Védett menüpontok - csak bejelentkezve */}
           {isAuthenticated && protectedMenuItems.map((item) => (
             <li key={item.path} className="nav-item">
               <Link to={item.path} className="nav-link">
@@ -57,7 +50,6 @@ const Navigation = () => {
             </li>
           ))}
 
-          {/* Admin menüpont - csak adminnak */}
           {isAuthenticated && user?.jogosultsag === 'admin' && adminMenuItems.map((item) => (
             <li key={item.path} className="nav-item">
               <Link to={item.path} className="nav-link">
@@ -67,7 +59,6 @@ const Navigation = () => {
           ))}
         </ul>
 
-        {/* Jobb oldal - Bejelentkezés/Regisztráció vagy Profil */}
         <div className="nav-auth">
           {isAuthenticated ? (
             <div className="user-profile">

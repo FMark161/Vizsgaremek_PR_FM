@@ -1,5 +1,5 @@
 const instrumentModel = require('../models/instrumentModel');
-const pool = require('../models/db');  // <-- HIÁNYZOTT IMPORT
+const pool = require('../models/db');
 
 const instrumentController = {
   getAll: async (req, res, next) => {
@@ -97,19 +97,16 @@ const instrumentController = {
       const { id } = req.params;
       const { name, category, rentalPrice, teacher, status } = req.body;
 
-      // Ár feldolgozása
       let priceNumber = typeof rentalPrice === 'number'
         ? rentalPrice
         : parseInt(String(rentalPrice).replace(/[^0-9]/g, ''), 10);
       if (isNaN(priceNumber)) priceNumber = 0;
 
-      // Hangszer ellenőrzése
       const [instrument] = await pool.query('SELECT katId, leltarId FROM hangszerek WHERE id = ?', [id]);
       if (instrument.length === 0) {
         return res.status(404).json({ error: 'Hangszer nem található' });
       }
 
-      // Kategória kezelése
       let [categoryRow] = await pool.query('SELECT id FROM kategoriak WHERE katNev = ?', [category]);
       let katId;
       if (categoryRow.length === 0) {
@@ -119,25 +116,21 @@ const instrumentController = {
         katId = categoryRow[0].id;
       }
 
-      // Leltár frissítése (elerhetoseg: 1 = available, 0 = egyéb)
       const isAvailable = (status === 'available') ? 1 : 0;
       await pool.query(
         'UPDATE leltarak SET ar = ?, elerhetoseg = ? WHERE id = ?',
         [priceNumber, isAvailable, instrument[0].leltarId]
       );
 
-      // Hangszer frissítése
       await pool.query(
         'UPDATE hangszerek SET nev = ?, katId = ? WHERE id = ?',
         [name, katId, id]
       );
 
-      // A státusz módosításakor, ha 'available' vagy 'maintenance' az új státusz, zárd le a kölcsönzéseket
       if (status !== 'rented') {
         await pool.query('UPDATE kolcsonzesek SET statusz = "lezart" WHERE hangszerId = ? AND statusz = "aktiv"', [id]);
       }
 
-      // Tanár hozzárendelés frissítése - csak akkor, ha a teacher nem üres
       await pool.query('DELETE FROM tanar_mit_tud WHERE hangszerId = ?', [id]);
       if (teacher && teacher.trim() !== '') {
         const [teacherRow] = await pool.query('SELECT id FROM tanarok WHERE nev = ?', [teacher]);

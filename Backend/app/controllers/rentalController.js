@@ -44,7 +44,6 @@ const rentalController = {
 
       console.log('Kölcsönzés létrehozása - kapott adatok:', { hangszerId, diakId, kolcsVeg, megjegyzes, statusz });
 
-      // Ellenőrizzük, hogy a hangszer már ki van-e kölcsönözve
       const [activeRental] = await pool.query(
         'SELECT id FROM kolcsonzesek WHERE hangszerId = ? AND statusz = "aktiv"',
         [hangszerId]
@@ -55,7 +54,6 @@ const rentalController = {
         return res.status(400).json({ error: 'Ez a hangszer már ki van kölcsönözve!' });
       }
 
-      // 1. Kölcsönzés beszúrása
       const [result] = await pool.query(
         'INSERT INTO kolcsonzesek (hangszerId, diakId, kolcsVeg, megjegyzes, statusz) VALUES (?, ?, ?, ?, ?)',
         [hangszerId, diakId, kolcsVeg, megjegyzes, 'aktiv']
@@ -63,7 +61,6 @@ const rentalController = {
 
       console.log('Kölcsönzés beszúrva, ID:', result.insertId);
 
-      // 2. Leltár frissítése
       const [updateResult] = await pool.query(
         `UPDATE leltarak l 
        JOIN hangszerek h ON l.id = h.leltarId 
@@ -92,7 +89,6 @@ const rentalController = {
 
       if (result.affectedRows === 0) return res.status(404).json({ error: 'Not found' });
 
-      // Ha a kölcsönzés lezárásra kerül, frissítsük a leltárban az elérhetőséget
       if (statusz === 'lezart') {
         await pool.query(
           'UPDATE leltarak l JOIN hangszerek h ON l.id = h.leltarId SET l.elerhetoseg = 1 WHERE h.id = ?',

@@ -13,7 +13,6 @@ describe('Kijelentkezés funkció tesztelése', () => {
       .setEdgeOptions(options)
       .build();
 
-    // Bejelentkezés admin felhasználóval
     await driver.get('http://localhost:5173/login');
     await driver.findElement(By.name('fnev')).sendKeys('info');
     await driver.findElement(By.name('jelszo')).sendKeys('123456');
@@ -26,28 +25,22 @@ describe('Kijelentkezés funkció tesztelése', () => {
   });
 
   test('Sikeres kijelentkezés után a felhasználó a főoldalra kerül, és a bejelentkezési gomb megjelenik', async () => {
-    // Biztosítjuk, hogy a főoldalon vagyunk (a bejelentkezés után oda irányít)
     await driver.get('http://localhost:5173/');
 
-    // Kijelentkezés gomb megkeresése és kattintás
     const logoutBtn = await driver.findElement(By.css('.logout-btn'));
     await logoutBtn.click();
 
-    // Várjuk, hogy a felhasználónév eltűnjön (a DOM-ból)
     await driver.wait(async () => {
       const userNames = await driver.findElements(By.css('.user-name'));
       return userNames.length === 0;
     }, 5000);
 
-    // Ellenőrizzük, hogy a bejelentkezési gomb megjelent
     const loginBtn = await driver.findElement(By.linkText('Bejelentkezés'));
     expect(await loginBtn.isDisplayed()).toBe(true);
 
-    // Ellenőrizzük, hogy a regisztrációs gomb is megjelent
     const registerBtn = await driver.findElement(By.linkText('Regisztráció'));
     expect(await registerBtn.isDisplayed()).toBe(true);
 
-    // Ellenőrizzük, hogy a főoldalon vagyunk (az URL a gyökér)
     const currentUrl = await driver.getCurrentUrl();
     expect(currentUrl).toBe('http://localhost:5173/');
   }, 15000);

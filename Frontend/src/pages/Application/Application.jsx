@@ -13,7 +13,6 @@ import {
 } from 'react-icons/fa';
 import './Application.css';
 
-// Tanárok képei - importáljuk őket
 import kovacsAnna from '../../assets/teachers/kovacs_anna.jpg';
 import nagyPeter from '../../assets/teachers/nagy_peter.jpg';
 import szaboMarta from '../../assets/teachers/szabo_marta.jpg';
@@ -40,7 +39,6 @@ const Application = () => {
     const [teachers, setTeachers] = useState([]);
     const [loadingTeachers, setLoadingTeachers] = useState(true);
 
-    // Képek mapping ID alapján
     const teacherImages = {
         1: kovacsAnna,
         2: nagyPeter,
@@ -50,7 +48,6 @@ const Application = () => {
         6: molnarDavid
     };
 
-    // Tanárok lekérése az adatbázisból
     useEffect(() => {
         const fetchTeachers = async () => {
             try {
@@ -104,10 +101,10 @@ const Application = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    nev: formData.name,           // name helyett nev
+                    nev: formData.name, 
                     email: formData.email,
-                    telefon: formData.phone,      // phone helyett telefon
-                    szul_datum: formData.birthDate,  // birthDate helyett szul_datum
+                    telefon: formData.phone,   
+                    szul_datum: formData.birthDate, 
                     hangszer: formData.instrument,
                     szint: formData.experience,
                     sajat_hangszer: formData.hasOwnInstrument,
@@ -163,7 +160,6 @@ const Application = () => {
 
     return (
         <div className="application">
-            {/* Hero szekció */}
             <section className="application-hero">
                 <div className="container">
                     <h1>Jelentkezés a Harmónia Zeneiskolába</h1>
@@ -174,7 +170,6 @@ const Application = () => {
                 </div>
             </section>
 
-            {/* Tanáraink szekció - adatbázisból */}
             <section className="teachers-section">
                 <div className="container">
                     <h2 className="section-title">Oktatóink</h2>
@@ -217,7 +212,6 @@ const Application = () => {
                 </div>
             </section>
 
-            {/* Űrlap szekció */}
             <section className="application-form-section">
                 <div className="container">
                     <div className="form-container">
@@ -350,7 +344,6 @@ const Application = () => {
                                 </div>
                             </div>
 
-                            {/* Új mező: Van saját hangszere? */}
                             <div className="form-group">
                                 <label>Van saját hangszered?</label>
                                 <p className="field-note">Ha nincs, iskolánkban kedvezményesen bérelhetsz hangszert.</p>

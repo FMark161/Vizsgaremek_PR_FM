@@ -1,7 +1,6 @@
 const pool = require('./db');
 
 const teacherModel = {
-  // Összes tanár lekérése
   getAll: async () => {
     const [rows] = await pool.query(`
       SELECT 
@@ -20,14 +19,12 @@ const teacherModel = {
       ORDER BY t.id
     `);
     
-    // Feldolgozzuk a hangszereket
     return rows.map(teacher => ({
       ...teacher,
       instruments: teacher.instruments ? teacher.instruments.split(',') : []
     }));
   },
 
-  // Egy tanár lekérése ID alapján
   getById: async (id) => {
     const [rows] = await pool.query(`
       SELECT 

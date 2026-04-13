@@ -8,10 +8,6 @@ CREATE DATABASE zeneiskola_mysql
 
 USE zeneiskola_mysql;
 
--- =====================================================
--- FELHASZNÁLÓK ÉS JOGOSULTSÁGOK
--- =====================================================
-
 CREATE TABLE bejelentkezesek (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fnev VARCHAR(255) NOT NULL UNIQUE,
@@ -22,9 +18,7 @@ CREATE TABLE bejelentkezesek (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
--- Megjegyzés: Éles rendszerben bcrypt hash-t használj!
 INSERT INTO bejelentkezesek (fnev, jelszo, jogosultsag, email) VALUES
--- Tanárok
 ('kovacs.anna', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'kovacs.anna@harmonia.hu'),
 ('nagy.peter', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'nagy.peter@harmonia.hu'),
 ('szabo.marta', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'szabo.marta@harmonia.hu'),
@@ -32,19 +26,13 @@ INSERT INTO bejelentkezesek (fnev, jelszo, jogosultsag, email) VALUES
 ('kiss.eva', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'kiss.eva@harmonia.hu'),
 ('molnar.david', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'tanar', 'molnar.david@harmonia.hu'),
 
--- Diákok (példa adatok)
 ('kiss.peter', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'kiss.peter@email.hu'),
 ('nagy.anna', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'nagy.anna@email.hu'),
 ('szabo.marton', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'szabo.marton@email.hu'),
 ('toth.gabor', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'toth.gabor@email.hu'),
 ('varga.reka', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'diak', 'varga.reka@email.hu'),
 
--- Admin
 ('info', '$2b$10$YzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGqXZ4xYzB5ZQqVwGq', 'admin', 'info@harmonia.hu');
-
-
--- ESEMÉNYEK
--- =====================================================
 
 CREATE TABLE esemenyek (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,10 +57,6 @@ INSERT INTO esemenyek (cim, datum, idopont, helyszin, leiras, hosszuleiras, kep_
 ('Zenei tábor', '2025-07-15', '09:00 - 16:00', 'Harmónia Zeneiskola, Budapest', 'Nyári zenei tábor gyerekeknek, ahol játékos formában ismerkedhetnek a zenével.', 'Egyhetes nyári táborunkban a gyerekek játékos formában ismerkedhetnek a hangszerekkel, ritmussal, énekléssel. A tábor végén egy rövid bemutatóval készülünk a szülőknek. Minden nap lesz kézműves foglalkozás, közös játék és persze sok-sok muzsikálás.', 'https://images.unsplash.com/photo-1516280440614-37939bbacd81', 'tabor', FALSE),
 ('Őszi fesztivál', '2025-10-12', '15:00 - 20:00', 'Jókai tér, Budapest', 'Szabadtéri rendezvény, ahol növendékeink és tanáraink adnak koncertet.', 'Az őszi fesztivál keretében a Jókai téren várjuk az érdeklődőket. Iskolánk növendékei és tanárai adnak koncertet a nap folyamán, emellett lehetőség lesz hangszerek kipróbálására és betekintésre a zeneiskola életébe.', 'https://images.unsplash.com/photo-1461783470466-3a8b7a0f8a3a', 'fesztival', TRUE);
 
--- =====================================================
--- JELENTKEZÉSEK
--- =====================================================
-
 CREATE TABLE jelentkezesek (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nev VARCHAR(255) NOT NULL,
@@ -87,10 +71,6 @@ CREATE TABLE jelentkezesek (
     letrehozas TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     feldolgozva TIMESTAMP NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
--- =====================================================
--- KATEGÓRIÁK ÉS HANGSZEREK
--- =====================================================
 
 CREATE TABLE kategoriak (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,18 +96,18 @@ CREATE TABLE leltarak (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 INSERT INTO leltarak (ar, elerhetoseg) VALUES
-(28500, TRUE),  -- Akusztikus zongora
-(22500, TRUE),  -- Digitális zongora
-(12500, TRUE),  -- Akusztikus gitár
-(18500, TRUE),  -- Elektromos gitár
-(15500, TRUE),  -- Hegedű
-(22500, TRUE),  -- Cselló
-(14500, TRUE),  -- Fuvola
-(24500, TRUE),  -- Saxophon
-(32500, TRUE),  -- Akusztikus dob
-(28500, TRUE),  -- Elektromos dob
-(16500, TRUE),  -- Énekóra (mikrofon + hangfal)
-(26500, TRUE);  -- Hárfa
+(28500, TRUE),
+(22500, TRUE),
+(12500, TRUE),
+(18500, TRUE),
+(15500, TRUE),
+(22500, TRUE),
+(14500, TRUE),
+(24500, TRUE),
+(32500, TRUE),
+(28500, TRUE),
+(16500, TRUE),
+(26500, TRUE);
 
 CREATE TABLE hangszerek (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -153,10 +133,6 @@ INSERT INTO hangszerek (katId, leltarId, nev) VALUES
 (5, 10, 'Elektromos dob'),
 (6, 11, 'Énekóra (mikrofon + hangfal)'),
 (7, 12, 'Hárfa');
-
--- =====================================================
--- TANÁROK
--- =====================================================
 
 CREATE TABLE tanarok (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -197,9 +173,6 @@ INSERT INTO tanar_mit_tud (tanarId, hangszerId) VALUES
 (5, 7), (5, 8),  -- Kiss Éva: fuvola, saxophon
 (6, 11);  -- Molnár Dávid: ének
 
--- =====================================================
--- DIÁKOK
--- =====================================================
 
 CREATE TABLE diakok (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -221,10 +194,6 @@ INSERT INTO diakok (felhasznaloId, nev, telefonsz, email, szulDatum, sajatHangsz
 (9, 'Szabó Márton', '06701234509', 'szabo.marton@email.hu', '2008-06-18', 'Hegedű'),
 (10, 'Tóth Gábor', '06701234510', 'toth.gabor@email.hu', '2011-01-10', NULL),
 (11, 'Varga Réka', '06701234511', 'varga.reka@email.hu', '2010-12-05', NULL);
-
--- =====================================================
--- ÓRÁK
--- =====================================================
 
 CREATE TABLE orak (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -248,10 +217,6 @@ INSERT INTO orak (tanarId, diakId, hangszerId, tema, ora_datum, ora_ido) VALUES
 (2, 3, 3, 'Gitár technika', '2024-03-22', '14:00:00'),
 (3, 4, 5, 'Hegedű posztúra', '2024-03-20', '17:00:00'),
 (4, 5, 9, 'Dob alapritmus', '2024-03-24', '16:00:00');
-
--- =====================================================
--- KÖLCSÖNZÉSEK
--- =====================================================
 
 CREATE TABLE kolcsonzesek (
     id INT AUTO_INCREMENT PRIMARY KEY,

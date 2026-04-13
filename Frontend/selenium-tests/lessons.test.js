@@ -13,7 +13,6 @@ describe('Óráim oldal tesztek (bejelentkezés után)', () => {
             .setEdgeOptions(options)
             .build();
 
-        // Bejelentkezés diák felhasználóval (pl. 'kiss.peter')
         await driver.get('http://localhost:5173/login');
         await driver.findElement(By.name('fnev')).sendKeys('kiss.peter');
         await driver.findElement(By.name('jelszo')).sendKeys('123456');
@@ -33,12 +32,10 @@ describe('Óráim oldal tesztek (bejelentkezés után)', () => {
 
     test('A heti nézet megjelenik', async () => {
         await driver.get('http://localhost:5173/lessons');
-        // Várjuk, hogy az oldal betöltődjön
         await driver.wait(until.elementLocated(By.css('.lessons-hero')), 10000);
-        // Ellenőrizzük, hogy a heti nézet látható-e (ha nem, akkor a lista nézet aktív)
+
         let weekView = await driver.findElements(By.css('.week-view'));
         if (weekView.length === 0) {
-            // Ha a lista nézet aktív, kattintsunk a "Heti nézet" gombra
             const weekBtn = await driver.findElement(By.xpath("//button[contains(text(),'Heti nézet')]"));
             await weekBtn.click();
             await driver.sleep(1000);
@@ -50,11 +47,9 @@ describe('Óráim oldal tesztek (bejelentkezés után)', () => {
 
     test('Legalább egy nap oszlopban vannak órák', async () => {
         await driver.get('http://localhost:5173/lessons');
-        // Várjuk, hogy a nap oszlopok betöltődjenek
         const dayColumns = await driver.wait(until.elementsLocated(By.css('.day-column')), 10000);
         expect(dayColumns.length).toBeGreaterThan(0);
 
-        // Ellenőrizzük, hogy valamelyik oszlopban van óra (a .lesson-card elemek száma > 0)
         const lessonCards = await driver.findElements(By.css('.lesson-card'));
         expect(lessonCards.length).toBeGreaterThan(0);
     }, 20000);

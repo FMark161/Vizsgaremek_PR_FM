@@ -21,7 +21,6 @@ describe('Hangszerek oldal szűrőinek tesztelése', () => {
   test('Az oldal betöltődik és a szűrők megjelennek', async () => {
     await driver.get('http://localhost:5173/instruments');
     await driver.wait(until.elementLocated(By.css('.instruments-hero')), 10000);
-    // Javítás: a szűrőgombok osztálya .family-btn
     const filterButtons = await driver.findElements(By.css('.family-btn'));
     expect(filterButtons.length).toBeGreaterThan(0);
   }, 15000);
