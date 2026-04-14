@@ -3,62 +3,123 @@
 ## Tartalomjegyzék
 
 - [Projekt célja](#vizsgatervezet--zeneiskolai-webalkalmazás)
-- [1. Regisztráció és bejelentkezés modul](#1-regisztráció-és-bejelentkezés-modul)
+- [1. Regisztráció és bejelentkezés](#1-regisztráció-és-bejelentkezés)
 - [2. Diáknyilvántartó rendszer](#2-diáknyilvántartó-rendszer)
-- [3. Óravásárlás és kurzusválasztás](#3-óravásárlás-és-kurzusválasztás)
-- [4. Hangszer bérlése és vásárlása](#4-hangszer-bérlése-és-vásárlása)
-- [5. Eseménykezelő modul](#5-eseménykezelő-modul)
+- [3. Órák nyilvántartása](#3-órák-nyilvántartása)
+- [4. Hangszer kölcsönzés](#4-hangszer-kölcsönzés)
+- [5. Eseménykezelés](#5-eseménykezelés)
 - [6. Kapcsolat és információk](#6-kapcsolat-és-információk)
 - [7. Felhasználói felület és dizájn](#7-felhasználói-felület-és-dizájn)
 - [8. Tesztelési terv](#8-tesztelési-terv)
-- [9. Összegzés](#9-összegzés)
+- [9. Technológiák](#9-technológiák)
+- [10. Telepítés](#10-telepítés)
+- [11. Összegzés](#11-összegzés)
 
+---
 
-Projekt célja: Egy modern, felhasználóbarát webes rendszer fejlesztése, amely egy zeneiskola működését támogatja online környezetben.
-A tervezett alkalmazás fő célja, hogy digitalizálja és megkönnyítse a zeneiskola mindennapi működését, valamint lehetőséget biztosítson a diákok, tanárok és érdeklődők számára az online ügyintézésre. A rendszer egy központi weboldalra épül, amely regisztrációval és belépéssel érhető el, és különböző modulokból áll, mint a diáknyilvántartás, óravásárlás, hangszerkezelés, eseménykezelés és kapcsolatfelvétel.
-## 1. Regisztráció és bejelentkezés modul
-A felhasználók – elsősorban diákok és szülők – létrehozhatnak egy személyes fiókot. A regisztráció során meg kell adni a szükséges alapadatokat (név, email, telefonszám, jelszó stb.). A rendszer ellenőrzi az adatok helyességét és egyedi email-címet követel meg.
-A sikeres regisztráció után a felhasználók bejelentkezhetnek, ahol hitelesítést követően hozzáférnek saját profiljukhoz. A beléptetési rendszer biztonságáról jelszó-hash-elés és alapvető biztonsági megoldások (pl. session kezelés) gondoskodnak.
+## Projekt célja
+
+A projekt célja egy modern, felhasználóbarát zeneiskolai webalkalmazás létrehozása, amely támogatja az intézmény mindennapi működését digitális környezetben. A rendszer lehetőséget biztosít arra, hogy a diákok, tanárok és adminisztrátorok egy közös felületen keresztül kezeljék az adatokat és nyomon kövessék az oktatáshoz kapcsolódó folyamatokat.
+
+A webalkalmazás nem online vásárlási felületként működik, hanem egy átlátható nyilvántartó és információs rendszerként, amely megkönnyíti az adminisztrációt és a kommunikációt.
+
+---
+
+## 1. Regisztráció és bejelentkezés
+
+A rendszer használatához a felhasználóknak regisztrálniuk kell, majd bejelentkezés után férhetnek hozzá saját felületükhöz. A regisztráció során alapadatokat adnak meg, mint például felhasználónév, email cím és jelszó.
+
+A jelszavak biztonságosan, titkosítva kerülnek tárolásra, a bejelentkezés pedig token alapú hitelesítéssel történik. A rendszer különböző jogosultsági szinteket kezel, így a diákok, tanárok és adminisztrátorok eltérő funkciókat érhetnek el.
+
+---
+
 ## 2. Diáknyilvántartó rendszer
-A bejelentkezett felhasználók profiladatait a rendszer tárolja és szerkeszthetővé teszi. A nyilvántartás tartalmazza:
-•	személyes adatok,
-•	választott hangszer(ek),
-•	tanár vagy kurzus hozzárendelése,
-•	óraszámok, előre megvett óracsomagok,
-•	hangszerkölcsönzési státuszok.
-Ez a modul a zeneiskola adminisztrátorai számára is elérhető lesz, így ők egyszerűen módosíthatják a tanulók adatait, nyomon követhetik a fejlődést és kezelhetik a tanulócsoportokat.
-## 3. Óravásárlás és kurzusválasztás
-A rendszer egyik fontos eleme, hogy a diákok – tudásuknak és szintjüknek megfelelően – különböző órákat vagy óracsomagokat vásárolhatnak. A felület megjelenít minden elérhető csomagot vagy kurzust, azok leírását, árát és nehézségi szintjét.
-A vásárlás egy egyszerű, átlátható folyamat: a diák kiválasztja a számára megfelelő kurzust, majd a fizetés után az óra bekerül a profiljába. Később ez alapján tud jelentkezni konkrét időpontokra.
-## 4. Hangszer bérlése és vásárlása
-A rendszer külön menüpontban kezeli a hangszereket. Itt lehetőség lesz:
-•	hangszert kölcsönözni,
-•	hangszert megvásárolni,
-•	böngészni a kategóriák között,
-•	megtekinteni a részletes leírást, állapotot, árat.
-A kölcsönzés meghatározott időszakra történik, amelyet a rendszer automatikusan naplóz. A diák a saját profiljában követheti, meddig tart a kölcsönzés, illetve mikor kell visszavinni a hangszert.
-## 5. Eseménykezelő modul
-A zeneiskola rendszeresen tart koncerteket, bemutatókat, versenyeket és egyéb szakmai programokat. Ezek a közelgő események egy külön „Események” menüpontban érhetők el.
-Az események listája tartalmazza:
-•	dátumot,
-•	helyszínt,
-•	leírást,
-•	részvételi feltételeket,
-•	maximális létszámot (ha korlátozott).
-A felhasználók közvetlenül az adott eseményre is jelentkezhetnek. A rendszer regisztrálja a jelentkezést, és visszaigazolást küld. Amennyiben betelik a létszám, további jelentkezést nem fogad.
-## 6. Kapcsolat és információk
-A „Kapcsolat” menüpont két fő részből áll:
-1.	Kapcsolatfelvételi űrlap, amelyen keresztül üzenetet lehet küldeni az iskolának (érdeklődés, panasz, kérdés stb.).
-2.	Térképes nézet, ahol a zeneiskola pontos helye megtekinthető. Az interaktív térkép segíti a gyors eligazodást, útvonaltervezést.
-## 7. Felhasználói felület és dizájn
-A weboldal letisztult, modern és reszponzív megjelenést kap. Célunk, hogy mobilon, tableten és számítógépen is könnyen használható legyen. A navigáció egyszerű és logikus, minden modul jól elkülönül.
-## 8. Tesztelési terv
-A projekt során több szintű tesztelést végzünk:
-•	Funkcionális tesztelés: minden modul működésének ellenőrzése (regisztráció, bejelentkezés, óravásárlás, eseményjelentkezés stb.).
-•	Felhasználói tesztelés: UI és UX teszt, hogy a rendszer valóban könnyen kezelhető legyen.
-•	Integrációs tesztek: modulok közötti adatáramlás ellenőrzése.
-•	Biztonsági tesztelés: alapvető adatvédelmi és jogosultsági hibák kiszűrése.
-A hibákat jegyzőkönyvben rögzítjük, majd javítjuk.
-## 9. Összegzés
-A projekt célja egy teljes körű, modern zeneiskolai webalkalmazás fejlesztése, amely egyszerre szolgálja a diákok kényelmét és az intézmény működésének digitalizálását. A regisztrációtól az óravásárláson át a hangszerkölcsönzésig minden funkció egy helyen elérhető, jól strukturált rendszerben. A fejlesztés során a stabil működésre, biztonságra és felhasználói élményre kiemelt figyelmet fordítunk.
 
+A webalkalmazás egyik központi eleme a diákok adatainak kezelése. Minden diákhoz tartozik egy profil, amelyben a személyes adatok és elérhetőségek kerülnek tárolásra.
+
+A diákok adatai összekapcsolódnak a felhasználói fiókokkal, így bejelentkezés után mindenki a saját adatait látja. Az adminisztrátorok és tanárok jogosultságuknak megfelelően módosíthatják ezeket az adatokat.
+
+A rendszer célja, hogy átlátható módon kezelhető legyen a tanulókhoz kapcsolódó minden információ.
+
+---
+
+## 3. Órák nyilvántartása
+
+A webalkalmazásban az órák nem vásárolhatók meg, és kurzusválasztás sem történik online. Ezeket az iskola személyesen kezeli.
+
+A rendszer ebben a modulban nyilvántartási szerepet tölt be. Az órák adatai – például időpont, tanár, hangszer és téma – rögzítésre kerülnek, és bejelentkezés után elérhetők.
+
+A diákok a saját óráikat látják, a tanárok pedig az általuk tartott órákat. Az adminisztrátorok minden adatot kezelni tudnak. Ez segíti az oktatás átlátható megszervezését.
+
+---
+
+## 4. Hangszer kölcsönzés
+
+A rendszerben hangszereket vásárolni nem lehet, kizárólag kölcsönözni vagy bérelni.
+
+A hangszerek adatbázisban kerülnek tárolásra, kategóriák szerint rendszerezve. Minden hangszerhez tartozik leírás, állapot és elérhetőségi információ.
+
+A kölcsönzés meghatározott időszakra történik, és a rendszer nyilvántartja annak kezdetét és végét. A felhasználók a saját profiljukban követhetik a kölcsönzött hangszereiket.
+
+A rendszer biztosítja, hogy egy hangszer egyszerre csak egy felhasználónál lehessen.
+
+---
+
+## 5. Eseménykezelés
+
+A zeneiskola eseményei – például koncertek, bemutatók vagy táborok – külön felületen jelennek meg.
+
+Az eseményekhez tartozó adatok közé tartozik a dátum, időpont, helyszín és leírás. A felhasználók böngészhetik ezeket, és részletes információkat is megtekinthetnek.
+
+A modul célja, hogy mindenki naprakész információt kapjon az aktuális programokról.
+
+---
+
+## 6. Kapcsolat és információk
+
+A kapcsolat modul lehetőséget biztosít arra, hogy a felhasználók üzenetet küldjenek az iskolának. Az űrlapon megadott adatok eltárolásra kerülnek, így később visszakereshetők.
+
+Az oldalon megtalálhatók az iskola elérhetőségei, valamint egy térképes nézet is segíti a tájékozódást.
+
+---
+
+## 7. Felhasználói felület és dizájn
+
+A webalkalmazás megjelenése modern és letisztult. A felület reszponzív, így különböző eszközökön is jól használható.
+
+A frontend komponens alapú felépítésű, ahol az egyes oldalak külön modulokban találhatók. A navigáció egyszerű és átlátható, a funkciók logikusan elkülönülnek.
+
+A dizájn célja egy modern, de nem túlzsúfolt felület kialakítása volt.
+
+---
+
+## 8. Tesztelési terv
+
+A rendszer fejlesztése során többféle tesztelési módszert alkalmaztunk.
+
+A backend működését automatizált tesztekkel ellenőriztük, amelyek a funkciók helyes működését vizsgálják. Az API végpontokat Swagger segítségével teszteltük.
+
+A frontend esetében böngésző alapú teszteket alkalmaztunk, amelyek valós felhasználói műveleteket szimulálnak. Emellett kiemelt figyelmet fordítottunk az adatok validálására és a hibakezelésre.
+
+---
+
+## 9. Technológiák
+
+A projekt fejlesztése során modern webes technológiákat alkalmaztunk.
+
+A backend Node.js környezetben készült, Express keretrendszer használatával. Az adatkezelést relációs adatbázis (MySQL) biztosítja.
+
+A frontend React alapokra épül, komponens alapú felépítéssel. A kliensoldali navigáció React Router segítségével valósul meg.
+
+A kommunikáció a frontend és a backend között REST API-n keresztül történik, JSON formátumban.
+
+A fejlesztés és tesztelés során további eszközök is használatra kerültek, például Swagger az API dokumentálására és tesztelésére, valamint automatizált tesztelési megoldások.
+
+---
+
+## 10. Telepítés
+
+A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.
+
+Első lépésként a projektet klónozni kell:
+git clone <https://github.com/FMark161/Vizsgaremek_PR_FM>
