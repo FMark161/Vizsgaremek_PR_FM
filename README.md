@@ -3,16 +3,16 @@
 ## Tartalomjegyzék
 
 - [Projekt célja](#vizsgatervezet--zeneiskolai-webalkalmazás)
-- [1. Regisztráció és bejelentkezés](#1-regisztráció-és-bejelentkezés)
-- [2. Diáknyilvántartó rendszer](#2-diáknyilvántartó-rendszer)
-- [3. Órák nyilvántartása](#3-órák-nyilvántartása)
-- [4. Hangszer kölcsönzés](#4-hangszer-kölcsönzés)
-- [5. Eseménykezelés](#5-eseménykezelés)
-- [6. Kapcsolat és információk](#6-kapcsolat-és-információk)
-- [7. Felhasználói felület és dizájn](#7-felhasználói-felület-és-dizájn)
-- [8. Tesztelési terv](#8-tesztelési-terv)
-- [9. Technológiák](#9-technológiák)
-- [10. Telepítés](#10-telepítés)
+- [1. Telepítés](#1-telepítés)
+- [2. Regisztráció és bejelentkezés](#2-regisztráció-és-bejelentkezés)
+- [3. Diáknyilvántartó rendszer](#3-diáknyilvántartó-rendszer)
+- [4. Órák nyilvántartása](#4-órák-nyilvántartása)
+- [5. Hangszer kölcsönzés](#5-hangszer-kölcsönzés)
+- [6. Eseménykezelés](#6-eseménykezelés)
+- [7. Kapcsolat és információk](#7-kapcsolat-és-információk)
+- [8. Felhasználói felület és dizájn](#8-felhasználói-felület-és-dizájn)
+- [9. Tesztelés](#9-tesztelés)
+- [10. Technológiák](#10-technológiák)
 - [11. Összegzés](#11-összegzés)
 
 ---
@@ -25,25 +25,67 @@ A webalkalmazás nem online vásárlási felületként működik, hanem egy átl
 
 ---
 
-## 1. Regisztráció és bejelentkezés
+## 1. Telepítés
 
-A rendszer használatához a felhasználóknak regisztrálniuk kell, majd bejelentkezés után férhetnek hozzá saját felületükhöz. A regisztráció során alapadatokat adnak meg, mint például felhasználónév, email cím és jelszó.
+A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.
 
-A jelszavak biztonságosan, titkosítva kerülnek tárolásra, a bejelentkezés pedig token alapú hitelesítéssel történik. A rendszer különböző jogosultsági szinteket kezel, így a diákok, tanárok és adminisztrátorok eltérő funkciókat érhetnek el.
+Első lépésként a projektet klónozni kell:  
+git clone <https://github.com/FMark161/Vizsgaremek_PR_FM>
+
+Ezután külön kell telepíteni a backend és a frontend függőségeit.
+
+Backend telepítése:  
+cd backend  
+npm install  
+
+Frontend telepítése:  
+cd frontend  
+npm install  
+
+A megfelelő működéshez szükséges egy `.env` fájl beállítása a backend mappában, amely tartalmazza az adatbázis kapcsolat adatait.
+
+Az alkalmazás indítása:  
+npm run start  
+
+Az alkalmazás leállítása:  
+npm run stop  
+
+Sikeres indítás után a frontend böngészőből érhető el, és kapcsolódik a backend API-hoz.
 
 ---
 
-## 2. Diáknyilvántartó rendszer
+## 2. Regisztráció és bejelentkezés
 
-A webalkalmazás egyik központi eleme a diákok adatainak kezelése. Minden diákhoz tartozik egy profil, amelyben a személyes adatok és elérhetőségek kerülnek tárolásra.
+A webalkalmazás funkcióinak teljes körű használatához a felhasználóknak regisztrálniuk kell, majd be kell jelentkezniük a rendszerbe.
 
-A diákok adatai összekapcsolódnak a felhasználói fiókokkal, így bejelentkezés után mindenki a saját adatait látja. Az adminisztrátorok és tanárok jogosultságuknak megfelelően módosíthatják ezeket az adatokat.
+Nem bejelentkezett állapotban a felhasználók csak a nyilvános oldalakat érhetik el, például az információs és eseményeket bemutató felületeket. Az olyan funkciók, mint az órák megtekintése, a hangszerkölcsönzés vagy az adminisztrációs felület, kizárólag bejelentkezés után válnak elérhetővé.
 
-A rendszer célja, hogy átlátható módon kezelhető legyen a tanulókhoz kapcsolódó minden információ.
+Sikeres bejelentkezést követően a rendszer a felhasználó jogosultsági szintje alapján biztosít hozzáférést a különböző funkciókhoz:
+- a diákok saját adataikat és óráikat láthatják,
+- a tanárok az általuk tartott órákat kezelhetik,
+- az adminisztrátorok teljes hozzáféréssel rendelkeznek a rendszer minden funkciójához.
+
+A regisztráció során a felhasználók megadják alapadataikat, például felhasználónevüket, email címüket és jelszavukat.
+
+A jelszavak biztonságosan, titkosítva kerülnek tárolásra, a bejelentkezés pedig token alapú hitelesítéssel történik, amely biztosítja a felhasználói munkamenetek védelmét.
 
 ---
 
-## 3. Órák nyilvántartása
+## 3. Diáknyilvántartó rendszer
+
+A webalkalmazás egyik központi eleme a diákok adatainak kezelése. Minden diáknak saját profilja van, amelyben a személyes adatok és elérhetőségek kerülnek tárolásra.
+
+Bejelentkezést követően a diákok a saját felületükön elsősorban az „Óráim” menüpontot érik el, ahol áttekinthetik a közelgő és korábbi óráikat. Itt megjelenik az órák időpontja, a tanár neve, valamint az adott foglalkozáshoz tartozó egyéb információk.
+
+A rendszer biztosítja, hogy bizonyos funkciók – például a hangszerkölcsönzés – kizárólag bejelentkezett felhasználók számára legyenek elérhetők.
+
+A diákoknak saját adataik módosítására nincs lehetőségük. A személyes adatok (például email cím vagy jelszó) kezelését kizárólag az adminisztrátor végezheti.
+
+A rendszer célja, hogy a diákok számára egy átlátható, könnyen használható felületet biztosítson, ahol minden, számukra releváns információ egy helyen elérhető.
+
+---
+
+## 4. Órák nyilvántartása
 
 A webalkalmazásban az órák nem vásárolhatók meg, és kurzusválasztás sem történik online. Ezeket az iskola személyesen kezeli.
 
@@ -53,19 +95,19 @@ A diákok a saját óráikat látják, a tanárok pedig az általuk tartott ór�
 
 ---
 
-## 4. Hangszer kölcsönzés
+## 5. Hangszer kölcsönzés
 
 A rendszerben hangszereket vásárolni nem lehet, kizárólag kölcsönözni vagy bérelni.
 
 A hangszerek adatbázisban kerülnek tárolásra, kategóriák szerint rendszerezve. Minden hangszerhez tartozik leírás, állapot és elérhetőségi információ.
 
-A kölcsönzés meghatározott időszakra történik, és a rendszer nyilvántartja annak kezdetét és végét. A felhasználók a saját profiljukban követhetik a kölcsönzött hangszereiket.
+A kölcsönzés meghatározott időszakra történik, és a rendszer nyilvántartja annak kezdetét és végét.
 
 A rendszer biztosítja, hogy egy hangszer egyszerre csak egy felhasználónál lehessen.
 
 ---
 
-## 5. Eseménykezelés
+## 6. Eseménykezelés
 
 A zeneiskola eseményei – például koncertek, bemutatók vagy táborok – külön felületen jelennek meg.
 
@@ -75,7 +117,7 @@ A modul célja, hogy mindenki naprakész információt kapjon az aktuális progr
 
 ---
 
-## 6. Kapcsolat és információk
+## 7. Kapcsolat és információk
 
 A kapcsolat modul lehetőséget biztosít arra, hogy a felhasználók üzenetet küldjenek az iskolának. Az űrlapon megadott adatok eltárolásra kerülnek, így később visszakereshetők.
 
@@ -83,7 +125,7 @@ Az oldalon megtalálhatók az iskola elérhetőségei, valamint egy térképes n
 
 ---
 
-## 7. Felhasználói felület és dizájn
+## 8. Felhasználói felület és dizájn
 
 A webalkalmazás megjelenése modern és letisztult. A felület reszponzív, így különböző eszközökön is jól használható.
 
@@ -93,17 +135,21 @@ A dizájn célja egy modern, de nem túlzsúfolt felület kialakítása volt.
 
 ---
 
-## 8. Tesztelési terv
+## 9. Tesztelés
 
-A rendszer fejlesztése során többféle tesztelési módszert alkalmaztunk.
+A rendszer fejlesztése során többféle tesztelési módszert alkalmaztunk a megbízható működés biztosítása érdekében.
 
-A backend működését automatizált tesztekkel ellenőriztük, amelyek a funkciók helyes működését vizsgálják. Az API végpontokat Swagger segítségével teszteltük.
+A backend oldalon a controllerek és modulok működését automatizált tesztekkel ellenőriztük, amelyeket Jest tesztkörnyezetben valósítottunk meg. Ezek a tesztek biztosítják, hogy az egyes üzleti logikák és funkciók megfelelően működjenek. A tesztelés során törekedtünk a minél magasabb kódlefedettség elérésére, így a rendszer kritikus részei tesztekkel lefedésre kerültek.
 
-A frontend esetében böngésző alapú teszteket alkalmaztunk, amelyek valós felhasználói műveleteket szimulálnak. Emellett kiemelt figyelmet fordítottunk az adatok validálására és a hibakezelésre.
+Az API végpontok tesztelése Swagger segítségével történt, amely lehetőséget biztosított az összes backend route ellenőrzésére és kipróbálására.
+
+A frontend működését Selenium alapú tesztekkel vizsgáltuk, amelyek valós felhasználói interakciókat szimulálnak a böngészőben. Ezáltal ellenőrizhetővé vált a felhasználói felület helyes működése és a rendszer különböző részeinek együttműködése.
+
+A tesztelés során kiemelt figyelmet fordítottunk az adatok validálására, valamint a hibakezelési mechanizmusok megfelelő működésére.
 
 ---
 
-## 9. Technológiák
+## 10. Technológiák
 
 A projekt fejlesztése során modern webes technológiákat alkalmaztunk.
 
@@ -117,39 +163,8 @@ A fejlesztés és tesztelés során további eszközök is használatra kerülte
 
 ---
 
-## 10. Telepítés
-
-A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.
-
-Első lépésként a projektet klónozni kell:
-git clone <https://github.com/FMark161/Vizsgaremek_PR_FM>
-
-
-Ezután külön kell telepíteni a backend és a frontend függőségeit.
-
-Backend telepítése:
-cd backend
-npm install
-
-Frontend telepítése:
-cd frontend
-npm install
-
-
-A megfelelő működéshez szükséges egy `.env` fájl beállítása a backend mappában, amely tartalmazza az adatbázis kapcsolat adatait.
-
-Az alkalmazás indítása:
-npm run start
-
-Az alkalmazás leállítása:
-npm run stop
-
-Sikeres indítás után a frontend böngészőből érhető el, és kapcsolódik a backend API-hoz.
-
----
-
 ## 11. Összegzés
 
-A projekt eredményeként egy komplex webalkalmazás készült el, amely hatékonyan támogatja egy zeneiskola működését.
-A rendszer átlátható módon kezeli a felhasználókat, az órákat, a hangszereket és az eseményeket, miközben megkönnyíti az adminisztrációt és az információáramlást.
+A projekt eredményeként egy komplex webalkalmazás készült el, amely hatékonyan támogatja egy zeneiskola működését.  
+A rendszer átlátható módon kezeli a felhasználókat, az órákat, a hangszereket és az eseményeket, miközben megkönnyíti az adminisztrációt és az információáramlást.  
 A fejlesztés során egy stabil, jól strukturált és később bővíthető megoldást sikerült létrehozni.
