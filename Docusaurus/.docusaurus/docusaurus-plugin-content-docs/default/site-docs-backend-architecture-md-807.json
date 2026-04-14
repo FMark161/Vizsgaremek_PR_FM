@@ -1,0 +1,23 @@
+{
+  "id": "Backend/Architecture",
+  "title": "Architecture",
+  "description": "1. Backend Architektúra",
+  "source": "@site/docs/Backend/Architecture.md",
+  "sourceDirName": "Backend",
+  "slug": "/Backend/Architecture",
+  "permalink": "/docs/Backend/Architecture",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Node modulok",
+    "permalink": "/docs/Node modulok"
+  },
+  "next": {
+    "title": "Testing",
+    "permalink": "/docs/Backend/Testing"
+  }
+}

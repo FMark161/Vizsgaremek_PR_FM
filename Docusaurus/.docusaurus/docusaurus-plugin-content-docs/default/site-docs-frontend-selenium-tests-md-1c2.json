@@ -1,0 +1,23 @@
+{
+  "id": "Frontend/selenium-tests",
+  "title": "selenium-tests",
+  "description": "",
+  "source": "@site/docs/Frontend/selenium-tests.md",
+  "sourceDirName": "Frontend",
+  "slug": "/Frontend/selenium-tests",
+  "permalink": "/docs/Frontend/selenium-tests",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Pages",
+    "permalink": "/docs/Frontend/Pages"
+  },
+  "next": {
+    "title": "reflection",
+    "permalink": "/docs/reflection"
+  }
+}

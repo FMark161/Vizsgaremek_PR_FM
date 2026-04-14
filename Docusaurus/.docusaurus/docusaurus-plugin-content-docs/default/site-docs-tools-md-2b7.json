@@ -1,0 +1,19 @@
+{
+  "id": "tools",
+  "title": "tools",
+  "description": "",
+  "source": "@site/docs/tools.md",
+  "sourceDirName": ".",
+  "slug": "/tools",
+  "permalink": "/docs/tools",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Selenium-tests",
+    "permalink": "/docs/Frontend/Selenium-tests"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "Frontend/Selenium-tests",
+  "title": "Selenium-tests",
+  "description": "A Harmónia Zeneiskola alkalmazás minőségbiztosítását a selenium-tests mappában található, JavaScript alapú automatizált tesztekkel (End-to-End tesztekkel) végeztük. A szkripteket a selenium-webdriver könyvtárral készítettük, és egy automatizált Microsoft Edge böngészőn keresztül szimuláltuk a valós felhasználói interakciókat.",
+  "source": "@site/docs/Frontend/Selenium-tests.md",
+  "sourceDirName": "Frontend",
+  "slug": "/Frontend/Selenium-tests",
+  "permalink": "/docs/Frontend/Selenium-tests",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Pages",
+    "permalink": "/docs/Frontend/Pages"
+  }
+}

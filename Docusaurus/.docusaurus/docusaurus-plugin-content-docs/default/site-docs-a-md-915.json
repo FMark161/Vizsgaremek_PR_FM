@@ -1,0 +1,23 @@
+{
+  "id": "a",
+  "title": "a",
+  "description": "",
+  "source": "@site/docs/a.md",
+  "sourceDirName": ".",
+  "slug": "/a",
+  "permalink": "/docs/a",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Reflection",
+    "permalink": "/docs/Reflection"
+  },
+  "next": {
+    "title": "tools",
+    "permalink": "/docs/tools"
+  }
+}

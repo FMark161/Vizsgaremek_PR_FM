@@ -1,0 +1,23 @@
+{
+  "id": "Database/Er-model",
+  "title": "Er-model",
+  "description": "Az ER-modell egy adatbázis-tervezési módszer, amely segítségével meghatározhatjuk a rendszer egyedeit, azok attribútumait és az egyedek közötti kapcsolatokat. Az egyed egy önállóan értelmezhető objektum, például egy diák vagy hangszer. Az attribútum az egyed egy tulajdonsága, például a diák neve vagy születési dátuma. A kapcsolat két vagy több egyed közötti logikai összefüggést jelöl. Az ER-modell segítségével megtervezhető az adatbázis szerkezete még azelőtt, hogy a konkrét táblák létrejönnének",
+  "source": "@site/docs/Database/Er-model.md",
+  "sourceDirName": "Database",
+  "slug": "/Database/Er-model",
+  "permalink": "/docs/Database/Er-model",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Testing",
+    "permalink": "/docs/Backend/Testing"
+  },
+  "next": {
+    "title": "Tables",
+    "permalink": "/docs/Database/Tables"
+  }
+}

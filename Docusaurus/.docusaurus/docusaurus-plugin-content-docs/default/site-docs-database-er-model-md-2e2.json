@@ -1,0 +1,23 @@
+{
+  "id": "Database/er-model",
+  "title": "er-model",
+  "description": "",
+  "source": "@site/docs/Database/er-model.md",
+  "sourceDirName": "Database",
+  "slug": "/Database/er-model",
+  "permalink": "/docs/Database/er-model",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Testing",
+    "permalink": "/docs/Backend/Testing"
+  },
+  "next": {
+    "title": "tables",
+    "permalink": "/docs/Database/tables"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "Frontend/pages",
+  "title": "pages",
+  "description": "",
+  "source": "@site/docs/Frontend/pages.md",
+  "sourceDirName": "Frontend",
+  "slug": "/Frontend/pages",
+  "permalink": "/docs/Frontend/pages",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tables",
+    "permalink": "/docs/Database/Tables"
+  },
+  "next": {
+    "title": "selenium-tests",
+    "permalink": "/docs/Frontend/selenium-tests"
+  }
+}

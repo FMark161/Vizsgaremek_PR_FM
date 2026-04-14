@@ -1,0 +1,24 @@
+{
+  "id": "Reflection",
+  "title": "Reflection",
+  "description": "A vizsgaprojekt keretében a Harmónia Zeneiskola nevű zenei oktatási webalkalmazást hoztuk létre. Célunk egy komplex, felhasználóbarát platform megalkotása volt, amely a modern zenei tanulási szokásokra épít. A rendszer lehetővé teszi a biztonságos regisztrációt és bejelentkezést, a hangszerkölcsönzést, az órák és kurzusok böngészését, valamint események és jelentkezések kezelését. A felhasználók különböző szerepkörökben (diák, tanár, admin) férhetnek hozzá a funkciókhoz, kiemelkedő elem a dinamikus kölcsönzési rendszer, amely valós idejű állapotfrissítéssel segíti a hangszerek foglalását. A platform fenntarthatóságát egy robusztus Admin Vezérlőpult biztosítja, ahol az adminisztrátorok menedzselhetik a felhasználókat, a hangszerkészletet, az eseményeket és a közösségi adatokat.",
+  "source": "@site/docs/2.Reflection.md",
+  "sourceDirName": ".",
+  "slug": "/Reflection",
+  "permalink": "/docs/Reflection",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Setup",
+    "permalink": "/docs/Setup"
+  },
+  "next": {
+    "title": "tools",
+    "permalink": "/docs/tools"
+  }
+}

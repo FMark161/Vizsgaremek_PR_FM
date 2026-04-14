@@ -1,0 +1,108 @@
+{
+  "/__docusaurus/debug-5ff": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/config-5ba": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/content-a2b": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    },
+    "__props": "__props---docusaurus-debug-content-3-c-0-be2"
+  },
+  "/__docusaurus/debug/globalData-c3c": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/metadata-156": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/registry-88c": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/__docusaurus/debug/routes-000": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---docusaurus-debugb-38-ad3"
+    }
+  },
+  "/markdown-page-53a": {
+    "__comp": "__comp---theme-mdx-page-1-f-3-b90",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "content": "content---markdown-page-4-c-6-c89"
+  },
+  "/docs-179": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---docsaba-d7c"
+    }
+  },
+  "/docs-3d0": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---docs-005-788"
+  },
+  "/docs-811": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/docs/Backend/Architecture-9a0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-backend-architecture-807-c30"
+  },
+  "/docs/Backend/Testing-bc2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-backend-testing-95-f-48d"
+  },
+  "/docs/Database/Er-model-19c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-database-er-model-108-918"
+  },
+  "/docs/Database/Tables-2af": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-database-tablesa-0-f-705"
+  },
+  "/docs/Frontend/Pages-7e6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-frontend-pages-45-c-5bc"
+  },
+  "/docs/Frontend/Selenium-tests-08e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-frontend-selenium-testsad-1-beb"
+  },
+  "/docs/Node modulok-14d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-node-modulok-509-274"
+  },
+  "/docs/Reflektálás-88c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-reflektalasa-29-a3b"
+  },
+  "/docs/Telepítés-eea": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-telepites-2-ef-fb5"
+  },
+  "/-2e1": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---markdown-pagea-74-7b5"
+    },
+    "config": "config---5-e-9-4f3"
+  }
+}

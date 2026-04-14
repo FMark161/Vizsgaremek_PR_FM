@@ -1,0 +1,19 @@
+{
+  "id": "Backend/architecture",
+  "title": "architecture",
+  "description": "",
+  "source": "@site/docs/Backend/architecture.md",
+  "sourceDirName": "Backend",
+  "slug": "/Backend/architecture",
+  "permalink": "/docs/Backend/architecture",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "testing",
+    "permalink": "/docs/Backend/testing"
+  }
+}

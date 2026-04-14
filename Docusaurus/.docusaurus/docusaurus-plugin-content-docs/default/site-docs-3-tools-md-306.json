@@ -1,0 +1,24 @@
+{
+  "id": "tools",
+  "title": "tools",
+  "description": "",
+  "source": "@site/docs/3.tools.md",
+  "sourceDirName": ".",
+  "slug": "/tools",
+  "permalink": "/docs/tools",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Reflektálás",
+    "permalink": "/docs/Reflektálás"
+  },
+  "next": {
+    "title": "Architecture",
+    "permalink": "/docs/Backend/Architecture"
+  }
+}

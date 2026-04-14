@@ -1,0 +1,23 @@
+{
+  "id": "Reflection",
+  "title": "Reflection",
+  "description": "",
+  "source": "@site/docs/Reflection.md",
+  "sourceDirName": ".",
+  "slug": "/Reflection",
+  "permalink": "/docs/Reflection",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Selenium-tests",
+    "permalink": "/docs/Frontend/Selenium-tests"
+  },
+  "next": {
+    "title": "tools",
+    "permalink": "/docs/tools"
+  }
+}

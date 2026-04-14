@@ -1,0 +1,92 @@
+/* custom.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ifm-color-primary: #1DD3C6;
+  --ifm-color-primary-dark: #1ac5b8;
+  --ifm-color-primary-darker: #18b7ac;
+  --ifm-color-primary-darkest: #14978e;
+  --ifm-color-primary-light: #4adcd1;
+  --ifm-color-primary-lighter: #61e1d7;
+  --ifm-color-primary-lightest: #a5ede8;
+  --dark-text: #000000;
+  --ifm-font-family-base: 'Inter', sans-serif;
+  --ifm-heading-font-family: 'Inter', sans-serif;
+  --ifm-background-color: #FFFFFF;
+  --ifm-footer-background-color: #F5F7FA;
+
+  --ifm-font-color-base: #000000;
+  
+}
+
+.navbar__link,
+.navbar__title {
+  color: #ffffff !important;
+}
+
+.navbar__link:hover {
+  color: #1ac5b8 !important;
+}
+
+.navbar {
+  background-color: #1b1b1d !important;
+}
+
+.theme-doc-sidebar-container .menu__link:not(.menu__link--active),
+.theme-doc-sidebar-container .menu__link:not(.menu__link--active) span,
+.theme-doc-sidebar-container .menu__link:not(.menu__link--active) svg,
+.theme-doc-sidebar-container .menu__link--sublist:not(.menu__link--active) {
+  color: #000000 !important;
+}
+
+.theme-doc-sidebar-container .menu__link--active {
+  color: var(--ifm-color-primary-dark) !important;
+}
+
+.main-wrapper {
+  min-height: 70vh;
+}
+
+main {
+  padding-top: 0.5rem; 
+}
+
+.heroBanner {
+  padding: 10rem 0; 
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1DD3C6 0%, #1ac5b8 100%);
+  color: #FFFFFF;
+}
+
+.button--secondary {
+  background-color: #ffffff !important;
+  border-color: #1e2a44 !important;
+  color: var(--dark-text) !important;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+.button--secondary:hover {
+  background-color: #1e2a44 !important;
+  border-color: #1e2a44 !important;
+  color: #ffffff !important;
+}
+
+.footer {
+  padding: 4rem 0; 
+  background-color: #1b1b1d !important; 
+  color: #ffffff !important;
+}
+
+.footer__title, 
+.footer__item, 
+.footer__link-item, 
+.footer__copyright {
+  color: #ffffff !important;
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary) !important;
+  text-decoration: none;
+}

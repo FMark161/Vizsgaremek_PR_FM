@@ -1,0 +1,23 @@
+{
+  "id": "Database/tables",
+  "title": "tables",
+  "description": "",
+  "source": "@site/docs/Database/tables.md",
+  "sourceDirName": "Database",
+  "slug": "/Database/tables",
+  "permalink": "/docs/Database/tables",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Er-model",
+    "permalink": "/docs/Database/Er-model"
+  },
+  "next": {
+    "title": "pages",
+    "permalink": "/docs/Frontend/pages"
+  }
+}

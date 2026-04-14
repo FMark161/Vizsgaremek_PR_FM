@@ -1,0 +1,23 @@
+{
+  "id": "Database/Tables",
+  "title": "Tables",
+  "description": "Táblák a phpmyadminban",
+  "source": "@site/docs/Database/Tables.md",
+  "sourceDirName": "Database",
+  "slug": "/Database/Tables",
+  "permalink": "/docs/Database/Tables",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Er-model",
+    "permalink": "/docs/Database/Er-model"
+  },
+  "next": {
+    "title": "Pages",
+    "permalink": "/docs/Frontend/Pages"
+  }
+}

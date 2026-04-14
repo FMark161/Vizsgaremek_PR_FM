@@ -1,0 +1,23 @@
+{
+  "id": "Frontend/Pages",
+  "title": "Pages",
+  "description": "Kezdőlap",
+  "source": "@site/docs/Frontend/Pages.md",
+  "sourceDirName": "Frontend",
+  "slug": "/Frontend/Pages",
+  "permalink": "/docs/Frontend/Pages",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Tables",
+    "permalink": "/docs/Database/Tables"
+  },
+  "next": {
+    "title": "Selenium-tests",
+    "permalink": "/docs/Frontend/Selenium-tests"
+  }
+}

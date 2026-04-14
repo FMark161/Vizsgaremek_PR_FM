@@ -1,0 +1,73 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "Telepítés",
+          "docs": [
+            {
+              "id": "Backend/Architecture",
+              "path": "/docs/Backend/Architecture",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Backend/Testing",
+              "path": "/docs/Backend/Testing",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Database/Er-model",
+              "path": "/docs/Database/Er-model",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Database/Tables",
+              "path": "/docs/Database/Tables",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Frontend/Pages",
+              "path": "/docs/Frontend/Pages",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Frontend/Selenium-tests",
+              "path": "/docs/Frontend/Selenium-tests",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Node modulok",
+              "path": "/docs/Node modulok",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Reflektálás",
+              "path": "/docs/Reflektálás",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "Telepítés",
+              "path": "/docs/Telepítés",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/Telepítés",
+                "label": "Telepítés"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

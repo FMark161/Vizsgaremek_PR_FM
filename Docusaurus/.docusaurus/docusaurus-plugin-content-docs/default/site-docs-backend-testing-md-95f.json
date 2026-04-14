@@ -1,0 +1,23 @@
+{
+  "id": "Backend/Testing",
+  "title": "Testing",
+  "description": "A Backend üzleti logikájának megbízhatóságát a tests mappában elhelyezett Jest egységtesztek garantálják. A Jest egy Node.js környezetben standardnak számító JavaScript tesztkeretrendszer, amely lehetővé teszi az API végpontok, kontrollerek és biztonsági middleware-ek izolált vizsgálatát. A tesztelési folyamat során nemcsak a sikeres lefutást (happy path) ellenőrizzük, hanem azt is, hogy a rendszer hiányos vagy érvénytelen bemenet esetén a megfelelő HTTP státuszkódokkal és hibaüzenetekkel válaszol-e. Az egységtesztek jellegéból adódóan a valós adatbázis-kapcsolatot és a külső függőségeket a jest.mock() funkcióval helyettesítjük. Ez a megközelítés biztosítja a tesztek gyors futását, az éles adatok védelmét, valamint a környezettől független, stabil múködésellenőrzést",
+  "source": "@site/docs/Backend/Testing.md",
+  "sourceDirName": "Backend",
+  "slug": "/Backend/Testing",
+  "permalink": "/docs/Backend/Testing",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Architecture",
+    "permalink": "/docs/Backend/Architecture"
+  },
+  "next": {
+    "title": "Er-model",
+    "permalink": "/docs/Database/Er-model"
+  }
+}

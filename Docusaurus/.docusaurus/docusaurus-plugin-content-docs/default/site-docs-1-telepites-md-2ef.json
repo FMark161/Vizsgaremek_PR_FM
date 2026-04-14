@@ -1,0 +1,20 @@
+{
+  "id": "Telepítés",
+  "title": "Telepítés",
+  "description": "A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.",
+  "source": "@site/docs/1.Telepítés.md",
+  "sourceDirName": ".",
+  "slug": "/Telepítés",
+  "permalink": "/docs/Telepítés",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Reflektálás",
+    "permalink": "/docs/Reflektálás"
+  }
+}

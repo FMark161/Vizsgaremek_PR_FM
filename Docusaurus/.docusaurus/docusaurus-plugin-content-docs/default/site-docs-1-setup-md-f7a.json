@@ -1,0 +1,20 @@
+{
+  "id": "Setup",
+  "title": "Setup",
+  "description": "A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.",
+  "source": "@site/docs/1.Setup.md",
+  "sourceDirName": ".",
+  "slug": "/Setup",
+  "permalink": "/docs/Setup",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Reflektálás",
+    "permalink": "/docs/Reflektálás"
+  }
+}
