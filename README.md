@@ -5,16 +5,17 @@
 - [Projekt célja](#vizsgatervezet--zeneiskolai-webalkalmazás)
 - [Feladat megosztás](#feladat-megosztás)
 - [1. Telepítés](#1-telepítés)
-- [2. Regisztráció és bejelentkezés](#2-regisztráció-és-bejelentkezés)
-- [3. Diáknyilvántartó rendszer](#3-diáknyilvántartó-rendszer)
-- [4. Órák nyilvántartása](#4-órák-nyilvántartása)
-- [5. Hangszer kölcsönzés](#5-hangszer-kölcsönzés)
-- [6. Eseménykezelés](#6-eseménykezelés)
-- [7. Kapcsolat és információk](#7-kapcsolat-és-információk)
-- [8. Felhasználói felület és dizájn](#8-felhasználói-felület-és-dizájn)
-- [9. Tesztelés](#9-tesztelés)
-- [10. Technológiák](#10-technológiák)
-- [11. Összegzés](#11-összegzés)
+- [2. Docusaurus](#2-docusaurus)
+- [3. Regisztráció és bejelentkezés](#3-regisztráció-és-bejelentkezés)
+- [4. Diáknyilvántartó rendszer](#4-diáknyilvántartó-rendszer)
+- [5. Órák nyilvántartása](#5-órák-nyilvántartása)
+- [6. Hangszer kölcsönzés](#6-hangszer-kölcsönzés)
+- [7. Eseménykezelés](#7-eseménykezelés)
+- [8. Kapcsolat és információk](#8-kapcsolat-és-információk)
+- [9. Felhasználói felület és dizájn](#9-felhasználói-felület-és-dizájn)
+- [10. Tesztelés](#10-tesztelés)
+- [11. Technológiák](#11-technológiák)
+- [12. Összegzés](#12-összegzés)
 
 ---
 
@@ -36,155 +37,181 @@ Az egyéni feladatok az alábbiak szerint alakultak:
 
 **Farkas Márk:**
 
-Frontend: Kezdőlap, Jelentkezés, Hangszerek, Bejelentkező oldal, Regisztráló oldal, Adatvédelmi nyilatkozat, Kölcsönzési feltételek
+Frontend:  
+Kezdőlap, Jelentkezés, Hangszerek, Bejelentkező oldal, Regisztráló oldal, Adatvédelmi nyilatkozat, Kölcsönzési feltételek  
 
-Paraoánu Richárd Tamás:
+Backend:  
+Bejelentkezés, Órák, Események, Jelentkezés, Kapcsolat  
 
-Frontend: Események, Kapcsolat, Óráim, Admin oldal
+Tesztek:  
+- Swagger: 7 teszt  
+- Selenium: Admin, Contact, Homepage, Lessons, Logout, Rental  
+- Jest: ApplicationController, ApplicationModel, EventController, EventModel, IntrumentController, InstrumentModel, RentalController, StockController, StudentController  
+
+---
+
+**Paraoánu Richárd Tamás:**
+
+Frontend:  
+Események, Kapcsolat, Óráim, Admin oldal  
+
+Backend:  
+Regisztráció, Admin oldal, Kölcsönzés, Hangszerek, Közelgő események (kezdőlapon)  
+
+Tesztek:  
+- Swagger: 6 teszt  
+- Selenium: Application, Events, Instruments, Login, Register  
+- Jest: AuthController, AuthModel, CategoryController, LessonController, MessageController, TeacherController, TeacherModel, UserController, TeacherSkillController  
+
+---
 
 A munkafolyamat során rendszeresen egyeztettünk, segítettük egymást a felmerülő problémák megoldásában, így a projekt minden eleme közös együttműködés eredményeként valósult meg.
+
 ---
 
 ## 1. Telepítés
 
 A projekt futtatásához szükséges a Node.js környezet és egy működő MySQL adatbázis.
 
-Első lépésként a projektet klónozni kell:  
-git clone <https://github.com/FMark161/Vizsgaremek_PR_FM>
+```bash
+git clone https://github.com/FMark161/Vizsgaremek_PR_FM
+cd backend
+npm install
+cd ../frontend
+npm install
+```
 
-Ezután külön kell telepíteni a backend és a frontend függőségeit.
+A megfelelő működéshez szükséges egy `.env` fájl beállítása a backend mappában.
 
-Backend telepítése:  
-cd backend  
-npm install  
+Az alkalmazás indítása:
 
-Frontend telepítése:  
-cd frontend  
-npm install  
-
-A megfelelő működéshez szükséges egy `.env` fájl beállítása a backend mappában, amely tartalmazza az adatbázis kapcsolat adatait.
-
-Az alkalmazás indítása:  
-npm run start  
-
-Az alkalmazás leállítása:  
-npm run stop  
-
-Sikeres indítás után a frontend böngészőből érhető el, és kapcsolódik a backend API-hoz.
+```bash
+npm run start
+```
 
 ---
 
-## 2. Regisztráció és bejelentkezés
+## 2. Docusaurus
 
-A webalkalmazás funkcióinak teljes körű használatához a felhasználóknak regisztrálniuk kell, majd be kell jelentkezniük a rendszerbe.
+A Docusaurus egy modern, statikus weboldal-generátor, amelyet dokumentációk készítésére fejlesztettek ki.
 
-Nem bejelentkezett állapotban a felhasználók csak a nyilvános oldalakat érhetik el, például az információs és eseményeket bemutató felületeket. Az olyan funkciók, mint az órák megtekintése, a hangszerkölcsönzés vagy az adminisztrációs felület, kizárólag bejelentkezés után válnak elérhetővé.
+Lehetővé teszi, hogy a projekthez tartozó dokumentáció külön, jól strukturált és könnyen navigálható felületen jelenjen meg. Markdown alapú, így egyszerűen szerkeszthető és bővíthető.
 
-Sikeres bejelentkezést követően a rendszer a felhasználó jogosultsági szintje alapján biztosít hozzáférést a különböző funkciókhoz:
-- a diákok saját adataikat és óráikat láthatják,
-- a tanárok az általuk tartott órákat kezelhetik,
-- az adminisztrátorok teljes hozzáféréssel rendelkeznek a rendszer minden funkciójához.
+Előnyei:
+- Markdown alapú dokumentáció  
+- Gyors statikus oldal generálás  
+- Verziókezelés támogatása  
+- Beépített kereső  
+- Könnyű testreszabhatóság  
 
-A regisztráció során a felhasználók megadják alapadataikat, például felhasználónevüket, email címüket és jelszavukat.
-
-A jelszavak biztonságosan, titkosítva kerülnek tárolásra, a bejelentkezés pedig token alapú hitelesítéssel történik, amely biztosítja a felhasználói munkamenetek védelmét.
-
----
-
-## 3. Diáknyilvántartó rendszer
-
-A webalkalmazás egyik központi eleme a diákok adatainak kezelése. Minden diáknak saját profilja van, amelyben a személyes adatok és elérhetőségek kerülnek tárolásra.
-
-Bejelentkezést követően a diákok a saját felületükön elsősorban az „Óráim” menüpontot érik el, ahol áttekinthetik a közelgő és korábbi óráikat. Itt megjelenik az órák időpontja, a tanár neve, valamint az adott foglalkozáshoz tartozó egyéb információk.
-
-A rendszer biztosítja, hogy bizonyos funkciók – például a hangszerkölcsönzés – kizárólag bejelentkezett felhasználók számára legyenek elérhetők.
-
-A diákoknak saját adataik módosítására nincs lehetőségük. A személyes adatok (például email cím vagy jelszó) kezelését kizárólag az adminisztrátor végezheti.
-
-A rendszer célja, hogy a diákok számára egy átlátható, könnyen használható felületet biztosítson, ahol minden, számukra releváns információ egy helyen elérhető.
+Különösen hasznos nagyobb projektek esetén, ahol fontos a jól strukturált fejlesztői dokumentáció.
 
 ---
 
-## 4. Órák nyilvántartása
+## 3. Regisztráció és bejelentkezés
 
-A webalkalmazásban az órák nem vásárolhatók meg, és kurzusválasztás sem történik online. Ezeket az iskola személyesen kezeli.
+A webalkalmazás használatához a felhasználóknak regisztrálniuk kell.
 
-A rendszer ebben a modulban nyilvántartási szerepet tölt be. Az órák adatai – például időpont, tanár, hangszer és téma – rögzítésre kerülnek, és bejelentkezés után elérhetők.
+Jogosultságok:
+- Diák: saját adatok és órák megtekintése  
+- Tanár: saját órák kezelése  
+- Admin: teljes rendszerhozzáférés  
 
-A diákok a saját óráikat látják, a tanárok pedig az általuk tartott órákat. Az adminisztrátorok minden adatot kezelni tudnak. Ez segíti az oktatás átlátható megszervezését.
-
----
-
-## 5. Hangszer kölcsönzés
-
-A rendszerben hangszereket vásárolni nem lehet, kizárólag kölcsönözni vagy bérelni.
-
-A hangszerek adatbázisban kerülnek tárolásra, kategóriák szerint rendszerezve. Minden hangszerhez tartozik leírás, állapot és elérhetőségi információ.
-
-A kölcsönzés meghatározott időszakra történik, és a rendszer nyilvántartja annak kezdetét és végét.
-
-A rendszer biztosítja, hogy egy hangszer egyszerre csak egy felhasználónál lehessen.
+A jelszavak titkosítva kerülnek tárolásra, a bejelentkezés token alapú hitelesítéssel történik.
 
 ---
 
-## 6. Eseménykezelés
+## 4. Diáknyilvántartó rendszer
 
-A zeneiskola eseményei – például koncertek, bemutatók vagy táborok – külön felületen jelennek meg.
+A diákok saját profillal rendelkeznek, ahol adataik és óráik jelennek meg.
 
-Az eseményekhez tartozó adatok közé tartozik a dátum, időpont, helyszín és leírás. A felhasználók böngészhetik ezeket, és részletes információkat is megtekinthetnek.
+Az „Óráim” menüpont tartalmazza:
+- közelgő órák  
+- korábbi órák  
+- tanár adatai  
 
-A modul célja, hogy mindenki naprakész információt kapjon az aktuális programokról.
-
----
-
-## 7. Kapcsolat és információk
-
-A kapcsolat modul lehetőséget biztosít arra, hogy a felhasználók üzenetet küldjenek az iskolának. Az űrlapon megadott adatok eltárolásra kerülnek, így később visszakereshetők.
-
-Az oldalon megtalálhatók az iskola elérhetőségei, valamint egy térképes nézet is segíti a tájékozódást.
+Az adatok módosítása kizárólag adminisztrátor által lehetséges.
 
 ---
 
-## 8. Felhasználói felület és dizájn
+## 5. Órák nyilvántartása
 
-A webalkalmazás megjelenése modern és letisztult. A felület reszponzív, így különböző eszközökön is jól használható.
+Az órák nem vásárolhatók meg online, a rendszer nyilvántartási célt szolgál.
 
-A frontend komponens alapú felépítésű, ahol az egyes oldalak külön modulokban találhatók. A navigáció egyszerű és átlátható, a funkciók logikusan elkülönülnek.
-
-A dizájn célja egy modern, de nem túlzsúfolt felület kialakítása volt.
-
----
-
-## 9. Tesztelés
-
-A rendszer fejlesztése során többféle tesztelési módszert alkalmaztunk a megbízható működés biztosítása érdekében.
-
-A backend oldalon a controllerek és modulok működését automatizált tesztekkel ellenőriztük, amelyeket Jest tesztkörnyezetben valósítottunk meg. Ezek a tesztek biztosítják, hogy az egyes üzleti logikák és funkciók megfelelően működjenek. A tesztelés során törekedtünk a minél magasabb kódlefedettség elérésére, így a rendszer kritikus részei tesztekkel lefedésre kerültek.
-
-Az API végpontok tesztelése Swagger segítségével történt, amely lehetőséget biztosított az összes backend route ellenőrzésére és kipróbálására.
-
-A frontend működését Selenium alapú tesztekkel vizsgáltuk, amelyek valós felhasználói interakciókat szimulálnak a böngészőben. Ezáltal ellenőrizhetővé vált a felhasználói felület helyes működése és a rendszer különböző részeinek együttműködése.
-
-A tesztelés során kiemelt figyelmet fordítottunk az adatok validálására, valamint a hibakezelési mechanizmusok megfelelő működésére.
+Tárolt adatok:
+- időpont  
+- tanár  
+- hangszer  
+- téma  
 
 ---
 
-## 10. Technológiák
+## 6. Hangszer kölcsönzés
 
-A projekt fejlesztése során modern webes technológiákat alkalmaztunk.
+A rendszerben hangszerek kölcsönözhetők.
 
-A backend Node.js környezetben készült, Express keretrendszer használatával. Az adatkezelést relációs adatbázis (MySQL) biztosítja.
+Jellemzők:
+- kategorizált hangszerek  
+- állapot és elérhetőség  
+- időszakos kölcsönzés  
 
-A frontend React alapokra épül, komponens alapú felépítéssel. A kliensoldali navigáció React Router segítségével valósul meg.
-
-A kommunikáció a frontend és a backend között REST API-n keresztül történik, JSON formátumban.
-
-A fejlesztés és tesztelés során további eszközök is használatra kerültek, például Swagger az API dokumentálására és tesztelésére, valamint automatizált tesztelési megoldások.
+Egy hangszer egyszerre csak egy felhasználónál lehet.
 
 ---
 
-## 11. Összegzés
+## 7. Eseménykezelés
 
-A projekt eredményeként egy komplex webalkalmazás készült el, amely hatékonyan támogatja egy zeneiskola működését.  
-A rendszer átlátható módon kezeli a felhasználókat, az órákat, a hangszereket és az eseményeket, miközben megkönnyíti az adminisztrációt és az információáramlást.  
-A fejlesztés során egy stabil, jól strukturált és később bővíthető megoldást sikerült létrehozni.
+A rendszer kezeli az eseményeket:
+- koncertek  
+- bemutatók  
+- táborok  
+
+Megjelenített adatok:
+- dátum  
+- helyszín  
+- leírás  
+
+---
+
+## 8. Kapcsolat és információk
+
+Kapcsolati űrlap segítségével a felhasználók üzenetet küldhetnek.
+
+Az adatok mentésre kerülnek, és később visszakereshetők.
+
+---
+
+## 9. Felhasználói felület és dizájn
+
+Modern, letisztult és reszponzív felület.
+
+React alapú komponens struktúra biztosítja az átláthatóságot.
+
+---
+
+## 10. Tesztelés
+
+A rendszer megbízhatóságát többféle teszt biztosítja:
+
+- Jest – backend logika tesztelése  
+- Swagger – API tesztelés  
+- Selenium – frontend működés  
+
+Cél a stabil működés és hibakezelés biztosítása.
+
+---
+
+## 11. Technológiák
+
+- Backend: Node.js, Express  
+- Frontend: React  
+- Adatbázis: MySQL  
+- API: REST  
+
+---
+
+## 12. Összegzés
+
+A projekt eredményeként egy komplex zeneiskolai webalkalmazás készült el, amely támogatja az adminisztrációt, az oktatásszervezést és az információkezelést.
+
+A rendszer átlátható, jól strukturált és később továbbfejleszthető.
