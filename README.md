@@ -123,3 +123,33 @@ A projekt futtatásához szükséges a Node.js környezet és egy működő MySQ
 
 Első lépésként a projektet klónozni kell:
 git clone <https://github.com/FMark161/Vizsgaremek_PR_FM>
+
+
+Ezután külön kell telepíteni a backend és a frontend függőségeit.
+
+Backend telepítése:
+cd backend
+npm install
+
+Frontend telepítése:
+cd frontend
+npm install
+
+
+A megfelelő működéshez szükséges egy `.env` fájl beállítása a backend mappában, amely tartalmazza az adatbázis kapcsolat adatait.
+
+Az alkalmazás indítása:
+npm run start
+
+Az alkalmazás leállítása:
+npm run stop
+
+Sikeres indítás után a frontend böngészőből érhető el, és kapcsolódik a backend API-hoz.
+
+---
+
+## 11. Összegzés
+
+A projekt eredményeként egy komplex webalkalmazás készült el, amely hatékonyan támogatja egy zeneiskola működését.
+A rendszer átlátható módon kezeli a felhasználókat, az órákat, a hangszereket és az eseményeket, miközben megkönnyíti az adminisztrációt és az információáramlást.
+A fejlesztés során egy stabil, jól strukturált és később bővíthető megoldást sikerült létrehozni.
