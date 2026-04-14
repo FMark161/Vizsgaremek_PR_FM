@@ -91,16 +91,13 @@ npm run start
 
 A Docusaurus egy modern, statikus weboldal-generátor, amelyet dokumentációk készítésére fejlesztettek ki.
 
-Lehetővé teszi, hogy a projekthez tartozó dokumentáció külön, jól strukturált és könnyen navigálható felületen jelenjen meg. Markdown alapú, így egyszerűen szerkeszthető és bővíthető.
+Lehetővé teszi, hogy a projekthez tartozó dokumentáció külön, jól strukturált és könnyen navigálható felületen jelenjen meg. Markdown alapú, így egyszerűen szerkeszthető és bővíthető. Különösen hasznos nagyobb projektek esetén, ahol fontos a jól strukturált fejlesztői dokumentáció.
 
-Előnyei:
-- Markdown alapú dokumentáció  
-- Gyors statikus oldal generálás  
-- Verziókezelés támogatása  
-- Beépített kereső  
-- Könnyű testreszabhatóság  
-
-Különösen hasznos nagyobb projektek esetén, ahol fontos a jól strukturált fejlesztői dokumentáció.
+**Indítása:**
+```bash
+cd Docusaurus
+npm start
+```
 
 ---
 
