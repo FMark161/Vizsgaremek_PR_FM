@@ -228,6 +228,16 @@ const Lessons = () => {
     }
   };
 
+  const changeWeek = (direction) => {
+  const currentDate = new Date(selectedDate);
+  if (direction === 'prev') {
+    currentDate.setDate(currentDate.getDate() - 7);
+  } else {
+    currentDate.setDate(currentDate.getDate() + 7);
+  }
+  setSelectedDate(currentDate.toISOString().split('T')[0]);
+};
+
   const weekDays = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
 
   const getWeekSchedule = () => {
@@ -297,9 +307,9 @@ const Lessons = () => {
 
             {viewMode === 'week' && (
               <div className="week-navigation">
-                <button className="nav-btn" onClick={() => { /* ... */ }}>← Előző hét</button>
+                <button className="nav-btn" onClick={() => changeWeek('prev')}>← Előző hét</button>
                 <span className="current-week">{weekSchedule[0].formattedDate} - {weekSchedule[4].formattedDate}</span>
-                <button className="nav-btn" onClick={() => { /* ... */ }}>Következő hét →</button>
+                <button className="nav-btn" onClick={() => changeWeek('next')}>Következő hét →</button>
               </div>
             )}
 

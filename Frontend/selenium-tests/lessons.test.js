@@ -50,6 +50,11 @@ describe('Óráim oldal tesztek (bejelentkezés után)', () => {
         const dayColumns = await driver.wait(until.elementsLocated(By.css('.day-column')), 10000);
         expect(dayColumns.length).toBeGreaterThan(0);
 
+        await driver.wait(async () => {
+            const cards = await driver.findElements(By.css('.lesson-card'));
+            return cards.length > 0;
+        }, 10000, 'Nem jelent meg egyetlen órakártya sem 10 másodpercen belül');
+
         const lessonCards = await driver.findElements(By.css('.lesson-card'));
         expect(lessonCards.length).toBeGreaterThan(0);
     }, 20000);
