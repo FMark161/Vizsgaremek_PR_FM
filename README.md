@@ -3,6 +3,7 @@
 ## Tartalomjegyzék
 
 - [Projekt célja](#vizsgatervezet--zeneiskolai-webalkalmazás)
+- [Feladat megosztás](#feladat-megosztás)
 - [1. Telepítés](#1-telepítés)
 - [2. Regisztráció és bejelentkezés](#2-regisztráció-és-bejelentkezés)
 - [3. Diáknyilvántartó rendszer](#3-diáknyilvántartó-rendszer)
@@ -23,6 +24,25 @@ A projekt célja egy modern, felhasználóbarát zeneiskolai webalkalmazás lét
 
 A webalkalmazás nem online vásárlási felületként működik, hanem egy átlátható nyilvántartó és információs rendszerként, amely megkönnyíti az adminisztrációt és a kommunikációt.
 
+---
+
+## Feladat megosztás
+
+A projekt megvalósítása során a csapattagok a feladatokat egymás között felosztva dolgoztak, ugyanakkor több kulcsfontosságú döntés közösen született.
+
+A közös megbeszélések során együtt határoztuk meg a projekt alapvető irányait, beleértve a megjelenést (színvilág, design), az elrendezést, valamint a felhasználói élmény szempontjait. Ezeket az ötleteket közösen alakítottuk ki, figyelembe véve minden csapattag javaslatait.
+
+Az egyéni feladatok az alábbiak szerint alakultak:
+
+**Farkas Márk:**
+
+Frontend: Kezdőlap, Jelentkezés, Hangszerek, Bejelentkező oldal, Regisztráló oldal, Adatvédelmi nyilatkozat, Kölcsönzési feltételek
+
+Paraoánu Richárd Tamás:
+
+Frontend: Események, Kapcsolat, Óráim, Admin oldal
+
+A munkafolyamat során rendszeresen egyeztettünk, segítettük egymást a felmerülő problémák megoldásában, így a projekt minden eleme közös együttműködés eredményeként valósult meg.
 ---
 
 ## 1. Telepítés
