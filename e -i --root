@@ -1,0 +1,421 @@
+[33mcommit a2cd608cad9881273efc1367e8f93ffa9b9c9350[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: P. Richárd Tamás <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Add files via upload
+
+[33mcommit bbb42e2a364a6e1e90a8754547d9077a399b1a3a[m
+Author: P. Richárd Tamás <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Delete dokumentáció.docx
+
+[33mcommit 58e69bde07c581e70ef02339ca17b6925efeb8ef[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    javítás
+
+[33mcommit a0351eab7983ab4172e3d6f33da3a577cbb9b90f[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 66aa33f3f41cefb6dd9f01b7486b8467bb7da7dd[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    teszt, javítás
+
+[33mcommit 4e172f9d34b0084fb913b7499585cd4cad0849aa[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 1e2087fa30e0b98f54674e4e85d48ccc1cb38b8b[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 2ca461c9c092da72775f8d24dbfd57daf77c700c[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    teszt
+
+[33mcommit 7e68837a6426e2a24ec4921d7c22d38a6003d001[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit ad708919374d99e4ee975d14f17bee19a1176eea[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    selinium tesztek újrakezdése
+
+[33mcommit 76eb363526758df445042522a1a433cab6afd1e3[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    selinium teszt webdriveval
+
+[33mcommit cb78063e29bf1ff8f42cf464b4c91fef3c5e2ec4[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    javítás
+
+[33mcommit 8215d2f9ba9e4e50c80575c41b45d6fb79508436[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    javítás
+
+[33mcommit 8cfe26c2ffe2e7fdf140d8c0b8402f2c2a430aea[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 122b5b929022164d0bcbc5677bb45a355ad584ee[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    próba teszt
+
+[33mcommit 1a30ce0c23bda49964cdfe18c889969bd33215ac[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    selinium tesztek
+
+[33mcommit 053b94f72222a8e5bfaf04b49a9e4bee25d1f75a[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 22e56df88a170dbbd3fc9203bc55826f8e8efeec[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    models tesztek
+
+[33mcommit 199882221b36ef7a919ba9d8b003e4f4ee066475[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit c447597f790447449fce6057773e78209d0f528a[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit a536673d3abfe58711145a0abe85799754ba6d1d[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek bővítése
+
+[33mcommit 3c93314b1ae5533400761793db6b820a249ee483[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    teszt
+
+[33mcommit fccfcb3a91dbb4b3f17f74b8efeeb231652bc8fc[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit f7f494643e727196fc87b25d80a3d1b79187d92c[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek
+
+[33mcommit 2d476847edf8140956df8097531a6f6b1a0d96e0[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    tesztek javítása, bővítése
+
+[33mcommit 3e5f78977bd4d910f9c68e099f18f9d20a3b1384[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    mappaszerkezet, tesztek
+
+[33mcommit 3fcff8b8c88d73614b7f285616e67cfd0dff88bd[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    jest teszt alapjainak létrehozása
+
+[33mcommit 72f51485387f72facbdfa9cbbacbeb89aa3a78c8[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    description mező javítása
+
+[33mcommit 2782adce5e7960998d162cd8cb12fc26bbd13411[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    userRoutes annotációk
+
+[33mcommit 07632b10bc1df544313ebfe094d0d22751b3a889[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    teacherSkillRoutes annotációk
+
+[33mcommit 35a2073bfccce18931b52722d0a2484fb192b7e2[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    stockRoutes annotációk
+
+[33mcommit 409f1216d05db95855127933a74620b1550e4e98[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    categoryRoutes annotációk
+
+[33mcommit 75b1a7f623cde8ac8490253fb730020c1c5cb5d1[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    strudentRoutes annotációk
+
+[33mcommit 5542f90113dab8c7d477669fca453836a9bee341[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    messageRoutes annotációk
+
+[33mcommit b96277c77de119ce5f4b0189ec04ca5cbfa862ae[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    lessonRoutes annotációk
+
+[33mcommit 35b809fdaba247bc7f4c9bce9f6eb953c5a766dc[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    rentalRoutes annotációk
+
+[33mcommit cf7ebca9dab8979d4707d511bb11b6fc2b6b242f[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    applicationRoutes.js annotációk
+
+[33mcommit 84d86b2619d022173b8a65d3a8b9ca59be4acbea[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    authRoutes annotáció
+
+[33mcommit 54aa858252c4a5f1645f61ea823299bdc709db10[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    instrumentRoutes, teacherRoutes annotációk
+
+[33mcommit bb936b3858a3f219fcf37c1ac60b20db77bc939a[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    eventRoutes annotációk
+
+[33mcommit cb6802667058049f35abd30aa3d56c98da29c4cd[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    swagger.js létrehozása
+
+[33mcommit 24d799f8a0204598ce1cb62781fef801e761d3e4[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal módosítása
+
+[33mcommit 730b04240a0096553eb0f74583e13e6a636a90a5[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal funkcióinak javítása
+
+[33mcommit 191ba00a8a6d4605e5b9f21ce7c4aa52c02c46af[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal kinézetének javítása
+
+[33mcommit 5b641f4bd089b61ce25f38fd004debfe6fa334e6[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    kölcsönzési feltételek, új lap, linkek
+
+[33mcommit 57cbc6fb37f93e941fb251b96a1b39ae76678c43[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    kölcsönözhető hangszereknél oktatók frissítése, adatvédelmi nyilatkozat, emlékezz erre a felhasználóra token
+
+[33mcommit ba12566ee9605c18ae899a8c7b6516236b6c95b6[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    javítás, footer gyorslinkek jogosultsághoz kötve
+
+[33mcommit 41291247b156f61e897496995fa7ea18c6bf5da0[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Diák regisztárlása a diák táblába?
+
+[33mcommit 79acdbd230c60005fb2301b1eae6ce85bf4b45f6[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    css update
+
+[33mcommit 663c5082289d019898fa4fc4c978efc95e497b66[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Kölcsönzések javítása
+
+[33mcommit 25e36f4579a6cb8448a1e9b716dbc1cccb123b17[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    órák szerkesztése - fiók függő (tanár rész)
+
+[33mcommit 71a68e6925f24b28c89ca2150ea38ef3502c6d94[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    kölcsönzések javítása
+
+[33mcommit d3d031f0ca8270d3cf783d66e2b534ca94e3987f[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    üzenet küldés
+
+[33mcommit 0c75bc548b0664b553a06830fdcbe647dfa321ed[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal formázása, bővítése, kezdőlap módosítás
+
+[33mcommit 9428fe80ddbe2ec23545557327495f43fcd6f9ae[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal fejleszése
+
+[33mcommit fb002c00f36b87d978daf2e7c37d3ed826365fc9[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    backend
+
+[33mcommit 55f9328843992bc55283f98839d34b2548024de1[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    admin oldal módosítás
+
+[33mcommit 7b2b85afda277054ff3b1c378be069abc38e524e[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    jogosultság
+
+[33mcommit a65b796d8d7e4e85e6f48adbe2ae77010fe51f00[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    bejelentkezés jelszó
+
+[33mcommit 1d55998a1f55ad470613aa948d6cd85f42465fb5[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    lessons oldal, bejelentkezés, regisztráció
+
+[33mcommit dc3dfceb4a11982e2a0fa9a2ce0e1301ed005d0a[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Add files via upload
+
+[33mcommit c079ce59a8f2a635e023a590d0b1547bd0d4dcff[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Add files via upload
+
+[33mcommit 7cb6bd6e192673e34b6b24489099748aeb99187c[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Create README.md with project details and modules
+    
+    Added detailed project overview and module descriptions for a music school web application.
+
+[33mcommit 4f2cfba56cddf1efe5f56bfc816d2639e4e56a2d[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    oktatók összekötése az adatbázissal, kölcsönzés összekötése az adatbázissal, események oldal rework
+
+[33mcommit cb5a5d69ef3b04445b7616f9f1da8af1d0c4fad3[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    kep, home vegleges, jelentkezes, esemenyek, backend
+
+[33mcommit baae92f2db7d2d9a2e71c2d02d0742a7277ff79a[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    bejelentkezes, regisztracio, admin, adatbazis
+
+[33mcommit d46e1a2a6ee2c65784f868b6c9ea6d06bae40e91[m
+Author: prichardtamas <paraoanurichard@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    oldalak, js
+
+[33mcommit 8daa560762226f957e419fbc41bb8197f13bdbb9[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    oktatók képek, title, placeholder, hangszerek oldal
+
+[33mcommit 1fc9bded7e84455f4124b2df3cc8dc1c81c8e7ae[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    első két oldal, menü, footer
+
+[33mcommit 111f9d4fde906bdedc63f6bf9d71d9b540789403[m
+Author: FMark161 <farkasmark1017@gmail.com>
+Commit: FMark161 <farkasmark1017@gmail.com>
+
+    Initial commit
