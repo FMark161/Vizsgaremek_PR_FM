@@ -48,8 +48,6 @@ Tesztek:
 - Selenium: Admin, Contact, Homepage, Lessons, Logout, Rental  
 - Jest: ApplicationController, ApplicationModel, EventController, EventModel, IntrumentController, InstrumentModel, RentalController, StockController, StudentController  
 
----
-
 **Paraoánu Richárd Tamás:**
 
 Frontend:  
@@ -62,8 +60,6 @@ Tesztek:
 - Swagger: 6 teszt  
 - Selenium: Application, Events, Instruments, Login, Register  
 - Jest: AuthController, AuthModel, CategoryController, LessonController, MessageController, TeacherController, TeacherModel, UserController, TeacherSkillController  
-
----
 
 A munkafolyamat során rendszeresen egyeztettünk, segítettük egymást a felmerülő problémák megoldásában, így a projekt minden eleme közös együttműködés eredményeként valósult meg.
 
